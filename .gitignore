@@ -23,7 +23,7 @@
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
 
 # Thumbnails
 ._*
@@ -163,4 +163,11 @@ typings/
 
 ### Manual
 
+# Nuxt generate
+dist
+
+# IDE
+.idea
+
+# npm lockfile
 package-lock.json
