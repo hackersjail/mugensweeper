@@ -9,8 +9,7 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
@@ -20,11 +19,25 @@
   "devDependencies": {
     "babel-eslint": "^10.0.1",
     "eslint": "^5.0.1",
+    "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-loader": "^2.0.0",
+    "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-vue": "^4.0.0",
+    "husky": "^1.1.4",
+    "lint-staged": "^8.0.4",
     "nodemon": "^1.11.0",
     "prettier": "^1.15.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,vue}": [
+      "eslint -f codeframe"
+    ]
   }
 }
