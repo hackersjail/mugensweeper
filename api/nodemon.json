@@ -1,0 +1,4 @@
+{
+  "watch": ["api/"],
+  "ignore": ["api/tests/", "api/jest.config.js"]
+}
