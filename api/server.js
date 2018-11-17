@@ -1,8 +1,28 @@
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpecs = require('./swagger.js');
 const app = require('./routes/app.js');
 const { NODE_ENV, PORT } = require('./config.js');
+const { connectDB } = require('./database.js');
 
-app.listen(PORT, () => {
-  if (NODE_ENV === 'development') {
-    console.log(`API Server is listening on http://localhost:${PORT}`);
-  }
-});
+async function start() {
+  await connectDB();
+
+  swaggerSpecs.forEach(({ version, spec, option }) => {
+    if (NODE_ENV === 'production' && version === 'dev') return;
+    const docs = `/docs/${version}`;
+    app.use(docs, swaggerUi.serve, (req, res) => {
+      res.send(swaggerUi.generateHTML(spec, option));
+    });
+  });
+
+  app.listen(PORT, () => {
+    if (NODE_ENV === 'development') {
+      console.log(`API Server is listening on: http://localhost:${PORT}`);
+      swaggerSpecs.forEach(({ version }) => {
+        console.log(`API ${version} on: http://localhost:${PORT}/docs/${version}`);
+      });
+    }
+  });
+}
+
+start();
