@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/node:10.13
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: yarn
+      - save_cache:
+          paths:
+            - ~/.mongodb-binaries
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      # - run: yarn lint
+      - run: yarn test:coverage
+
+workflows:
+  version: 2
+  test_and_deploy:
+    jobs:
+      - test
