@@ -1,4 +1,5 @@
 {
-  "watch": ["api/"],
-  "ignore": ["api/tests/", "api/jest.config.js"]
+  "ext": "js,json,yml",
+  "ignore": ["api/tests/", "api/jest.config.js"],
+  "watch": ["api/"]
 }
