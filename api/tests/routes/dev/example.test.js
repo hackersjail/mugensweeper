@@ -1,3 +1,6 @@
+const chai = require('chai');
+const app = require('../../../routes/app.js');
+
 describe('Jest example', () => {
   const twice = n => n * 2;
 
@@ -7,5 +10,18 @@ describe('Jest example', () => {
 
   it('10.5 x 2 = 21', () => {
     expect(twice(10.5)).toBe(21);
+  });
+});
+
+describe('Example of Jest using Express', () => {
+  it('Evaluate the requested query', async () => {
+    // Given
+    const given = 'mugensweeper';
+
+    // When
+    const { res } = await chai.request(app).get(`/dev/example?string=${given}`);
+
+    // Then
+    expect(res.text).toBe(given);
   });
 });
