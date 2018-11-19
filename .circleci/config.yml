@@ -18,6 +18,11 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       # - run: yarn lint
       - run: yarn test:coverage
+      - run: yarn coverage
+      #     command: |
+      #       if [ $CIRCLE_BRANCH = "master" ] ; then
+      #         yarn coverage
+      #       fi
 
 workflows:
   version: 2
