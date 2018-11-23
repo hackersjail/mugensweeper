@@ -4,6 +4,5 @@
   "javascript.format.enable": false,
   "prettier.disableLanguages": [],
   "prettier.eslintIntegration": true,
-  "prettier.singleQuote": true,
   "typescript.format.enable": false
 }
