@@ -1,0 +1,5 @@
+{
+  "ext": "js,json,yml",
+  "ignore": ["api/tests/", "api/jest.config.js"],
+  "watch": ["api/"]
+}
