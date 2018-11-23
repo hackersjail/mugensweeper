@@ -4,6 +4,9 @@
   "description": "",
   "author": "m-mitsuhide",
   "private": true,
+  "engines": {
+    "node": ">=10.13.0"
+  },
   "scripts": {
     "server": "node api/server.js",
     "dev": "npm-run-all --parallel dev:*",
