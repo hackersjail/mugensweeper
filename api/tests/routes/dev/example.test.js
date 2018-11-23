@@ -6,7 +6,7 @@ const { connectDB, disconnectDB, dropDB } = require('../../../database.js');
 const propFilter = '-_id -__v';
 
 describe('Jest example', () => {
-  const twice = n => n * 2;
+  const twice = (n) => n * 2;
 
   it('3 x 2 = 6', () => {
     expect(twice(3)).toBe(6);

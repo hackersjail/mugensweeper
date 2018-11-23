@@ -13,7 +13,7 @@ const versions = {
   },
 };
 
-module.exports = Object.keys(versions).map(version => ({
+module.exports = Object.keys(versions).map((version) => ({
   version,
   spec: swaggerJSDoc({
     swaggerDefinition: {

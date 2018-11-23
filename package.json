@@ -4,6 +4,9 @@
   "description": "",
   "author": "m-mitsuhide",
   "private": true,
+  "engines": {
+    "node": ">=10.13.0"
+  },
   "scripts": {
     "server": "node api/server.js",
     "dev": "npm-run-all --parallel dev:*",
@@ -44,7 +47,7 @@
     "mongodb-memory-server": "^2.7.2",
     "nodemon": "^1.11.0",
     "npm-run-all": "^4.1.3",
-    "prettier": "^1.15.2"
+    "prettier": "1.14.3"
   },
   "husky": {
     "hooks": {
@@ -53,7 +56,7 @@
   },
   "lint-staged": {
     "*.{js,vue}": [
-      "eslint --format codeframe"
+      "eslint --format codeframe --fix"
     ]
   }
 }

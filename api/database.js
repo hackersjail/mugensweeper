@@ -29,7 +29,7 @@ module.exports = {
       );
     }
 
-    mongoose.connection.on('error', err => {
+    mongoose.connection.on('error', (err) => {
       throw new Error(`MongoDB connection error: ${err}`);
     });
     await connection;
