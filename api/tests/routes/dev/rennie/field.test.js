@@ -5,8 +5,6 @@ const app = require('../../../../routes/app.js');
 describe('field apiについてのテスト', () => {
   it('初期状態のfieldを取得する', async () => {
     // Given ないこともある
-    // const given = 'mugensweeper';
-
     // When
     const { body } = await chai.request(app).get('/dev/rennie/field');
 
