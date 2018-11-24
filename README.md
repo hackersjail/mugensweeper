@@ -5,14 +5,14 @@
   <a href="https://codecov.io/gh/hackersjail/mugensweeper"><img src="https://badgen.net/codecov/c/github/hackersjail/mugensweeper?icon=codecov&label=coverage" alt="Coverage Status"></a>
   <a href="https://nodejs.org/dist/latest-v10.x/docs/api/"><img src="https://badgen.net/badge/node/>%3D10.13.0/green" alt="Node.js Version"></a>
   <a href="https://github.com/hackersjail/mugensweeper/blob/master/LICENSE"><img src="https://badgen.net/badge/license/MIT/blue" alt="License"></a>
-  <a href="#"><img src="https://badgen.net/badge/chat/join%20us/7289DA?icon=discord" alt="Chat"></a>
+  <!-- <a href="#"><img src="https://badgen.net/badge/chat/join%20us/7289DA?icon=discord" alt="Chat"></a> -->
 </p>
 
 <p align="center">
   <a href="https://jestjs.io/"><img src="https://jestjs.io/img/jest-badge.svg" alt="Jest"></a>
   <a href="https://circleci.com/"><img src="https://badgen.net/badge//CircleCI/04AA51?icon=circleci" alt="CircleCI"></a>
   <a href="https://codecov.io/"><img src="https://badgen.net/badge//Codecov/E03997?icon=codecov" alt="Codecov">
-  <a href="https://discordapp.com/"><img src="https://badgen.net/badge//Discord/7289DA?icon=discord" alt="Discord"></a>
+  <!-- <a href="https://discordapp.com/"><img src="https://badgen.net/badge//Discord/7289DA?icon=discord" alt="Discord"></a> -->
 </p>
 
 ### Development
