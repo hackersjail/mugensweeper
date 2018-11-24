@@ -7,4 +7,3 @@ router.use('/miyamoto/field', require('./miyamoto/field.js'));
 router.use('/matsuda/field', require('./matsuda/field.js'));
 
 module.exports = router;
-
