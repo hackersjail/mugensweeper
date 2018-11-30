@@ -1,4 +1,4 @@
-const router = require('express').Router();git merge --no-ff fork_master_develop
+const router = require('express').Router();
 
 router.use('/example', require('./example.js'));
 router.use('/ryoko/field', require('./ryoko/field.js'));
