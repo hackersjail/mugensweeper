@@ -1,10 +1,15 @@
 const router = require('express').Router();
 
-router.route('/').post((req, res) => {
-  const x = +req.body.x;
-  const y = +req.body.y;
+router
+  .route('/')
+  .post((req, res) => {
+    const x = +req.body.x;
+    const y = +req.body.y;
 
-  res.send([{ x, y }, { x: 0, y: 0 }]);
-});
-
+    res.send([{ x, y }, { x: 0, y: 0 }]);
+  })
+  .delete((req, res) => {
+    console.log(req);
+    res.send([{ x: 0, y: 0 }]);
+  });
 module.exports = router;
