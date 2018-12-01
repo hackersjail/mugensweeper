@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const { MongoMemoryServer } = require('mongodb-memory-server');
-const { NODE_ENV, MONGO_URI } = require('./config.js');
+// const { MongoMemoryServer } = require('mongodb-memory-server');
+const { NODE_ENV, MONGO_URI, MONGO_URI_TEST } = require('./config.js');
 
 let isConnection = false;
 let mongod;
@@ -17,9 +17,18 @@ module.exports = {
         { useNewUrlParser: true },
       );
     } else if (NODE_ENV === 'test') {
-      mongod = new MongoMemoryServer();
+      // mongod = new MongoMemoryServer();
+      // connection = mongoose.connect(
+      //   await mongod.getConnectionString(),
+      //   {
+      //     useNewUrlParser: true,
+      //     autoReconnect: true,
+      //     reconnectTries: Number.MAX_VALUE,
+      //     reconnectInterval: 1000,
+      //   },
+      // );
       connection = mongoose.connect(
-        await mongod.getConnectionString(),
+        MONGO_URI_TEST,
         {
           useNewUrlParser: true,
           autoReconnect: true,
