@@ -35,6 +35,8 @@ describe('Example of Jest using Mongoose', () => {
   // afterEach(dropDB);
   afterAll(disconnectDB);
 
+  jest.setTimeout(30000);
+
   it('Evaluate the inserted document', async () => {
     // Given
     const name = 'example';
