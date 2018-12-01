@@ -18,8 +18,14 @@ tags:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 # //ブロックのところ
 /rennie/block:
+=======
+
+//無限スイーパーからのコピー
+/piece:
+>>>>>>> 415340d...  pass first test
 =======
 
 //無限スイーパーからのコピー
@@ -39,6 +45,7 @@ tags:
     x-swagger-router-controller: test
     operationId: test_post
     security:
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -101,6 +108,8 @@ definitions:
 >>>>>>> 415340d...  pass first test
 =======
 >>>>>>> 415340d...  pass first test
+=======
+>>>>>>> 415340d...  pass first test
     - tokenAuth: []
     tags:
       - piece
@@ -158,6 +167,9 @@ definitions:
     description: "piece condition"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 415340d...  pass first test
+=======
 >>>>>>> 415340d...  pass first test
 =======
 >>>>>>> 415340d...  pass first test
@@ -181,6 +193,7 @@ definitions:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       # userId:
       #   name: userId
       #   in: "query"
@@ -189,6 +202,8 @@ definitions:
       #   example: 1
       #   required: true
 =======
+=======
+>>>>>>> 415340d...  pass first test
 =======
 >>>>>>> 415340d...  pass first test
 =======
@@ -202,6 +217,9 @@ definitions:
         required: true
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 415340d...  pass first test
+=======
 >>>>>>> 415340d...  pass first test
 =======
 >>>>>>> 415340d...  pass first test
@@ -229,7 +247,11 @@ definitions:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 # //ここまでコピー
+=======
+//ここまでコピー
+>>>>>>> 415340d...  pass first test
 =======
 //ここまでコピー
 >>>>>>> 415340d...  pass first test
