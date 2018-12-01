@@ -15,68 +15,67 @@ tags:
           type: "string"
           example: "text"
 
-
-//無限スイーパーからのコピー
-/piece:
+# //ブロックのところ
+/rennie/block:
   post:
     x-swagger-router-controller: test
     operationId: test_post
     security:
-    - tokenAuth: []
+      - tokenAuth: []
     tags:
-      - piece
-    summary: "set a piece on board"
+      - block
+    summary: "クリックした場所の情報を取る"
     description: |
-      - status
-        - コマが置けたかtrue, falaseで返す
-      - 以下、boardと同じくすべての盤面情報を返す
+      # - status
+      #   - コマが置けたかtrue, falaseで返す
+      - クリックした場所のxとyの情報
     parameters:
-      - $ref: "#/definitions/Piece/properties/x"
-      - $ref: "#/definitions/Piece/properties/y"
+      - $ref: "#/definitions/Block/properties/x"
+      - $ref: "#/definitions/Block/properties/y"
     responses:
       200:
-        description: "show specified board size"
+        description: "show clicked x & y"
         schema:
           type: "object"
           properties:
-            status:
-              $ref: "#/definitions/Status"
-            piece:
-              $ref: "#/definitions/Piece"
+            # status:
+            #   $ref: "#/definitions/Status"
+            block:
+              $ref: "#/definitions/block"
       401:
         description: "Unauthorized"
-         delete:
-    x-swagger-router-controller: test
-    operationId: test_post
-    security:
-    - tokenAuth: []
-    tags:
-      - piece
-    summary: "delete a piece or all pieces"
-    parameters:
-      # - name: "pieces"
-      #   description: "Add items to be deleted"
-      #   in: "body"
-      #   schema:
-      #     $ref: "#/definitions/Positions"
-      - name: "keyword"
-        in: "query"
-        description: "Please enter keyword if you want to delete all pieces."
-        required: false
-        type: "string"
-    responses:
-      200:
-        description: "return delete status and board condition"
-        schema:
-          type: "object"
-          properties:
-            status:
-              $ref: "#/definitions/Status"
+    #      delete:
+    # x-swagger-router-controller: test
+    # operationId: test_post
+    # security:
+    # - tokenAuth: []
+    # tags:
+    #   - block
+    # summary: "delete a piece or all pieces"
+    # parameters:
+    #   - name: "pieces"
+    #     description: "Add items to be deleted"
+    #     in: "body"
+    #     schema:
+    #       $ref: "#/definitions/Positions"
+    #   # - name: "keyword"
+    #   #   in: "query"
+    #   #   description: "Please enter keyword if you want to delete all pieces."
+    #   #   required: false
+    #   #   type: "string"
+    # # responses:
+    # #   200:
+    # #     description: "return delete status and board condition"
+    # #     schema:
+    # #       type: "object"
+    # #       properties:
+    # #         status:
+    # #           $ref: "#/definitions/Status"
 
-
-  Piece:
+definitions:
+  Block:
     type: object
-    description: "piece condition"
+    description: "block condition"
     properties:
       x:
         name: "x"
@@ -118,4 +117,4 @@ tags:
         type: "number"
         example: 1
         in: "formData"
-//ここまでコピー
+# //ここまでコピー
