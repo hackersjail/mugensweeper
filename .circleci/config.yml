@@ -3,8 +3,6 @@ jobs:
   test:
     docker:
       - image: circleci/node:10.13
-    environment:
-      MONGO_URI_TEST: $MONGO_URI_TEST
     working_directory: ~/repo
     steps:
       - checkout
@@ -19,7 +17,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       # - run: yarn lint
-      - run: yarn test api/tests/routes/dev/example.test.js
+      - run: MONGO_URI_TEST=$MONGO_URI_TEST yarn test api/tests/routes/dev/example.test.js
       - run:
           command: |
             if [ $CIRCLE_BRANCH = "develop" ] ; then
