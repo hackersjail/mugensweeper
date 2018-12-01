@@ -3,6 +3,8 @@ jobs:
   test:
     docker:
       - image: circleci/node:10.13
+    environment:
+      MONGO_URI_TEST: $MONGO_URI_TEST
     working_directory: ~/repo
     steps:
       - checkout
