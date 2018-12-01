@@ -16,8 +16,14 @@ tags:
           example: "text"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 # //ブロックのところ
 /rennie/block:
+=======
+
+//無限スイーパーからのコピー
+/piece:
+>>>>>>> 415340d...  pass first test
 =======
 
 //無限スイーパーからのコピー
@@ -27,6 +33,7 @@ tags:
     x-swagger-router-controller: test
     operationId: test_post
     security:
+<<<<<<< HEAD
 <<<<<<< HEAD
       - tokenAuth: []
     tags:
@@ -83,6 +90,8 @@ definitions:
     type: object
     description: "block condition"
 =======
+=======
+>>>>>>> 415340d...  pass first test
     - tokenAuth: []
     tags:
       - piece
@@ -138,6 +147,9 @@ definitions:
   Piece:
     type: object
     description: "piece condition"
+<<<<<<< HEAD
+>>>>>>> 415340d...  pass first test
+=======
 >>>>>>> 415340d...  pass first test
     properties:
       x:
@@ -155,6 +167,7 @@ definitions:
         in: "formData"
         required: true
 <<<<<<< HEAD
+<<<<<<< HEAD
       # userId:
       #   name: userId
       #   in: "query"
@@ -163,6 +176,8 @@ definitions:
       #   example: 1
       #   required: true
 =======
+=======
+>>>>>>> 415340d...  pass first test
       userId:
         name: userId
         in: "query"
@@ -170,6 +185,9 @@ definitions:
         type: number
         example: 1
         required: true
+<<<<<<< HEAD
+>>>>>>> 415340d...  pass first test
+=======
 >>>>>>> 415340d...  pass first test
   Positions:
     type: array
@@ -191,7 +209,11 @@ definitions:
         example: 1
         in: "formData"
 <<<<<<< HEAD
+<<<<<<< HEAD
 # //ここまでコピー
+=======
+//ここまでコピー
+>>>>>>> 415340d...  pass first test
 =======
 //ここまでコピー
 >>>>>>> 415340d...  pass first test
