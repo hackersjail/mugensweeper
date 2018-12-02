@@ -9,12 +9,21 @@ const initialBlock = () => ({
 describe('前のゲーム情報のリセット処理、および、リクエスト返り値の追加テスト', () => {
   it('座標をリセットできる。', async () => {
     // Given
-    const positions = [{ x: 1, y: 2 }, { x: 3, y: -1 }];
+    const positions = [
+      {
+        x: 1,
+        y: 2,
+      },
+      {
+        x: 3,
+        y: -1,
+      },
+    ];
 
     // When
     let lastBody;
     for (let i = 0; i < positions.length; i += 1) {
-      const { body } = await chai // eslint-disable-line
+      const { body } = await chai
         .request(app)
         .post('/dev/ryoko/block')
         .set('content-type', 'application/x-www-form-urlencoded')
@@ -52,7 +61,7 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
     // When
     let lastBody;
     for (let i = 0; i < positions.length; i += 1) {
-      const { body } = await chai // eslint-disable-line
+      const { body } = await chai
         .request(app)
         .post('/dev/ryoko/block')
         .set('content-type', 'application/x-www-form-urlencoded')
