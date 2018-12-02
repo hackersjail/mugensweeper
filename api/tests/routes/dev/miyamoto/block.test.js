@@ -23,7 +23,7 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
     // When
     let lastBody;
     for (let i = 0; i < positions.length; i += 1) {
-      let { body } = await chai // eslint-disable-line
+      const { body } = await chai
         .request(app)
         .post('/dev/miyamoto/block')
         .set('content-type', 'application/x-www-form-urlencoded')
@@ -62,7 +62,7 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
     // When
     let lastBody;
     for (let i = 0; i < positions.length; i += 1) {
-      let { body } = await chai // eslint-disable-line
+      const { body } = await chai
         .request(app)
         .post('/dev/miyamoto/block')
         .set('content-type', 'application/x-www-form-urlencoded')

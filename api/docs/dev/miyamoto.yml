@@ -40,6 +40,22 @@ tags:
               $ref: "#/definitions/Block"
       401:
         description: "Unauthorized"
+  delete:
+    x-swagger-router-controller: test
+    operationId: test_post
+    security:
+      - tokenAuth: []
+    tags:
+      - block
+    summary: "reset all block state"
+    responses:
+      200:
+        description: "return delete status and board condition"
+        schema:
+          type: "object"
+          properties:
+            status:
+              $ref: "#/definitions/Status"
 definitions:
   Status:
     type: "boolean"
