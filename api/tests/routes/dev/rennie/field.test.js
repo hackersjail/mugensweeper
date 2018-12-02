@@ -38,23 +38,3 @@ describe('field apiについてのテスト', () => {
     expect(body).toEqual(expect.arrayContaining([initialBlock(), position]));
   });
 });
-
-// reset関数テスト
-
-// describe('reset関数のテスト', () => {
-//   it('盤面がx=0,y=0の状態になっているかの確認をする', async () => {
-//     // Given
-//     // const given = 'mugensweeper';
-//        const x = req.query.x;
-//        const y = req.query.y;
-
-//     // When
-//     // const { res } = await chai.request(app).get(`/dev/example?string=${given}`);
-//     const { body } = await chai.request(app).get(`/dev/rennie/field'`);
-
-//     // Then
-//     // expect(res.text).toBe(given);
-//     expect(body).toHaveLength(1);
-//     expect(body[0]).toMatchObject({ x: 0, y: 0 });
-//   });
-// });
