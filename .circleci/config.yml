@@ -16,9 +16,7 @@ jobs:
             - ~/.mongodb-binaries
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      # - run: yarn lint
-      - run: echo "export MONGO_URI_TEST=${MONGO_URI_TEST}" >> $BASH_ENV
-      - run: MONGO_URI_TEST=${MONGO_URI_TEST} yarn test api/tests/routes/dev/example.test.js
+      - run: node mongodb-memory-server.js
       - run:
           command: |
             if [ $CIRCLE_BRANCH = "develop" ] ; then
