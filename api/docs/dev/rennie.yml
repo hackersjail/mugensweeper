@@ -26,8 +26,7 @@ tags:
       - block
     summary: "クリックした場所の情報を取る"
     description: |
-      # - status
-      #   - コマが置けたかtrue, falaseで返す
+      - status
       - クリックした場所のxとyの情報
     parameters:
       - $ref: "#/definitions/Block/properties/x"
