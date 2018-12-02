@@ -1,16 +1,21 @@
 tags:
-  - name: Ryoko field
-    description: Ryoko field API
-/ryoko/field:
-  get:
+  - name: Ryoko block
+    description: Ryoko block API
+/ryoko/block/:
+  post:
     tags:
-      - Ryoko field
+      - Ryoko block
     produces:
       - "text/html; charset=utf-8"
     parameters:
-      - name: "body"
-        in: "body[0]"
+      - name: "x"
+        in: "query"
         description: "Ryoko body parameter"
+        required: true
+        type: "string"
+      - name: "y"
+        in: "query"
+        description: "Ryoko query parameter"
         required: true
         type: "string"
     responses:
