@@ -23,24 +23,24 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
     // When
     let lastBody;
     for (let i = 0; i < positions.length; i += 1) {
-      let { body } = await chai // eslint-disable-line
+      const { body } = await chai // eslint-disable-line
         .request(app)
         .post('/dev/miyamoto/block')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(positions[0]);
       lastBody = body;
     }
-    let { body } = await chai.request(app).delete('dev/miyamoto/block'); // eslint-disable-line
+    const { body } = await chai.request(app).delete('/dev/miyamoto/block');
 
     // Then
-    expect(body).toEqual(expect.arrayContaining([initialBlock()]));
     expect(lastBody).toHaveLength(positions.length + 1);
     expect(lastBody).toEqual(expect.arrayContaining([initialBlock(), ...positions]));
+    expect(body).toEqual(expect.arrayContaining([initialBlock()]));
   });
 
   it('ランダムに複数Postした座標が返り値に追加される', async () => {
     // 前のテストのBlockをサーバーから消しておく
-    await chai.request(app).delete('dev/miyamoto/block');
+    await chai.request(app).delete('/dev/miyamoto/block');
 
     // Given
     const positions = [];
@@ -63,7 +63,7 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
     for (let i = 0; i < positions.length; i += 1) {
       const { body } = await chai // eslint-disable-line
         .request(app)
-        .post('dev/miyamoto/block')
+        .post('/dev/miyamoto/block')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(positions[i]);
       lastBody = body;
