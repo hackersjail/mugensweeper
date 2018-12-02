@@ -5,7 +5,6 @@ describe('Example of Jest using Express', () => {
   it('Evaluate the requested query', async () => {
     // Given
 
-    console.log('aaa');
     // When
     const { body } = await chai.request(app).get(`/dev/hiro/field`);
 
