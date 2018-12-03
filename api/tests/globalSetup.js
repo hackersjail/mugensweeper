@@ -8,15 +8,19 @@ const mongod = new MongoMemoryServer({
 });
 
 module.exports = async () => {
+  console.log(11);
   if (!mongod.isRunning) {
+    console.log(12);
     await mongod.start();
   }
 
+  console.log(13);
   const mongoConfig = {
     mongoDBName: 'jest',
     mongoUri: await mongod.getConnectionString(),
   };
 
+  console.log(14);
   await fsPromises.writeFile(globalConfigPath, JSON.stringify(mongoConfig));
   global.__MONGOD__ = mongod;
   // process.env.MONGO_URL = mongoConfig.mongoUri;
