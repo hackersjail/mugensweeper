@@ -1,7 +1,8 @@
 const chai = require('chai');
+const mongoose = require('mongoose');
 const app = require('../../../routes/app.js');
 const ExampleModel = require('../../../models/ExampleModel.js');
-const { connectDB, disconnectDB } = require('../../../database.js');
+// const { connectDB, disconnectDB } = require('../../../database.js');
 
 const propFilter = '-_id -__v';
 
@@ -31,11 +32,22 @@ describe('Example of Jest using Express', () => {
 });
 
 describe('Example of Jest using Mongoose', () => {
-  beforeAll(connectDB);
-  // afterEach(dropDB);
-  afterAll(disconnectDB);
+  let connection;
 
-  jest.setTimeout(30000);
+  beforeAll(async () => {
+    connection = await mongoose.connect(
+      global.__MONGO_URI__,
+      { dbName: global.__MONGO_DB_NAME__ },
+    );
+  });
+
+  afterAll(async () => {
+    await connection.close();
+  });
+
+  // beforeAll(connectDB);
+  // afterEach(dropDB);
+  // afterAll(disconnectDB);
 
   it('Evaluate the inserted document', async () => {
     // Given

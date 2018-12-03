@@ -24,5 +24,11 @@ module.exports = {
         jest: true,
       },
     },
+    {
+      files: ['**/tests/**/*.js'],
+      rules: {
+        'no-underscore-dangle': 'off',
+      },
+    },
   ],
 };

@@ -171,3 +171,6 @@ dist
 
 # npm lockfile
 package-lock.json
+
+# mongodb-memory-server config
+api/tests/globalConfig.json
