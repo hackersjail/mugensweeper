@@ -7,4 +7,6 @@ router.use('/eto/field', require('./eto/field.js'));
 router.use('/miyamoto/field', require('./miyamoto/field.js'));
 router.use('/matsuda/field', require('./matsuda/field.js'));
 
+router.use('/eto/block', require('./eto/block.js'));
+
 module.exports = router;
