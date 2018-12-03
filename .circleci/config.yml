@@ -17,7 +17,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       # - run: yarn lint
-      - run: MONGO_URI_TEST=${MONGO_URI_TEST} yarn test api/tests/routes/dev/example.test.js
+      - run: yarn test api/tests/routes/dev/example.test.js --forceExit
       - run:
           command: |
             if [ $CIRCLE_BRANCH = "develop" ] ; then
