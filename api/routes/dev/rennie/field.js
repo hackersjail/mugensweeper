@@ -22,17 +22,4 @@ router.route('/').post((req, res) => {
   ]);
 });
 
-router.route('/matsuda/block').post((req, res) => {
-  res.send([
-    {
-      x: +req.body.x,
-      y: +req.body.y,
-    },
-    {
-      x: +req.body.x,
-      y: +req.body.y,
-    },
-  ]);
-});
-
 module.exports = router;
