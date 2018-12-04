@@ -90,13 +90,13 @@ definitions:
         example: 1
         in: "formData"
         required: true
-      userId:
-        name: userId
-        in: "query"
-        description: "userId"
-        type: number
-        example: 1
-        required: true
+      # userId:
+      #   name: userId
+      #   in: "query"
+      #   description: "userId"
+      #   type: number
+      #   example: 1
+      #   required: true
   Positions:
     type: array
     description: "just show piece locations (not include userId information)"
