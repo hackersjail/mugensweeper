@@ -30,7 +30,7 @@ describe('field apiについてのテスト', () => {
     const { body } = await chai
       .request(app)
       .post('/dev/rennie/block')
-      .set('content-type', 'application/x-www-form-urlencoded') // 送るときの形
+      .set('content-type', 'application/x-www-form-urlencoded')
       .send(position);
 
     // Then
