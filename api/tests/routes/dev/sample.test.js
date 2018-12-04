@@ -9,16 +9,7 @@ const initialBlock = () => ({
 describe('前のゲーム情報のリセット処理、および、リクエスト返り値の追加テスト', () => {
   it('座標をリセットできる。', async () => {
     // Given
-    const positions = [
-      {
-        x: 1,
-        y: 2,
-      },
-      {
-        x: 3,
-        y: -1,
-      },
-    ];
+    const positions = [{ x: 1, y: 2 }, { x: 3, y: -1 }];
 
     // When
     let lastBody;
@@ -72,5 +63,32 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
     // Then
     expect(lastBody).toHaveLength(count + 1);
     expect(lastBody).toEqual(expect.arrayContaining([initialBlock(), ...positions]));
+  });
+  it('同じ座標にはpostしても登録されない', async () => {
+    // 前のテストのBlockをサーバーから消しておく
+    await chai.request(app).delete('/dev/ryoko/block');
+
+    // Given
+    const positions = [{ x: 1, y: 2 }, { x: 1, y: 2 }];
+
+    // When
+    let lastBody;
+    for (let i = 0; i < positions.length; i += 1) {
+      const { body } = await chai
+        .request(app)
+        .post('/dev/ryoko/block')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send(positions[i]);
+      lastBody = body;
+    }
+
+    // Then
+    // 重複削除
+    const positions2 = positions.filter(
+      (v1, i1, a1) => a1.findIndex((v2) => v1.x === v2.x && v1.y === v2.y) === i1,
+    );
+
+    expect(lastBody).toHaveLength(positions.length);
+    expect(lastBody).toEqual(expect.arrayContaining([initialBlock(), ...positions2]));
   });
 });
