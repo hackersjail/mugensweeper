@@ -9,6 +9,7 @@ router.use('/eto/field', require('./eto/field.js'));
 router.use('/miyamoto/field', require('./miyamoto/field.js'));
 router.use('/miyamoto/block', require('./miyamoto/block.js'));
 router.use('/matsuda/field', require('./matsuda/field.js'));
-router.use('/mishima', require('./mishima/field.js'));
+router.use('/mishima/field', require('./mishima/field.js'));
+router.use('/mishima/block', require('./mishima/block.js'));
 
 module.exports = router;
