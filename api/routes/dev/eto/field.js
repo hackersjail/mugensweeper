@@ -1,11 +1,12 @@
 const router = require('express').Router();
-const body = [];
+
+const initialPosition = [];
 
 router.route('/').get((req, res) => {
-  if (Object.keys(req.body).length === 0) {
-    body.push({ x: 0, y: 0 });
+  if (req.query !== '') {
+    initialPosition.push({ x: 0, y: 0 });
   }
-  res.send(body);
+  res.send(initialPosition);
 });
 
 module.exports = router;
