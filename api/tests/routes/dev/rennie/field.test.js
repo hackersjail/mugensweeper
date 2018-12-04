@@ -9,7 +9,7 @@ const initialBlock = () => ({
 // integration test
 describe('field apiについてのテスト', () => {
   it('初期状態のfieldを取得する', async () => {
-    // Given ないこともある
+    // Given ないこともあ
 
     // When
     const { body } = await chai.request(app).get('/dev/rennie/field');
