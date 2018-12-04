@@ -1,6 +1,5 @@
 const chai = require('chai');
 const app = require('../../../../routes/app.js');
-const router = require('express').Router();
 
 const initialBlock = () => ({
   x: 0,
