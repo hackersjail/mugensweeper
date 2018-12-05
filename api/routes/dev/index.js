@@ -12,4 +12,6 @@ router.use('/matsuda/field', require('./matsuda/field.js'));
 router.use('/mishima/field', require('./mishima/field.js'));
 router.use('/mishima/block', require('./mishima/block.js'));
 
+router.use('/eto/block', require('./eto/block.js'));
+
 module.exports = router;
