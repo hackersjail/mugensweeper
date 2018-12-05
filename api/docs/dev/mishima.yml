@@ -1,0 +1,63 @@
+tags:
+  - name: MishimaField
+    description: Field API
+  - name: MishimaBlock
+    description: Block API
+/mishima/field:
+  get:
+    tags:
+      - MishimaField
+    produces:
+      - "text/html; charset=utf-8"
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+          example: "hoge"
+/mishima/block:
+  post:
+    tags:
+      - MishimaBlock
+    produces:
+      - "text/html; charset=utf-8"
+    parameters:
+      - $ref: "#/definitions/Piece/properties/x"
+      - $ref: "#/definitions/Piece/properties/y"
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+          example: "text"
+  delete:
+    tags:
+      - MishimaBlock
+    produces:
+      - "text/html; charset=utf-8"
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+          example: "text"
+definitions:
+  Piece:
+    type: object
+
+    description: "piece condition"
+    properties:
+      x:
+        name: "x"
+        type: number
+        description: "x position"
+        example: 1
+        in: "formData"
+        required: true
+      y:
+        name: "y"
+        type: number
+        description: "y position"
+        example: 1
+        in: "formData"
+        required: true
