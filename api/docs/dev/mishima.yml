@@ -1,10 +1,12 @@
 tags:
-  - name: Mishima
-    description: Reset API
-/mishima/field/reset:
+  - name: MishimaField
+    description: Field API
+  - name: MishimaBlock
+    description: Block API
+/mishima/field:
   get:
     tags:
-      - Reset
+      - MishimaField
     produces:
       - "text/html; charset=utf-8"
     responses:
@@ -16,12 +18,23 @@ tags:
 /mishima/block:
   post:
     tags:
-      - Block
+      - MishimaBlock
     produces:
       - "text/html; charset=utf-8"
     parameters:
       - $ref: "#/definitions/Piece/properties/x"
       - $ref: "#/definitions/Piece/properties/y"
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+          example: "text"
+  delete:
+    tags:
+      - MishimaBlock
+    produces:
+      - "text/html; charset=utf-8"
     responses:
       200:
         description: "success"
