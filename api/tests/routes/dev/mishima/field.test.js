@@ -13,11 +13,11 @@ describe('field-APIについてテストする', () => {
     // const given = 'mugensweeper';
 
     // When
-    const { body } = await chai.request(app).get('/dev/mishima/field/reset');
+    const { body } = await chai.request(app).get('/dev/mishima/field');
 
     // Then
     expect(body).toHaveLength(1);
-    expect(body[0]).toMatchObject({ x: 0, y: 0, opened: true, hasBomb: false });
+    expect(body[0]).toMatchObject(initialBlock());
   });
   it('postした座標が返り値に追加される', async () => {
     // Given
