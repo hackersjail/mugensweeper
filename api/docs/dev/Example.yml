@@ -1,0 +1,21 @@
+tags:
+  - name: Example
+    description: Example API
+/example:
+  get:
+    tags:
+      - Example
+    produces:
+      - "text/html; charset=utf-8"
+    parameters:
+      - name: "string"
+        in: "query"
+        description: "Example query parameter"
+        required: true
+        type: "string"
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+          example: "text"
