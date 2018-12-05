@@ -11,27 +11,25 @@ describe('field APIについてのテスト', () => {
     // Given
 
     // When
-    const { body } = await chai.request(app).get('/dev/miyamoto/field');
+    const { body } = await chai.request(app).get('/dev/shiratsuchi/field');
 
     // Then
     expect(body).toHaveLength(1);
     expect(body[0]).toMatchObject(initialBlock());
   });
 
-  it('Postした座標が返り値に追加される', async () => {
+  it('postした座標が返り値に追加される', async () => {
     // Given
     const position = {
-      x: 1,
-      y: 3,
+      x: 3,
+      y: -1,
     };
-
     // When
     const { body } = await chai
       .request(app)
-      .post('/dev/miyamoto/block')
+      .post('/dev/shiratsuchi/block')
       .set('content-type', 'application/x-www-form-urlencoded')
       .send(position);
-
     // Then
     expect(body).toHaveLength(2);
     expect(body).toEqual(expect.arrayContaining([initialBlock(), position]));
