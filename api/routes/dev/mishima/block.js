@@ -8,7 +8,17 @@ router.route('/').delete((req, res) => {
 });
 
 router.route('/').post((req, res) => {
-  field.push({ x: +req.body.x, y: +req.body.y });
+  const fieldIdx = field.findIndex((elem) => {
+    if (elem.x === +req.body.x && elem.y === +req.body.y) {
+      return true;
+    }
+    return false;
+  });
+
+  if (fieldIdx === -1) {
+    field.push({ x: +req.body.x, y: +req.body.y });
+  }
+
   res.json(field);
 });
 
