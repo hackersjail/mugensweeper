@@ -4,12 +4,12 @@ const { NODE_ENV, MONGO_URI } = require('./config.js');
 
 let isConnection = false;
 let mongod;
-let uri;
-let options;
 
 module.exports = {
   async connectDB() {
     if (isConnection) return;
+    let uri;
+    let options;
 
     if (NODE_ENV !== 'test') {
       uri = MONGO_URI;
@@ -27,7 +27,7 @@ module.exports = {
 
     mongoose.connection.once('open', () => {
       // eslint-disable-next-line no-console
-      if (NODE_ENV === 'development') console.log(`MongoDB connected`);
+      if (NODE_ENV !== 'test') console.log(`MongoDB connected`);
       isConnection = true;
     });
 
@@ -37,7 +37,7 @@ module.exports = {
 
     mongoose.connection.on('close', () => {
       // eslint-disable-next-line no-console
-      if (NODE_ENV === 'development') console.log(`MongoDB disconnected`);
+      if (NODE_ENV !== 'test') console.log(`MongoDB disconnected`);
       isConnection = false;
     });
 
