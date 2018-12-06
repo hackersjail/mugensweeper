@@ -1,5 +1,5 @@
 const chai = require('chai');
-const app = require('../../../routes/app.js');
+const app = require('../../../../routes/app.js');
 
 const initialBlock = () => ({
   x: 0,
@@ -25,12 +25,12 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
     for (let i = 0; i < positions.length; i += 1) {
       const { body } = await chai
         .request(app)
-        .post('/dev/miyamoto/block')
+        .post('/dev/mishima/block')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(positions[i]);
       lastBody = body;
     }
-    const { body } = await chai.request(app).delete('/dev/miyamoto/block');
+    let { body } = await chai.request(app).delete('/dev/mishima/block'); // eslint-disable-line
 
     // Then
     expect(lastBody).toHaveLength(positions.length + 1);
@@ -40,7 +40,7 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
 
   it('ランダムに複数Postした座標が返り値に追加される', async () => {
     // 前のテストのBlockをサーバーから消しておく
-    await chai.request(app).delete('/dev/miyamoto/block');
+    await chai.request(app).delete('/dev/mishima/block');
 
     // Given
     const positions = [];
@@ -48,6 +48,7 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
     let cnt = 0;
     while (cnt < count) {
       const tmp = {
+        // eslint-disable-line
         x: Math.floor(10000 * Math.random()),
         y: Math.floor(10000 * Math.random()),
       };
@@ -63,7 +64,7 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
     for (let i = 0; i < positions.length; i += 1) {
       const { body } = await chai
         .request(app)
-        .post('/dev/miyamoto/block')
+        .post('/dev/mishima/block')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(positions[i]);
       lastBody = body;
