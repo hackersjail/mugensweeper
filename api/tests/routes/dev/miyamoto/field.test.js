@@ -22,7 +22,7 @@ describe('field APIについてのテスト', () => {
     // Given
     const position = {
       x: 1,
-      y: 1,
+      y: 3,
     };
 
     // When
