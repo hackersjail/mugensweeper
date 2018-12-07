@@ -1,0 +1,47 @@
+tags:
+  - name: eto
+    description: eto API
+/eto/field:
+  get:
+    tags:
+      - field
+    produces:
+      - "text/html; charset=utf-8"
+    parameters:
+      - name: "string"
+        in: "query"
+        description: "Example query parameter"
+        required: true
+        type: "string"
+
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+          example: "text"
+
+/eto/block:
+  post:
+    tags:
+      - block
+    produces:
+      - "text/html; charset=utf-8"
+    parameters:
+        - name: "x"
+          in: "formData"
+          description: "Example body parameter"
+          required: true
+          type: "string"
+        - name: "y"
+          in: "formData"
+          description: "Example body parameter"
+          required: true
+          type: "string"
+
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+          example: "text"

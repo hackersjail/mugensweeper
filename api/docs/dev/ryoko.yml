@@ -1,0 +1,56 @@
+tags:
+  - name: Ryoko field
+    description: Ryoko field API
+/ryoko/field:
+  get:
+    tags:
+      - Ryoko field
+    produces:
+      - "text/html; charset=utf-8"
+    parameters:
+      - name: "body"
+        in: "body[0]"
+        description: "Ryoko body parameter"
+        required: true
+        type: "string"
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+          example: "text"
+/ryoko/block/:
+  post:
+    tags:
+      - Ryoko block
+    produces:
+      - "text/html; charset=utf-8"
+    parameters:
+      - name: "x"
+        in: "formData"
+        description: "Ryoko formData parameter"
+        required: true
+        type: "string"
+      - name: "y"
+        in: "formData"
+        description: "Ryoko formData parameter"
+        required: true
+        type: "string"
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+          example: "text"
+/ryoko/block:
+  delete:
+    tags:
+      - Ryoko block
+    produces:
+      - "text/html; charset=utf-8"
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+          example: "text"
