@@ -1,5 +1,37 @@
 {
-  "extends": [
-    "config:base"
+  "extends": ["config:base"],
+  "timezone": "Asia/Tokyo",
+  "schedule": ["every weekend"],
+  "labels": ["renovate"],
+  "patch": { "automerge": true },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 3am on the first day of the month"]
+  },
+  "packageRules": [
+    {
+      "groupName": "Package for Nuxt.js",
+      "packagePatterns": ["^nuxt", "^@nuxtjs/"]
+    },
+    {
+      "groupName": "Package for API server",
+      "packagePatterns": ["^express", "^swagger"]
+    },
+    {
+      "groupName": "Package for MongoDB",
+      "packagePatterns": ["^mongodb", "^mongoose"]
+    },
+    {
+      "groupName": "Package for Lint",
+      "packagePatterns": ["^babel-eslint", "^eslint", "husky", "lint-staged"]
+    },
+    {
+      "groupName": "Package for Testing",
+      "packagePatterns": ["^jest", "^chai", "^codecov"]
+    },
+    {
+      "packagePatterns": ["^prettier"],
+      "enabled": false
+    }
   ]
 }
