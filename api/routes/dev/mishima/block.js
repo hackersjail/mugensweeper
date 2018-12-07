@@ -9,7 +9,6 @@ router.route('/').delete((req, res) => {
 
 router.route('/').post((req, res) => {
   const fieldIdx = field.findIndex((elem) => elem.x === +req.body.x && elem.y === +req.body.y);
-  // 周囲の相対的座標
   const directions = [[-1, -1], [0, -1], [1, -1], [-1, 0], [1, 0], [-1, 1], [0, 1], [1, 1]];
 
   const arroundCounter = directions.reduce((acc, val) => {
