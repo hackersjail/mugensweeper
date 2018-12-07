@@ -19,9 +19,9 @@ router
   .post((req, res) => {
     const x = +req.body.x;
     const y = +req.body.y;
-    let flag = false;
+    let flag = true;
     for (let i = 0; i < state.client.length; i += 1) {
-      if (state.client[i].x !== x && state.client[i].y !== y) flag = true;
+      if (state.client[i].x === x && state.client[i].y === y) flag = false;
     }
     if (flag) state.client.push({ x, y });
     res.json(state.client);
