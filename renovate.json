@@ -24,7 +24,7 @@
     },
     {
       "groupName": "Package for Lint",
-      "packagePatterns": ["^babel-eslint", "^eslint", "husky", "lint-staged"]
+      "packagePatterns": ["^babel-eslint", "^eslint", "^husky", "^lint-staged"]
     },
     {
       "groupName": "Package for Testing",
