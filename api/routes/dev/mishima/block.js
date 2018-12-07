@@ -8,12 +8,7 @@ router.route('/').delete((req, res) => {
 });
 
 router.route('/').post((req, res) => {
-  const fieldIdx = field.findIndex((elem) => {
-    if (elem.x === +req.body.x && elem.y === +req.body.y) {
-      return true;
-    }
-    return false;
-  });
+  const fieldIdx = field.findIndex((elem) => elem.x === +req.body.x && elem.y === +req.body.y);
 
   if (fieldIdx === -1) {
     field.push({ x: +req.body.x, y: +req.body.y });
