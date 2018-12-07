@@ -1,6 +1,6 @@
 {
   "extends": ["config:base"],
-  "assignees": "hi85gh",
+  "assignees": ["hi85gh"],
   "timezone": "Asia/Tokyo",
   "schedule": ["every weekend"],
   "labels": ["renovate"],
