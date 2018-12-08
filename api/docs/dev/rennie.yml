@@ -15,12 +15,19 @@ tags:
           type: "string"
           example: "text"
 
+<<<<<<< HEAD
 # //ブロックのところ
 /rennie/block:
+=======
+
+//無限スイーパーからのコピー
+/piece:
+>>>>>>> 415340d...  pass first test
   post:
     x-swagger-router-controller: test
     operationId: test_post
     security:
+<<<<<<< HEAD
       - tokenAuth: []
     tags:
       - block
@@ -75,6 +82,63 @@ definitions:
   Block:
     type: object
     description: "block condition"
+=======
+    - tokenAuth: []
+    tags:
+      - piece
+    summary: "set a piece on board"
+    description: |
+      - status
+        - コマが置けたかtrue, falaseで返す
+      - 以下、boardと同じくすべての盤面情報を返す
+    parameters:
+      - $ref: "#/definitions/Piece/properties/x"
+      - $ref: "#/definitions/Piece/properties/y"
+    responses:
+      200:
+        description: "show specified board size"
+        schema:
+          type: "object"
+          properties:
+            status:
+              $ref: "#/definitions/Status"
+            piece:
+              $ref: "#/definitions/Piece"
+      401:
+        description: "Unauthorized"
+         delete:
+    x-swagger-router-controller: test
+    operationId: test_post
+    security:
+    - tokenAuth: []
+    tags:
+      - piece
+    summary: "delete a piece or all pieces"
+    parameters:
+      # - name: "pieces"
+      #   description: "Add items to be deleted"
+      #   in: "body"
+      #   schema:
+      #     $ref: "#/definitions/Positions"
+      - name: "keyword"
+        in: "query"
+        description: "Please enter keyword if you want to delete all pieces."
+        required: false
+        type: "string"
+    responses:
+      200:
+        description: "return delete status and board condition"
+        schema:
+          type: "object"
+          properties:
+            status:
+              $ref: "#/definitions/Status"
+
+
+  Piece:
+    type: object
+    description: "piece condition"
+>>>>>>> 415340d...  pass first test
     properties:
       x:
         name: "x"
@@ -90,6 +154,7 @@ definitions:
         example: 1
         in: "formData"
         required: true
+<<<<<<< HEAD
       # userId:
       #   name: userId
       #   in: "query"
@@ -97,6 +162,15 @@ definitions:
       #   type: number
       #   example: 1
       #   required: true
+=======
+      userId:
+        name: userId
+        in: "query"
+        description: "userId"
+        type: number
+        example: 1
+        required: true
+>>>>>>> 415340d...  pass first test
   Positions:
     type: array
     description: "just show piece locations (not include userId information)"
@@ -116,4 +190,8 @@ definitions:
         type: "number"
         example: 1
         in: "formData"
+<<<<<<< HEAD
 # //ここまでコピー
+=======
+//ここまでコピー
+>>>>>>> 415340d...  pass first test
