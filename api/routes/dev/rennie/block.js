@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
-// 同じ座標にはpostしても登録されない
-// const field = [{ x: 0, y: 0 }];
+// 同じ座標にはpostしても登録されない;
+const field = [{ x: 0, y: 0 }];
 
 // router.route('/').post((req, res) => {
 //   if (req.body.x) {
@@ -40,32 +40,32 @@ const router = require('express').Router();
 
 // const field = [{ x: 0, y: 0 }];
 
-// router.route('/').post((req, res) => {
-//   if (req.body.x) {
-//     const directions = [[0, -1], [1, 0], [0, 1], [-1, 0], [-1, -1], [1, 1], [-1, 1], [1, -1]];
-//     for (i = 0; i < directions.length; i++) {
-//       const a = Number(directions[i][0]);
-//       const b = Number(directions[i][1]);
-//       let m = field.length;
-//       while (m >= 0) {
-//         if (field[m - 1].y + b === +req.body.y && field[m - 1].x + a === +req.body.x) {
-//           field.push({ x: +req.body.x, y: +req.body.y });
-//           m -= 1;
-//           break;
-//         }
-//         m -= 1;
-//         break;
-//       }
-//     }
-//   }
-//   console.log(field);
-//   res.json(field);
-// });
+router.route('/').post((req, res) => {
+  if (req.body.x) {
+    const directions = [[0, -1], [1, 0], [0, 1], [-1, 0], [-1, -1], [1, 1], [-1, 1], [1, -1]];
+    for (let i = 0; i < directions.length; i + 1) {
+      const a = Number(directions[i][0]);
+      const b = Number(directions[i][1]);
+      let m = field.length;
+      while (m >= 0) {
+        if (field[m - 1].y + b === +req.body.y && field[m - 1].x + a === +req.body.x) {
+          field.push({ x: +req.body.x, y: +req.body.y });
+          m -= 1;
+          break;
+        }
+        m -= 1;
+        break;
+      }
+    }
+  }
+  // console.log(field);
+  res.json(field);
+});
 
-// router.route('/').delete((req, res) => {
-//   field.length = 1;
-//   res.json(field);
-// });
+router.route('/').delete((req, res) => {
+  field.length = 1;
+  res.json(field);
+});
 
 // const field = [{ x: 0, y: 0 }];
 // const openedBlock = [];
@@ -78,7 +78,7 @@ const router = require('express').Router();
 //   // const tempBlock = [];
 //   if (req.body.x) {
 //     const directions = [[0, -1], [1, 0], [0, 1], [-1, 0], [-1, -1], [1, 1], [-1, 1], [1, -1]];
-//     for (i = 0; i < directions.length; i++) {
+//     for (let i = 0; i < directions.length; i++) {
 //       const a = Number(directions[i][0]);
 //       const b = Number(directions[i][1]);
 //       let m = field.length;
@@ -86,7 +86,7 @@ const router = require('express').Router();
 //         if (field[m - 1].y + b === +req.body.y && field[m - 1].x + a === +req.body.x) {
 //           field.push({ x: +req.body.x, y: +req.body.y });
 //           if (tempBlock.length === 0) {
-//             for (i = 0; i < directions.length; i++) {
+//             for (let i = 0; i < directions.length; i++) {
 //               const c = Number(directions[i][0]);
 //               const d = Number(directions[i][1]);
 //               const e = field[m - 1].x + c;
@@ -94,7 +94,7 @@ const router = require('express').Router();
 //               tempBlock.push({ x: e, y: f });
 //             }
 //           } else {
-//             for (i = 0; i < directions.length; i++) {
+//             for (let i = 0; i < directions.length; i++) {
 //               const c = Number(directions[i][0]);
 //               const d = Number(directions[i][1]);
 //               const e = field[m - 1].x + c;
@@ -118,7 +118,7 @@ const router = require('express').Router();
 //     }
 //     console.log(tempBlock);
 //     const bomCount = tempBlock.length * 0.375;
-//     for (i = 0; i < bomCount; i++) {
+//     for (let i = 0; i < bomCount; i++) {
 //       const number = Math.floor(tempBlock.length * Math.random());
 //       const tempx = tempBlock[number].x;
 //       const tempy = tempBlock[number].y;
@@ -128,7 +128,7 @@ const router = require('express').Router();
 //     res.json(boms);
 
 //     if (openedBlock.length === 0) {
-//       for (i = 0; i < tempBlock.length; i++) {
+//       for (let i = 0; i < tempBlock.length; i++) {
 //         openedBlock.push({ x: tempBlock[i][0], y: tempBlogk[i][1] });
 //       }
 //     } else {
