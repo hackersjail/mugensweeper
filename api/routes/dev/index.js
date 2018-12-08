@@ -13,5 +13,6 @@ router.use('/mishima/field', require('./mishima/field.js'));
 router.use('/mishima/block', require('./mishima/block.js'));
 
 router.use('/eto/block', require('./eto/block.js'));
+router.use('/hiro/field', require('./hiro/field.js'));
 
 module.exports = router;
