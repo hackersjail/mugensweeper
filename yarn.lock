@@ -9304,10 +9304,10 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-swagger-jsdoc@3.2.5:
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/swagger-jsdoc/-/swagger-jsdoc-3.2.5.tgz#dfb930888f8f3a1f9fc6f1ecaf13625ba13a9900"
-  integrity sha512-1F0GuaU6V8FUaM2qOp3BU7d3Zf6dT3nyRvpTHf/DdzRJ7JpI8EvQxGGnLas8389iyx8tj1m/LtDjdMMFTmMtWg==
+swagger-jsdoc@3.2.6:
+  version "3.2.6"
+  resolved "https://registry.yarnpkg.com/swagger-jsdoc/-/swagger-jsdoc-3.2.6.tgz#51ec045ebd95754026c8be2b88c7c83b318e14f2"
+  integrity sha512-RlRXs49SCIRXh5eg0lrRyRhBFpyAvj6EuAmsfEp4gsitffk5tVbVY2gKSipWiNwmcUQR3d/PomS95UpPm7Pa5Q==
   dependencies:
     commander "2.17.1"
     doctrine "2.1.0"
