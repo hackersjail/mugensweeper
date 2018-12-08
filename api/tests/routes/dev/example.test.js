@@ -1,9 +1,9 @@
 const chai = require('chai');
 const app = require('../../../routes/app.js');
-/* const ExampleModel = require('../../../models/ExampleModel.js');
+const ExampleModel = require('../../../models/ExampleModel.js');
 const { connectDB, disconnectDB, dropDB } = require('../../../database.js');
 
-const propFilter = '-_id -__v'; */
+const propFilter = '-_id -__v';
 
 describe('Jest example', () => {
   const twice = (n) => n * 2;
@@ -27,5 +27,23 @@ describe('Example of Jest using Express', () => {
 
     // Then
     expect(res.text).toBe(given);
+  });
+});
+
+describe('Example of Jest using Mongoose', () => {
+  beforeAll(connectDB);
+  afterEach(dropDB);
+  afterAll(disconnectDB);
+
+  it('Evaluate the inserted document', async () => {
+    // Given
+    const name = 'example';
+
+    // When
+    await new ExampleModel({ name }).save();
+
+    // Then
+    const result = await ExampleModel.findOne({}, propFilter).lean();
+    expect(result.name).toMatch(name);
   });
 });
