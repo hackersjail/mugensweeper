@@ -27,7 +27,7 @@
     "mongoose": "5.3.15",
     "nuxt": "2.3.4",
     "swagger-jsdoc": "3.2.6",
-    "swagger-ui-express": "4.0.1"
+    "swagger-ui-express": "4.0.2"
   },
   "devDependencies": {
     "babel-eslint": "10.0.1",
