@@ -1,37 +1,36 @@
 const chai = require('chai');
 const app = require('../../../../routes/app.js');
+// const field = require('../../../../routes/dev/mishima/field');
 
 const initialBlock = () => ({
   x: 0,
   y: 0,
 });
 
-describe('fieldAPIのテスト', () => {
-  it('初期状態のフィールドを取得する', async () => {
+describe('field-APIについてテストする', () => {
+  it('初期状態の盤面を取得する', async () => {
     // Given
+    // const given = 'mugensweeper';
 
     // When
-    const { body } = await chai.request(app).get('/dev/eto/field');
+    const { body } = await chai.request(app).get('/dev/mishima/field');
 
     // Then
     expect(body).toHaveLength(1);
-    expect(body[0]).toMatchObject(initialBlock()); // 影響ない初期値を得るため
+    expect(body[0]).toMatchObject(initialBlock());
   });
-
-  it('POSTした座標が返り値に追加される', async () => {
+  it('postした座標が返り値に追加される', async () => {
     // Given
     const position = {
       x: 1,
-      y: 3,
+      y: 0,
     };
-
     // When
     const { body } = await chai
       .request(app)
-      .post('/dev/eto/block')
+      .post('/dev/mishima/block')
       .set('content-type', 'application/x-www-form-urlencoded')
       .send(position);
-
     // Then
     expect(body).toHaveLength(2);
     expect(body).toEqual(expect.arrayContaining([initialBlock(), position]));
