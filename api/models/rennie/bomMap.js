@@ -17,6 +17,7 @@ module.exports = {
         openedBlock[p].bom = true;
         hasBom.push(openedBlock[p]);
         h += 1;
+        break;
       }
     }
     // const length = hasBom.length;
