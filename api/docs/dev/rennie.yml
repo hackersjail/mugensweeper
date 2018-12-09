@@ -24,7 +24,7 @@ tags:
       - tokenAuth: []
     tags:
       - block
-    summary: "クリックした場所の情報を取る"
+    summary: "clicked blocks"
     description: |
       - status
       - クリックした場所のxとyの情報
@@ -43,33 +43,41 @@ tags:
               $ref: "#/definitions/block"
       401:
         description: "Unauthorized"
-    #      delete:
-    # x-swagger-router-controller: test
-    # operationId: test_post
-    # security:
-    # - tokenAuth: []
-    # tags:
-    #   - block
-    # summary: "delete a piece or all pieces"
-    # parameters:
-    #   - name: "pieces"
-    #     description: "Add items to be deleted"
-    #     in: "body"
-    #     schema:
-    #       $ref: "#/definitions/Positions"
+  delete:
+    x-swagger-router-controller: test
+    operationId: test_post
+    security:
+      - tokenAuth: []
+    tags:
+      - block
+    summary: "delete blocks"
+    parameters:
+      - name: "pieces"
+        description: "Add items to be deleted"
+        in: "body"
+        schema:
+          $ref: "#/definitions/Positions"
+    responses:
+      200:
+        description: "return delete status and board condition"
+        schema:
+          type: "object"
+          properties:
+            status:
+              $ref: "#/definitions/Status"
     #   # - name: "keyword"
     #   #   in: "query"
     #   #   description: "Please enter keyword if you want to delete all pieces."
     #   #   required: false
     #   #   type: "string"
-    # # responses:
-    # #   200:
-    # #     description: "return delete status and board condition"
-    # #     schema:
-    # #       type: "object"
-    # #       properties:
-    # #         status:
-    # #           $ref: "#/definitions/Status"
+    # responses:
+    #   200:
+    #     description: "return delete status and board condition"
+    #     schema:
+    #       type: "object"
+    #       properties:
+    #         status:
+    #           $ref: "#/definitions/Status"
 
 definitions:
   Block:
@@ -90,13 +98,13 @@ definitions:
         example: 1
         in: "formData"
         required: true
-      userId:
-        name: userId
-        in: "query"
-        description: "userId"
-        type: number
-        example: 1
-        required: true
+      # userId:
+      #   name: userId
+      #   in: "query"
+      #   description: "userId"
+      #   type: number
+      #   example: 1
+      #   required: true
   Positions:
     type: array
     description: "just show piece locations (not include userId information)"
