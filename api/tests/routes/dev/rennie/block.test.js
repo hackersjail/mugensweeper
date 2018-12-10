@@ -1,5 +1,6 @@
 const chai = require('chai');
 const app = require('../../../../routes/app.js');
+// const array2Positions = require('./util/array2Positions.js');
 
 const initialBlock = () => ({
   x: 0,
