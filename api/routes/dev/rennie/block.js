@@ -23,9 +23,4 @@ router.route('/').post((req, res) => {
   res.json(field);
 });
 
-router.route('/').delete((req, res) => {
-  field.length = 1;
-  res.json(field);
-});
-
 module.exports = router;
