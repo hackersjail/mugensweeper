@@ -1,44 +1,23 @@
 const bomMap = require('../../../../../api/models/ryoko/bomMap');
-// const array2Positions = require('./utils/array2Positions');
 
 const directions = [[-1, -1], [0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0]];
-const initialBlock = { x: 0, y: 0 };
 
 describe('爆弾マップのテスト', () => {
-  // it('原点の周囲の爆弾マップが返ってくる', () => {
-  //   // Given
-  //   const bomCount = Math.ceil(Math.random() * 3);
-  //   const position = { x: 0, y: 0 };
-
-  //   // When
-  //   const map = bomMap.initSet(bomCount, position);
-  //   // [{x,y,bom: t|f},...]
-
-  //   // Then
-  //   const mapMatcher = directions.map(([x, y]) => ({ x, y }));
-  //   const bomReturn = map.filter(({ bom }) => bom).length;
-  //   expect(map).toHaveLength(8);
-  //   expect(map.map(({ x, y }) => ({ x, y }))).toMatchObject(
-  //     expect.arrayContaining([...mapMatcher]),
-  //   );
-  //   expect(bomReturn).toBe(bomCount);
-  // });
-
-  it('原点の周囲の爆弾マップと爆弾を置ける余剰数が返ってくる', () => {
+  it('原点の周囲の爆弾マップが返ってくる', () => {
     // Given
     const bomCount = Math.ceil(Math.random() * 3);
-    // const positions = { x: 1, y: 1 };
+    const position = { x: 0, y: 0 };
 
     // When
-    const map = bomMap.initSet2(bomCount);
+    const map = bomMap.initSet(bomCount, position);
     // [{x,y,bom: t|f},...]
 
     // Then
     const mapMatcher = directions.map(([x, y]) => ({ x, y }));
     const bomReturn = map.filter(({ bom }) => bom).length;
-    expect(map).toHaveLength(9);
+    expect(map).toHaveLength(8);
     expect(map.map(({ x, y }) => ({ x, y }))).toMatchObject(
-      expect.arrayContaining([initialBlock, ...mapMatcher]),
+      expect.arrayContaining([...mapMatcher]),
     );
     expect(bomReturn).toBe(bomCount);
   });
