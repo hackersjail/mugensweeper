@@ -5,7 +5,7 @@ const field = [{ x: 0, y: 0 }];
 router.route('/').post((req, res) => {
   if (req.body.x) {
     const directions = [[0, -1], [1, 0], [0, 1], [-1, 0], [-1, -1], [1, 1], [-1, 1], [1, -1]];
-    for (let i = 0; i < directions.length; i + 1) {
+    for (let i = 0; i < directions.length; i += 1) {
       const a = Number(directions[i][0]);
       const b = Number(directions[i][1]);
       let m = field.length;
@@ -18,9 +18,9 @@ router.route('/').post((req, res) => {
         m -= 1;
         break;
       }
+      res.json(field);
     }
   }
-  res.json(field);
 });
 
 module.exports = router;
