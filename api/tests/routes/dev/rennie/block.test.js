@@ -11,7 +11,7 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
     // 前のテストのBlockをサーバーから消しておく
     await chai.request(app).delete('/dev/rennie/block');
     // Given
-    const positions = [{ x: 1, y: 0 }, { x: 2, y: 0 }, { x: 5, y: 0 }];
+    const positions = [{ x: 1, y: 0 }, { x: 2, y: 0 }, { x: 5, y: 0 }, { x: 0, y: 1 }];
     // When
     let lastBody;
     for (let i = 0; i < positions.length; i += 1) {
@@ -25,7 +25,7 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
     // Then
     // 8方向にいく
 
-    const matchers = [{ x: 1, y: 0 }, { x: 2, y: 0 }];
+    const matchers = [{ x: 1, y: 0 }, { x: 2, y: 0 }, { x: 0, y: 1 }];
 
     expect(lastBody).toHaveLength(matchers.length + 1);
     expect(lastBody).toEqual(expect.arrayContaining([initialBlock(), ...matchers]));
