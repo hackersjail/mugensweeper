@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-// 同じ座標にはpostしても登録されない
+// 同じ座標にはpostしても登録されない;
 const field = [{ x: 0, y: 0 }];
 
 router.route('/').post((req, res) => {
