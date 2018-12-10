@@ -1,7 +1,8 @@
 const router = require('express').Router();
-// ８方向に開く
+// 重複テスト
 const field = [{ x: 0, y: 0 }];
 
+// ８方向に開く
 router.route('/').post((req, res) => {
   if (req.body.x) {
     const directions = [[0, -1], [1, 0], [0, 1], [-1, 0], [-1, -1], [1, 1], [-1, 1], [1, -1]];
