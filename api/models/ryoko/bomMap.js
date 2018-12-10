@@ -5,13 +5,16 @@ module.exports = {
     const map = directions.map(
       (a, b, c) => a && { x: position.x + c[b][0], y: position.y + c[b][1], bom: false },
     );
-
     // 原点の周囲の爆弾マップ追加
-    const num = [0, 1, 2, 3, 4, 5, 6, 7];
-    for (let i = 0; i < bomCount; i += 1) {
-      const rn = Math.floor(Math.random() * num.length);
-      map[num[rn]].bom = true;
-      num.splice(rn, 1);
+    const locate = [];
+    let i = 0;
+    while (i < bomCount) {
+      const rn = Math.floor(Math.random() * directions.length);
+      if (locate.includes(rn) === false) {
+        locate.push(rn);
+        map[rn].bom = true;
+        i += 1;
+      }
     }
     return map;
   },
