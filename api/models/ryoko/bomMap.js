@@ -7,13 +7,11 @@ module.exports = {
     );
     // 原点の周囲の爆弾マップ追加
     const locate = [];
-    let i = 0;
-    while (i < bomCount) {
+    while (locate.length < bomCount) {
       const rn = Math.floor(Math.random() * directions.length);
-      if (locate.includes(rn) === false) {
+      if (!locate.includes(rn)) {
         locate.push(rn);
         map[rn].bom = true;
-        i += 1;
       }
     }
     return map;

@@ -1,5 +1,4 @@
 module.exports = (array) => {
-  // const positions = [];
   const sqrt = Math.sqrt(array.length);
 
   return array
