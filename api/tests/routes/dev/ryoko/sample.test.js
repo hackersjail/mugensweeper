@@ -1,5 +1,6 @@
 const chai = require('chai');
 const app = require('../../../../routes/app.js');
+const array2Positions = require('./utils/array2Positions');
 
 const initialBlock = () => ({ x: 0, y: 0 });
 
@@ -59,7 +60,14 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
     await chai.request(app).delete('/dev/ryoko/block');
 
     // 1: Given
-    const positions = [{ x: 0, y: 1 }, { x: 0, y: 2 }, { x: 4, y: 4 }];
+    // prettier-ignore
+    const positions = array2Positions([
+      5,0,0,0,3,
+      0,0,0,0,0,
+      2,0,0,0,0,
+      1,0,4,0,0,
+      0,0,0,0,6,
+    ]);
 
     // 2: When
     let lastBody;
