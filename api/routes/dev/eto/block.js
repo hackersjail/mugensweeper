@@ -39,7 +39,6 @@ router.route('/').post((req, res) => {
         matchCount += 1;
       }
     }
-    // console.log(`カウント${counter}`);
     // 合致しない場合は処理を終了
     if (matchCount === 0) {
       res.json(position);
