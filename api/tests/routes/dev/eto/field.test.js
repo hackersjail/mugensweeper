@@ -15,7 +15,7 @@ describe('fieldAPIのテスト', () => {
 
     // Then
     expect(body).toHaveLength(1);
-    expect(body[0]).toMatchObject(initialBlock()); // 影響ない初期値を得るため
+    expect(body[0]).toMatchObject(initialBlock());
   });
 
   it('POSTした座標が返り値に追加される', async () => {
