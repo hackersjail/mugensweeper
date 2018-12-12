@@ -11,8 +11,8 @@ router.route('/').post((req, res) => {
       for (let t = 0; t < directions.length; t += 1) {
         const a = directions[t][0];
         const b = directions[t][1];
-        const u = field[i].x + a; // 隣接するy座標
-        const k = field[i].y + b; // 隣接するx座標
+        const u = field[i].x + a; // 隣接するx座標
+        const k = field[i].y + b; // 隣接するy座標
 
         if (field[i].x === Number(req.body.x) && field[i].y === Number(req.body.y)) {
           break;
