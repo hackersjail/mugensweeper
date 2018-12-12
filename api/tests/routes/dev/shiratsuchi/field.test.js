@@ -21,8 +21,8 @@ describe('field APIについてのテスト', () => {
   it('postした座標が返り値に追加される', async () => {
     // Given
     const position = {
-      x: 3,
-      y: -1,
+      x: 1,
+      y: 0,
     };
     // When
     const { body } = await chai
