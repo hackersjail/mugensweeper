@@ -1,24 +1,33 @@
 const router = require('express').Router();
-// 重複テスト
+
 const field = [{ x: 0, y: 0 }];
 
 // ８方向に開く
 router.route('/').post((req, res) => {
   if (req.body.x) {
+    const x = +req.body.x;
+    const y = +req.body.y;
     const directions = [[0, -1], [1, 0], [0, 1], [-1, 0], [-1, -1], [1, 1], [-1, 1], [1, -1]];
-    for (let i = 0; i < directions.length; i += 1) {
-      const a = directions[i][0];
-      const b = directions[i][1];
-      let m = field.length;
-      while (m >= 0) {
-        if (field[m - 1].y + b === +req.body.y && field[m - 1].x + a === +req.body.x) {
-          field.push({ x: +req.body.x, y: +req.body.y });
+    let match = true;
+    let count = 0;
+
+    for (let m = 0; m < field.length; m += 1) {
+      for (let i = 0; i < directions.length; i += 1) {
+        const a = directions[i][0];
+        const b = directions[i][1];
+        if (field[m].x + a === x && field[m].y + b === y) {
+          count += 1;
         }
-        m -= 1;
-        break;
       }
-      res.json(field);
+      if (field[m].x === x && field[m].y === y) {
+        match = false;
+      }
     }
+
+    if (count !== 0 && match === true) {
+      field.push({ x, y });
+    }
+    res.json(field);
   }
 });
 
