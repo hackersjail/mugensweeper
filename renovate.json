@@ -3,7 +3,6 @@
     ":ignoreModulesAndTests",
     ":label(renovate)",
     ":prConcurrentLimit20",
-    ":prNotPending",
     ":renovatePrefix",
     ":timezone(Asia/Tokyo)",
     "group:monorepos",
@@ -28,6 +27,7 @@
         "updateTypes": ["minor"],
         "depTypeList": ["devDependencies"],
         "automerge": true,
+        "automergeType": "branch",
         "packageNames": [
           "codecov",
           "husky",
