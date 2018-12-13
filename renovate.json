@@ -11,10 +11,12 @@
   "npm": {
     "extends": [
       ":automergePatch",
+      ":noUnscheduledUpdates",
       ":semanticPrefixFixDepsChoreOthers",
       ":separatePatchReleases",
       ":unpublishSafe"
     ],
+    "schedule": ["after 9pm", "before 9am"],
     "rangeStrategy": "bump",
     "packageRules": [
       {
