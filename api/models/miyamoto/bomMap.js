@@ -8,21 +8,13 @@ const initSet = function(bomCount, position) {
     if (!tmp.includes(value)) tmp.push(value);
   }
 
-  [...Array(directions.length)].reduce(
-    (acc, c, idx) =>
-      tmp.includes(idx)
-        ? positions.push({
-            x: position.x - directions[idx][0],
-            y: position.y - directions[idx][1],
-            bom: 1,
-          })
-        : positions.push({
-            x: position.x - directions[idx][0],
-            y: position.y - directions[idx][1],
-            bom: 0,
-          }),
-    '',
-  );
+  directions.forEach((v, i) => {
+    positions.push({
+      x: position.x - v[0],
+      y: position.y - v[1],
+      bom: tmp.includes(i) ? 1 : 0,
+    });
+  });
 
   return positions;
 };
