@@ -22,8 +22,8 @@ describe('field app についてのテスト', () => {
 it('POSTした座標が返り値に追加される', async () => {
   // Given
   const position = {
-    x: 2,
-    y: 3,
+    x: 1,
+    y: 0,
   };
 
   // When
