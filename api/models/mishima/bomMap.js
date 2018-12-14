@@ -1,4 +1,4 @@
-module.exports.initSet = (bomCount, position) => {
+const initSet = (bomCount, position) => {
   const directions = [[-1, -1], [0, -1], [1, -1], [-1, 0], [1, 0], [-1, 1], [0, 1], [1, 1]];
   const bom = [];
   const arround = [];
@@ -9,16 +9,16 @@ module.exports.initSet = (bomCount, position) => {
     }
   }
 
-  for (let i = 0; i < directions.length; i += 1) {
-    const idx = bom.indexOf(i);
-    const x = position.x + directions[i][0];
-    const y = position.y + directions[i][1];
-    if (idx >= 0) {
-      arround.push({ x, y, bom: true });
-    } else {
-      arround.push({ x, y, bom: false });
-    }
-  }
-
+  directions.forEach((crr, idx) => {
+    arround.push({
+      x: position.x + crr[0],
+      y: position.y + crr[1],
+      bom: bom.includes(idx) ? 1 : 0,
+    });
+  });
   return arround;
+};
+
+module.exports = {
+  initSet,
 };
