@@ -10,13 +10,14 @@ describe('爆弾マップのテスト', () => {
 
     // When
     const map = bomMap.initSet(bomCount, position);
-
     // [{x,y,bom:t|f},...]
     // Then
-    const mapMatcher = directions.map(([x, y]) => ({ x, y })); // 原点だからそのまま使える
-    // const bomReturn = map.reduce((count, pos) => count + (pos.bom ? 1 : 0), 0);
+    const mapMatcher = directions.map(([x, y]) => ({ x, y }));
     const bomReturn = map.filter(({ bom }) => bom).length;
-    expect(map.map(({ x, y }) => ({ x, y }))).toEqual(expect.arrayContaining(mapMatcher));
+    expect(map).toHaveLength(8);
+    expect(map.map(({ x, y }) => ({ x, y }))).toMatchObject(
+      expect.arrayContaining([...mapMatcher]),
+    );
     expect(bomReturn).toBe(bomCount);
   });
 });
