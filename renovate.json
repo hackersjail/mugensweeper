@@ -21,8 +21,8 @@
     "rangeStrategy": "bump",
     "packageRules": [
       {
-        "groupName": "ESLint",
-        "packageNames": ["babel-eslint"],
+        "groupName": "Lint & Formatter",
+        "packageNames": ["babel-eslint", "prettier"],
         "packagePatterns": ["^eslint"]
       },
       {
@@ -40,10 +40,6 @@
           "npm-run-all"
         ],
         "packagePatterns": ["^chai"]
-      },
-      {
-        "packageNames": ["prettier"],
-        "enabled": false
       }
     ]
   },
