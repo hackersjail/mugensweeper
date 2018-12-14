@@ -4,7 +4,7 @@ const initSet = (bomCount, position) => {
   const arround = [];
   while (bom.length < bomCount) {
     const randomNum = Math.floor(Math.random() * directions.length);
-    if (bom.indexOf(randomNum) < 0) {
+    if (!bom.includes(randomNum)) {
       bom.push(randomNum);
     }
   }
