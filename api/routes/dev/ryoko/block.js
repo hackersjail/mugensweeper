@@ -1,10 +1,12 @@
 const router = require('express').Router();
+const { getField, initField, addBlock } = require('../../../models/dev/ryoko/fieldStore.js');
 
-const field = [{ x: 0, y: 0 }];
+router.route('/').post(async (req, res) => {
+  // async: promiseを返す関数に関数を変化させる
 
-router.route('/').post((req, res) => {
   // 開いた場所の周囲
   const directions = [[-1, -1], [0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0]];
+  const field = await getField();
 
   if (req.body.x) {
     for (let i = 0; i < field.length; i += 1) {
@@ -20,17 +22,17 @@ router.route('/').post((req, res) => {
           i === field.length - 1 &&
           (u === Number(req.body.x) && k === Number(req.body.y))
         ) {
-          field.push({ x: Number(req.body.x), y: Number(req.body.y) });
+          await addBlock({ x: Number(req.body.x), y: Number(req.body.y) });
         }
       }
     }
   }
-  res.json(field);
+  res.json(await getField());
 });
 
-router.route('/').delete((req, res) => {
-  field.length = 1;
-  res.json(field);
+router.route('/').delete(async (req, res) => {
+  await initField();
+  res.json(await getField());
 });
 
 module.exports = router;
