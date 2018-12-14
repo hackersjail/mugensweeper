@@ -1,13 +1,13 @@
 const router = require('express').Router();
+const { getField, initField, addBlock } = require('../../../models/dev/mishima/fieldStore.js');
 
-const field = [{ x: 0, y: 0 }];
-
-router.route('/').delete((req, res) => {
-  field.length = 1;
-  res.json(field);
+router.route('/').delete(async (req, res) => {
+  await initField();
+  res.json(await getField());
 });
 
-router.route('/').post((req, res) => {
+router.route('/').post(async (req, res) => {
+  const field = await getField();
   const fieldIdx = field.findIndex((elem) => elem.x === +req.body.x && elem.y === +req.body.y);
   const directions = [[-1, -1], [0, -1], [1, -1], [-1, 0], [1, 0], [-1, 1], [0, 1], [1, 1]];
 
@@ -23,12 +23,12 @@ router.route('/').post((req, res) => {
     return acc + counter;
   }, 0);
 
-  // 重複していなければpushする
   if (fieldIdx === -1 && arroundCounter > 0) {
-    field.push({ x: +req.body.x, y: +req.body.y });
+    const block = { x: +req.body.x, y: +req.body.y };
+    await addBlock(block);
   }
 
-  res.json(field);
+  res.json(await getField());
 });
 
 module.exports = router;
