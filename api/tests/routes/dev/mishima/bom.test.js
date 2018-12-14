@@ -1,4 +1,4 @@
-const bomMap = require('../../../../models/mishima/bomMap.js');
+const bomMap = require('../../../../models/dev/mishima/bomMap.js');
 
 const directions = [[-1, -1], [0, -1], [1, -1], [-1, 0], [1, 0], [-1, 1], [0, 1], [1, 1]];
 
@@ -10,7 +10,8 @@ describe('爆弾マップのテスト', () => {
 
     // When
     const map = bomMap.initSet(bomCount, position);
-    // [{x,y,bom:t|f},...]
+    // [{x,y,bom:1|0},...]
+
     // Then
     const mapMatcher = directions.map(([x, y]) => ({ x, y }));
     const bomReturn = map.filter(({ bom }) => bom).length;
