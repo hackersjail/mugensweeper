@@ -2,7 +2,7 @@ const chai = require('chai');
 const app = require('../../../../routes/app.js');
 const array2Positions = require('./utils/array2Positions.js');
 const { connectDB, disconnectDB, dropDB } = require('../../../../database.js');
-const FieldModel = require('../../../../models/dev/miyamoto/FieldModel.js');
+const MiyamotoFieldModel = require('../../../../models/dev/miyamoto/FieldModel.js');
 const { initField } = require('../../../../models/dev/miyamoto/fieldStore.js');
 
 const propFilter = '-_id -__v';
@@ -41,9 +41,9 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
         .send(positions[i]);
       lastBody = body;
     }
-    const beforeDeleteField = await FieldModel.find({}, propFilter).lean();
+    const beforeDeleteField = await MiyamotoFieldModel.find({}, propFilter).lean();
     const { body } = await chai.request(app).delete('/dev/miyamoto/block');
-    const afterDeleteField = await FieldModel.find({}, propFilter).lean();
+    const afterDeleteField = await MiyamotoFieldModel.find({}, propFilter).lean();
 
     // Then:response
     expect(lastBody).toHaveLength(positions.length + 1);
@@ -73,7 +73,7 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
         .send(positions[i]);
       lastBody = body;
     }
-    const afterField = await FieldModel.find({}, propFilter).lean();
+    const afterField = await MiyamotoFieldModel.find({}, propFilter).lean();
 
     // 3: Then
     // 重複削除
@@ -114,7 +114,7 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
         .send(positions[i]);
       lastBody = body;
     }
-    const afterField = await FieldModel.find({}, propFilter).lean();
+    const afterField = await MiyamotoFieldModel.find({}, propFilter).lean();
 
     // 3: Then
     // 開いている場所の周囲八方向のみ登録

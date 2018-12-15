@@ -1,7 +1,7 @@
 const chai = require('chai');
 const app = require('../../../../routes/app.js');
 const { connectDB, disconnectDB, dropDB } = require('../../../../database.js');
-const FieldModel = require('../../../../models/dev/miyamoto/FieldModel.js');
+const MiyamotoFieldModel = require('../../../../models/dev/miyamoto/FieldModel.js');
 const { initField } = require('../../../../models/dev/miyamoto/fieldStore.js');
 
 const propFilter = '-_id -__v';
@@ -22,7 +22,7 @@ describe('field APIについてのテスト', () => {
 
     // When
     const { body } = await chai.request(app).get('/dev/miyamoto/field');
-    const initialField = await FieldModel.find({}, propFilter).lean();
+    const initialField = await MiyamotoFieldModel.find({}, propFilter).lean();
 
     // Then: Response
     expect(body).toHaveLength(1);
