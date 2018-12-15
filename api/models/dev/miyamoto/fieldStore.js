@@ -1,16 +1,16 @@
-const FieldModel = require('./FieldModel.js');
+const MiyamotoFieldModel = require('./FieldModel.js');
 
 const propFilter = '-_id -__v';
 
 module.exports = {
   async initField() {
-    await FieldModel.deleteMany();
-    await new FieldModel({ x: 0, y: 0 }).save();
+    await MiyamotoFieldModel.deleteMany();
+    await new MiyamotoFieldModel({ x: 0, y: 0 }).save();
   },
   getField() {
-    return FieldModel.find({}, propFilter).lean();
+    return MiyamotoFieldModel.find({}, propFilter).lean();
   },
   addBlock(block) {
-    return new FieldModel(block).save();
+    return new MiyamotoFieldModel(block).save();
   },
 };
