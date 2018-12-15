@@ -42,7 +42,7 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
       lastBody = body;
     }
     const beforeDeleteField = await FieldModel.find({}, propFilter).lean();
-    const { body } = await chai.request(app).delete('/dev/miyamoto/block'); // eslint-disable-line
+    const { body } = await chai.request(app).delete('/dev/miyamoto/block');
     const afterDeleteField = await FieldModel.find({}, propFilter).lean();
 
     // Then:response
