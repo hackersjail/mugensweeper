@@ -47,6 +47,10 @@
     "enabled": true,
     "schedule": ["before 9am on the first day of the month"]
   },
+  "node": {
+    "enabled": true,
+    "schedule": ["before 9am on Monday"]
+  },
   "circleci": {
     "enabled": true,
     "automerge": true,
