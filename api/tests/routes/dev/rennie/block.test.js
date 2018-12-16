@@ -1,4 +1,5 @@
 const chai = require('chai');
+// const array2Positions = require('./utils/array2Positions.js');
 const app = require('../../../../routes/app.js');
 const { connectDB, disconnectDB, dropDB } = require('../../../../database.js');
 const FieldModel = require('../../../../models/dev/rennie/FieldModel.js');
@@ -22,12 +23,12 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
     // When
     let lastBody;
     for (let i = 0; i < positions.length; i += 1) {
-      const { body } = await chai
-        .request(app)
-        .post('/dev/rennie/block')
-        .set('content-type', 'application/x-www-form-urlencoded')
-        .send(positions[i]);
-      lastBody = body;
+      // const { body } = await chai
+      //   .request(app)
+      //   .post('/dev/rennie/block')
+      //   .set('content-type', 'application/x-www-form-urlencoded')
+      //   .send(positions[i]);
+      // lastBody = body;
     }
     // Then
     // 8方向にいく
