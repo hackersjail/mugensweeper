@@ -1,16 +1,7 @@
-const bomMap = require('../../../../models/eto/bomMap.js');
+const bomMap = require('../../../../models/dev/eto/bomMap.js');
 
 // prettier-ignore
-const directions =[
-  [-1,-1],
-  [-1,0],
-  [-1,1],
-  [0,-1],
-  [0,1],
-  [1,-1],
-  [1,0],
-  [1,1]
-];
+const directions =[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
 
 describe('爆弾マップのテスト', () => {
   it('原点の周囲の爆弾マップが帰ってくる', () => {
