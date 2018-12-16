@@ -17,23 +17,4 @@ describe('fieldAPIのテスト', () => {
     expect(body).toHaveLength(1);
     expect(body[0]).toMatchObject(initialBlock());
   });
-
-  it('POSTした座標が返り値に追加される', async () => {
-    // Given
-    const position = {
-      x: 1,
-      y: 3,
-    };
-
-    // When
-    const { body } = await chai
-      .request(app)
-      .post('/dev/eto/block')
-      .set('content-type', 'application/x-www-form-urlencoded')
-      .send(position);
-
-    // Then
-    expect(body).toHaveLength(2);
-    expect(body).toEqual(expect.arrayContaining([initialBlock(), position]));
-  });
 });
