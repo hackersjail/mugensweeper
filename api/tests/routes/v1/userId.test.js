@@ -2,7 +2,7 @@ const chai = require('chai');
 const app = require('../../../routes/app.js');
 
 describe('ユーザー名・ID登録', () => {
-  it('ユーザー名の文字数は3~7文字', async () => {
+  it('ユーザー名の文字数(3~7文字)、文字種(*,/,￥,＆,")制限', async () => {
     // 1: Given
     const nameList = [
       { name: 'ss', judge: false },
@@ -15,12 +15,12 @@ describe('ユーザー名・ID登録', () => {
     const results = [];
     for (let i = 0; i < nameList.length; i += 1) {
       const { name } = nameList[i];
-      const { body } = await chai
+      const { status } = await chai
         .request(app)
         .post('/v1/userId')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send({ name });
-      results.push(body);
+      results.push(status);
     }
 
     // 3: Then

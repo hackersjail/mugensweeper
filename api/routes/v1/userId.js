@@ -1,13 +1,11 @@
 const router = require('express').Router();
 
 router.route('/').post((req, res) => {
-  let judge;
   if (req.body.name === 'tttt') {
-    judge = 200;
+    res.status(200).send('登録完了');
   } else {
-    judge = 401;
+    res.status(401).send('error');
   }
-  res.json(judge);
 });
 
 module.exports = router;
