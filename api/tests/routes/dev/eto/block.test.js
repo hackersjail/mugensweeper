@@ -66,9 +66,15 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
     const positions2 = positions.filter(
       (v1, i1, a1) => a1.findIndex((v2) => v1.x === v2.x && v1.y === v2.y) === i1,
     );
+    const beforePostField = await EtoFieldModel.find({}, propFilter).lean();
+    const afterPostField = await EtoFieldModel.find({}, propFilter).lean();
+
     // Then:response
     expect(lastBody).toHaveLength(positions2.length + 1);
     expect(lastBody).toEqual(expect.arrayContaining([initialBlock(), ...positions2]));
+    // Then:db
+    expect(beforePostField).toHaveLength(positions2.length + 1);
+    expect(afterPostField).toEqual(expect.arrayContaining([initialBlock(), ...positions2]));
   });
 
   it('周囲の八方向のみ開ける', async () => {
@@ -88,12 +94,15 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
         .send(positions[i]);
       lastBody = body;
     }
+    const afterPostField = await EtoFieldModel.find({}, propFilter).lean();
 
-    // 3: Then
-    // 開いている場所の周囲八方向のみ登録
+    // Then:response
     const matchers = [{ x: 0, y: 1 }, { x: 0, y: 2 }];
     expect(lastBody).toHaveLength(matchers.length + 1);
     expect(lastBody).toEqual(expect.arrayContaining([initialBlock(), ...matchers]));
+    // Then:db
+    expect(afterPostField).toHaveLength(matchers.length + 1);
+    expect(afterPostField).toEqual(expect.arrayContaining([initialBlock(), ...matchers]));
   });
 });
 
