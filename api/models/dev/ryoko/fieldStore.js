@@ -1,16 +1,16 @@
-const FieldModel = require('./FieldModel.js');
+const RyokoFieldModel = require('./FieldModel.js');
 
 const propFilter = '-_id -__v';
 
 module.exports = {
   async initField() {
-    await FieldModel.remove();
-    await new FieldModel({ x: 0, y: 0 }).save();
+    await RyokoFieldModel.remove();
+    await new RyokoFieldModel({ x: 0, y: 0 }).save();
   },
   getField() {
-    return FieldModel.find({}, propFilter).lean();
+    return RyokoFieldModel.find({}, propFilter).lean();
   },
   async addBlock(block) {
-    await new FieldModel(block).save();
+    await new RyokoFieldModel(block).save();
   },
 };
