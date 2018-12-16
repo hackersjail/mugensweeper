@@ -1,41 +1,39 @@
 const router = require('express').Router();
+const { getField, initField, addBlock } = require('../../../models/dev/rennie/fieldStore.js');
 
-// 同じ座標にはpostしても登録されない;
-const field = [{ x: 0, y: 0 }];
-
-router.route('/').post((req, res) => {
+// ８方向に開く
+router.route('/').post(async (req, res) => {
   if (req.body.x) {
-    let m = field.length;
-    while (m >= 0) {
-      if (field[m - 1].x !== +req.body.x) {
-        if (m - 1 === 0) {
-          field.push({ x: +req.body.x, y: +req.body.y });
-          m -= 1;
-          break;
-        }
-        m -= 1;
-      }
-      if (field[m - 1].y !== +req.body.y && field[m - 1].x === +req.body.x) {
-        m -= 1;
-        if (m - 1 === 0) {
-          field.push({ x: +req.body.x, y: +req.body.y });
-          m -= 1;
-          break;
+    const x = +req.body.x;
+    const y = +req.body.y;
+    const directions = [[0, -1], [1, 0], [0, 1], [-1, 0], [-1, -1], [1, 1], [-1, 1], [1, -1]];
+    const field = await getField();
+    let match = true;
+    let count = 0;
+
+    for (let m = 0; m < field.length; m += 1) {
+      for (let i = 0; i < directions.length; i += 1) {
+        const a = directions[i][0];
+        const b = directions[i][1];
+        if (field[m].x + a === x && field[m].y + b === y) {
+          count += 1;
         }
       }
-      if (field[m - 1].x === +req.body.x && field[m - 1].y === +req.body.y) {
-        break;
+      if (field[m].x === x && field[m].y === y) {
+        match = false;
       }
-      field.push({ x: +req.body.x, y: +req.body.y });
-      break;
     }
+
+    if (count !== 0 && match === true) {
+      await addBlock({ x, y });
+    }
+    res.json(await getField());
   }
-  res.json(field);
 });
 
-router.route('/').delete((req, res) => {
-  field.length = 1;
-  res.json(field);
+router.route('/').delete(async (req, res) => {
+  await initField();
+  res.json(await getField());
 });
 
 module.exports = router;
