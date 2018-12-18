@@ -1,5 +1,6 @@
 const chai = require('chai');
 const app = require('../../../../routes/app.js');
+const array2Positions = require('./utils/array2Positions.js');
 const EtoFieldModel = require('../../../../models/dev/eto/EtoFieldModel.js');
 const { initField } = require('../../../../models/dev/eto/fieldStore.js');
 const { connectDB, disconnectDB, dropDB } = require('../../../../database.js');
@@ -41,7 +42,7 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
 
     // Then:db
     expect(beforeDeleteField).toHaveLength(positions.length + 1);
-    expect(beforeDeleteField).toEqual(expect.arrayContaining([initialBlock()]));
+    expect(beforeDeleteField).toEqual(expect.arrayContaining([initialBlock(), ...positions]));
     expect(afterDeleteField).toEqual(expect.arrayContaining([initialBlock()]));
   });
 
@@ -104,37 +105,35 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
     expect(afterPostField).toHaveLength(matchers.length + 1);
     expect(afterPostField).toEqual(expect.arrayContaining([initialBlock(), ...matchers]));
   });
+  it('周囲の八方向のみ開ける(Given記述抽象化バージョン)', async () => {
+    // 前のテストのBlockをサーバーから消しておく
+    await chai.request(app).delete('/dev/eto/block');
+
+    // 1: Given
+    // prettier-ignore
+    const positions = array2Positions([
+      5,0,0,0,3,
+      0,0,0,0,0,
+      2,0,0,0,0,
+      1,0,0,0,0,
+      0,0,0,0,4,
+    ]);
+
+    // 2: When
+    let lastBody;
+    for (let i = 0; i < positions.length; i += 1) {
+      const { body } = await chai
+        .request(app)
+        .post('/dev/eto/block')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send(positions[i]);
+      lastBody = body;
+    }
+
+    // 3: Then
+    // 開いている場所の周囲八方向のみ登録
+    const matchers = [{ x: 0, y: 1 }, { x: 0, y: 2 }];
+    expect(lastBody).toHaveLength(matchers.length + 1);
+    expect(lastBody).toEqual(expect.arrayContaining([initialBlock(), ...matchers]));
+  });
 });
-
-// it('周囲の八方向のみ開ける(Given記述抽象化バージョン)', async () => {
-//   // 前のテストのBlockをサーバーから消しておく
-//   await chai.request(app).delete('/dev/eto/block');
-
-//   // 1: Given
-//   // prettier-ignore
-//   const positions = array2Positions([
-//     5,0,0,0,3,
-//     0,0,0,0,0,
-//     2,0,0,0,0,
-//     1,0,0,0,0,
-//     0,0,0,0,4,
-//   ]);
-
-//   // 2: When
-//   let lastBody;
-//   for (let i = 0; i < positions.length; i += 1) {
-//     const { body } = await chai
-//       .request(app)
-//       .post('/dev/eto/block')
-//       .set('content-type', 'application/x-www-form-urlencoded')
-//       .send(positions[i]);
-//     lastBody = body;
-//   }
-
-//   // 3: Then
-//   // 開いている場所の周囲八方向のみ登録
-//   const matchers = [{ x: 0, y: 1 }, { x: 0, y: 2 }];
-
-//   expect(lastBody).toHaveLength(matchers.length + 1);
-//   expect(lastBody).toEqual(expect.arrayContaining([initialBlock(), ...matchers]));
-// });

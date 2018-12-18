@@ -16,7 +16,7 @@ module.exports = {
 
     // 与えられたBomCount分、周囲に爆弾を設置する
     while (bomCount > bomSet.length) {
-      const num = Math.floor(Math.random() * bomMap.length); // 0~8の値を生成
+      const num = Math.floor(Math.random() * bomMap.length); // 0~7の値を生成
       if (bomMap[num].bom !== 1) {
         bomMap[num].bom = 1;
         bomSet.push({ bom: 1 });

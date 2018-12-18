@@ -33,7 +33,6 @@ router.route('/').post(async (req, res) => {
       }
     }
   }
-
   // 周囲8マス配列を更新
   matchers = [];
   for (let i = 0; i < directions.length; i += 1) {
