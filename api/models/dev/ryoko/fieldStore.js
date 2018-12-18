@@ -4,7 +4,7 @@ const propFilter = '-_id -__v';
 
 module.exports = {
   async initField() {
-    await RyokoFieldModel.remove();
+    await RyokoFieldModel.deleteMany();
     await new RyokoFieldModel({ x: 0, y: 0 }).save();
   },
   getField() {
