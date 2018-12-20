@@ -1,5 +1,5 @@
 const chai = require('chai');
-// const array2Positions = require('./utils/array2Positions.js');
+const array2Positions = require('./utils/array2Positions.js');
 const app = require('../../../../routes/app.js');
 const { connectDB, disconnectDB, dropDB } = require('../../../../database.js');
 const FieldModel = require('../../../../models/dev/rennie/FieldModel.js');
@@ -19,16 +19,24 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
     // 前のテストのBlockをサーバーから消しておく
     await chai.request(app).delete('/dev/rennie/block');
     // Given
-    const positions = [{ x: 1, y: 0 }, { x: 2, y: 0 }, { x: 5, y: 0 }, { x: 0, y: 1 }];
+    // prettier-ignore
+    const positions = array2Positions([
+      0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0,
+      4, 0, 0, 0, 0,
+      0, 1, 2, 0, 3
+    ])
+
     // When
     let lastBody;
     for (let i = 0; i < positions.length; i += 1) {
-      // const { body } = await chai
-      //   .request(app)
-      //   .post('/dev/rennie/block')
-      //   .set('content-type', 'application/x-www-form-urlencoded')
-      //   .send(positions[i]);
-      // lastBody = body;
+      const { body } = await chai
+        .request(app)
+        .post('/dev/rennie/block')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send(positions[i]);
+      lastBody = body;
     }
     // Then
     // 8方向にいく
