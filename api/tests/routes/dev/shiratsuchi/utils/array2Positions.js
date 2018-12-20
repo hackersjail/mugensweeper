@@ -1,5 +1,5 @@
 module.exports = (array) => {
-  const maxNumber = Math.max.apply(null, array);
+  const maxNumber = Math.max(...array);
   const size = Math.sqrt(array.length);
   const returnArray = [];
 

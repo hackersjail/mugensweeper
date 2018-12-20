@@ -13,15 +13,14 @@ module.exports = {
     }
 
     directions.forEach((value, index) => {
-      const id = bomPosition.indexOf(index);
       const x = value[0];
       const y = value[1];
 
-      if (id >= 0) {
-        arr.push({ x, y, bom: true });
-      } else {
-        arr.push({ x, y, bom: false });
-      }
+      arr.push({
+        x,
+        y,
+        bom:bomPosition.includes(index) ? true : false
+      });
     });
 
     return arr;

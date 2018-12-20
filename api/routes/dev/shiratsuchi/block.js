@@ -18,7 +18,6 @@ router.route('/').post((req, res) => {
         count += 1;
       }
     }
-    return count;
   });
 
   if (result === false && count > 0) {
