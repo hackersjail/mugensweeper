@@ -28,16 +28,16 @@ tags:
     produces:
       - "text/html; charset=utf-8"
     parameters:
-        - name: "x"
-          in: "formData"
-          description: "Example body parameter"
-          required: true
-          type: "string"
-        - name: "y"
-          in: "formData"
-          description: "Example body parameter"
-          required: true
-          type: "string"
+      - name: "x"
+        in: "formData"
+        description: "Example body parameter"
+        required: true
+        type: "string"
+      - name: "y"
+        in: "formData"
+        description: "Example body parameter"
+        required: true
+        type: "string"
 
     responses:
       200:
