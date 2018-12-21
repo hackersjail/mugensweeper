@@ -1,9 +1,8 @@
 const router = require('express').Router();
 
 const field = [{ x: 0, y: 0 }];
-
 // ８方向に開く
-router.route('/').post((req, res) => {
+router.route('/').post(async (req, res) => {
   if (req.body.x) {
     const x = +req.body.x;
     const y = +req.body.y;
