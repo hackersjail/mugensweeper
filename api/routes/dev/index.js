@@ -6,6 +6,7 @@ router.use('/ryoko/block', require('./ryoko/block.js'));
 router.use('/rennie/field', require('./rennie/field.js'));
 router.use('/rennie/block', require('./rennie/block.js'));
 router.use('/eto/field', require('./eto/field.js'));
+router.use('/eto/block', require('./eto/block.js'));
 router.use('/miyamoto/field', require('./miyamoto/field.js'));
 router.use('/miyamoto/block', require('./miyamoto/block.js'));
 router.use('/matsuda/field', require('./matsuda/field.js'));
