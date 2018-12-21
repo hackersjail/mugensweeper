@@ -1,4 +1,4 @@
-const UserModel = require('./userModel.js');
+const UserModel = require('./UserModel.js');
 
 const propFilter = '-_id -__v';
 
