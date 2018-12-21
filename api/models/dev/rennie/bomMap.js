@@ -11,7 +11,7 @@ module.exports.initSet = (bomNo, pos) => {
 
   const hasBom = [];
   while (hasBom.length < bomNo) {
-    const p = Math.ceil(Math.random() * openedBlock.length - 1);
+    const p = Math.floor(Math.random() * openedBlock.length);
     if (openedBlock[p].bom === false) {
       openedBlock[p].bom = true;
       hasBom.push(openedBlock[p]);
