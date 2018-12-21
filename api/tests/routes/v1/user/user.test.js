@@ -4,18 +4,19 @@ const app = require('../../../../routes/app.js');
 describe('ユーザー情報を返せるかどうか', () => {
   it('任意で複数ユーザー名をpostして、ユーザーIDつきでリーターンできるか', async () => {
     // Given
-    const userName = ['yui', 'taro'];
+    const nameList = [{ name: 'yui' }, { name: 'taro' }];
     // When
-    for (let i = 0; i < userName.length; i += 1) {
+    for (let i = 0; i < nameList.length; i += 1) {
+      const { name } = nameList[i];
       const { body } = await chai
         .request(app)
         .post('/v1/user')
         .set('content-type', 'application/x-www-form-urlencoded')
-        .send({ userName: userName[i] });
+        .send({ name });
       // then
       expect(body[i]).toHaveProperty('userID');
-      expect(body[i]).toHaveProperty('userName');
-      expect(body[i].userName).toBe(userName[i]);
+      expect(body[i]).toHaveProperty('name');
+      expect(body[i].name).toBe(name);
     }
   });
   it('ユーザー名の文字数(3~7文字)、文字種(*,/,￥,＆,")制限', async () => {
