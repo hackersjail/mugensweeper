@@ -19,7 +19,7 @@ module.exports = {
       array.push({
         x,
         y,
-        bom: !!bomPosition.includes(index),
+        bom: bomPosition.includes(index) ? 1 : 0,
       });
     });
 
