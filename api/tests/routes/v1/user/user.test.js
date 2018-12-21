@@ -33,7 +33,7 @@ describe('ユーザー情報を返せるかどうか', () => {
       const { name } = nameList[i];
       const { status } = await chai
         .request(app)
-        .post('/v1/user_name')
+        .post('/v1/user')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send({ name });
       results.push(status);
