@@ -38,7 +38,7 @@ tags:
           type: "string"
           example: "text"
 
-  /shiratsuchi/block:
+/shiratsuchi/block:
   delete:
     tags:
       - block
