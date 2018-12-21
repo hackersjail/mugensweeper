@@ -4,7 +4,6 @@ const { getField, initField, addBlock } = require('../../../models/dev/eto/field
 // prettier-ignore
 const directions =[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
 
-let positions = [{ x: 0, y: 0 }];
 let around = [];
 let dubliCheck = false;
 
@@ -15,6 +14,7 @@ router.route('/').post(async (req, res) => {
     x: +req.body.x,
     y: +req.body.y,
   };
+  const positions = await getField();
 
   // 重複チェック
   for (let i = 0; i < positions.length; i += 1) {
@@ -22,7 +22,6 @@ router.route('/').post(async (req, res) => {
       dubliCheck = true;
     }
   }
-
   if (dubliCheck === false) {
     // 配列の周囲8マス(around)を生成
     for (let i = 0; i < positions.length; i += 1) {
@@ -40,7 +39,6 @@ router.route('/').post(async (req, res) => {
     // blockが配列の周囲8マス(around2)に含まれるかチェック
     for (let i = 0; i < around2.length; i += 1) {
       if (block.x === around2[i].x && block.y === around2[i].y) {
-        positions.push(block);
         await addBlock(block);
       }
     }
@@ -52,7 +50,6 @@ router.route('/').post(async (req, res) => {
 
 // 配列を初期化する処理
 router.route('/').delete(async (req, res) => {
-  positions = [{ x: 0, y: 0 }];
   await initField();
   res.send(await getField());
 });
