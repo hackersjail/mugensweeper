@@ -16,7 +16,11 @@ module.exports = {
       const x = value[0];
       const y = value[1];
 
-      array.push({ x, y, bom: !!bomPosition.includes(index) });
+      array.push({
+        x,
+        y,
+        bom: !!bomPosition.includes(index),
+      });
     });
 
     return array;
