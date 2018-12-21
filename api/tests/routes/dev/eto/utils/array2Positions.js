@@ -21,9 +21,11 @@ module.exports = (array) => {
     const idx = openPoint[i] % hen; // １辺の数で割った余り(x座標)
     result.push({ x: idx, y: idy, index: num[i] });
   }
-
   // indexの値でresultをソート(手番順にする)
   result.sort((a, b) => a.index - b.index);
-
+  // indexを削除
+  for (let i = 0; i < result.length; i += 1) {
+    delete result[i].index;
+  }
   return result;
 };
