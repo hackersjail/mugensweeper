@@ -15,14 +15,13 @@ router
       for (let t = 0; t < directions.length; t += 1) {
         const u = field[i].x + directions[t][0]; // 隣接するx座標
         const k = field[i].y + directions[t][1]; // 隣接するy座標
+        const bodyX = +req.body.x;
+        const bodyY = +req.body.y;
 
-        if (field[i].x === Number(req.body.x) && field[i].y === Number(req.body.y)) {
+        if (field[i].x === bodyX && field[i].y === bodyY) {
           break;
-        } else if (
-          i === field.length - 1 &&
-          (u === Number(req.body.x) && k === Number(req.body.y))
-        ) {
-          await addBlock({ x: Number(req.body.x), y: Number(req.body.y) });
+        } else if (i === field.length - 1 && (u === bodyX && k === bodyY)) {
+          await addBlock({ x: bodyX, y: bodyY });
         }
       }
     }
