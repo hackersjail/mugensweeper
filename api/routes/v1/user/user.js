@@ -2,12 +2,15 @@ const router = require('express').Router();
 
 const user = [];
 router.route('/').post((req, res) => {
-  if (req.body.userName === 'yui' || req.body.userName === 'taro') {
-    const block = { userName: req.body.userName, userId: 222222 };
-    user.push(block);
+  const { length } = req.body.userName;
+  const { userName } = req.body;
+
+  const harfLetter = (value) => !value.match(/[^\x01-\x7E]/) || !value.match(/[^\uFF65-\uFF9F]/); // eslint-disable-line
+
+  if (length > 2 && length < 8 && harfLetter(userName)) {
+    user.push({ userName, userId: 222222 });
     res.json(user);
-  } else if (req.body.userName === 'tttt') {
-    res.status(200).send('登録完了');
+    res.status(200).send('success');
   } else {
     res.status(401).send('error');
   }
