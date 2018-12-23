@@ -1,17 +1,23 @@
 const chai = require('chai');
+const array2Positions = require('./utils/array2Positions.js');
 const app = require('../../../../routes/app.js');
 
-const initialBlock = () => ({
-  x: 0,
-  y: 0,
-});
+const initialBlock = () => ({ x: 0, y: 0 });
 
 describe('前のゲーム情報のリセット処理、および、リクエスト返り値の追加テスト', () => {
-  it('同じ座標にはpostしても登録されない', async () => {
+  it('周囲8方向を開くことができる', async () => {
     // 前のテストのBlockをサーバーから消しておく
     await chai.request(app).delete('/dev/rennie/block');
     // Given
-    const positions = [{ x: 1, y: 0 }, { x: 1, y: 0 }];
+    // prettier-ignore
+    const positions = array2Positions([
+      0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0,
+      4, 0, 0, 0, 0,
+      0, 1, 2, 0, 3
+    ])
+
     // When
     let lastBody;
     for (let i = 0; i < positions.length; i += 1) {
@@ -23,11 +29,10 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
       lastBody = body;
     }
     // Then
-    // 重複削除
-    const positions2 = positions.filter(
-      (v1, i1, a1) => a1.findIndex((v2) => v1.x === v2.x && v1.y === v2.y) === i1,
-    );
-    expect(lastBody).toHaveLength(positions2.length + 1);
-    expect(lastBody).toEqual(expect.arrayContaining([initialBlock(), ...positions2]));
+    // 8方向にいく
+    const matchers = [{ x: 1, y: 0 }, { x: 2, y: 0 }, { x: 0, y: 1 }];
+
+    expect(lastBody).toHaveLength(matchers.length + 1);
+    expect(lastBody).toEqual(expect.arrayContaining([initialBlock(), ...matchers]));
   });
 });
