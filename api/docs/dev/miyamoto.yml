@@ -7,6 +7,8 @@ tags:
       - Miyamoto
     produces:
       - "text/html; charset=utf-8"
+    security:
+      - tokenAuth: []
     responses:
       200:
         description: "success"
@@ -79,3 +81,69 @@ definitions:
         example: 1
         in: "formData"
         required: true
+  userId:
+    type: "string"
+    description: "generate new userId"
+    properties:
+      userId:
+        name: "userId"
+        type: "string"
+        description: "userId"
+        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+        in: "formData"
+        required: true
+  accessToken:
+    type: "string"
+    description: "post accessToken"
+    properties:
+      accessToken:
+        name: "accessToken"
+        type: "string"
+        description: "post accessToken"
+        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+        in: "formData"
+        required: true
+/user_id_generate:
+  post:
+    tags:
+      - "userId"
+    summary: "generate new userId by JWT"
+    description: "userIdの新規生成"
+    parameters:
+      - name: userName
+        in: "formData"
+        description: "input user name"
+        type: string
+        example: "testname"
+        ? required
+    responses:
+      200:
+        description: "return a new userId"
+        schema:
+          type: "object"
+          properties:
+            userId:
+              $ref: "#/definitions/userId"
+securityDefinitions:
+  tokenAuth:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+/access_auth:
+  post:
+    x-swagger-router-controller: test
+    operationId: test_post
+    security:
+      - tokenAuth: []
+    tags:
+      - accessAuth
+    description: Post message to test
+    responses:
+      "200":
+        description: Success
+        schema:
+          $ref: "#/definitions/SimpleResponse"
+      default:
+        description: Error
+        schema:
+          $ref: "#/definitions/ErrorResponse"

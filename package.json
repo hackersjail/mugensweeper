@@ -21,11 +21,17 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "5.3.6",
+    "body-parser": "^1.18.3",
+    "convict": "^4.4.1",
     "dotenv": "6.2.0",
     "express": "4.16.4",
+    "jsonwebtoken": "^8.4.0",
     "mongodb": "3.1.10",
     "mongoose": "5.3.15",
     "nuxt": "2.3.4",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "random-hash": "^4.0.1",
     "swagger-jsdoc": "3.2.6",
     "swagger-ui-express": "4.0.2"
   },

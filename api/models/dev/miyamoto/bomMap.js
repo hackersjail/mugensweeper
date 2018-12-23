@@ -1,4 +1,4 @@
-const initSet = function(bomCount, position) {
+const initSet = (bomCount, position) => {
   const directions = [[-1, -1], [0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0]];
   const positions = [];
   const tmp = [];

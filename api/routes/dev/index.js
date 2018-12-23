@@ -1,5 +1,7 @@
 const router = require('express').Router();
 
+router.use('/user_id_generate', require('../v1/index.js'));
+
 router.use('/example', require('./example.js'));
 router.use('/ryoko/field', require('./ryoko/field.js'));
 router.use('/ryoko/block', require('./ryoko/block.js'));
