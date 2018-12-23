@@ -1,4 +1,4 @@
-const bomMap = require('../../../../../api/models/ryoko/bomMap');
+const bomMap = require('../../../../../api/models/dev/ryoko/bomMap');
 
 const directions = [[-1, -1], [0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0]];
 
