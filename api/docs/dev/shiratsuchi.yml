@@ -1,19 +1,12 @@
 tags:
-  - name: eto
-    description: eto API
-/eto/field:
+  - name: Shiratsuchi
+    description: Shiratsuchi API
+/shiratsuchi/field:
   get:
     tags:
       - field
     produces:
       - "text/html; charset=utf-8"
-    parameters:
-      - name: "string"
-        in: "query"
-        description: "Example query parameter"
-        required: true
-        type: "string"
-
     responses:
       200:
         description: "success"
@@ -21,7 +14,7 @@ tags:
           type: "string"
           example: "text"
 
-/eto/block:
+/shiratsuchi/block:
   post:
     tags:
       - block
@@ -30,18 +23,32 @@ tags:
     parameters:
       - name: "x"
         in: "formData"
-        description: "Example body parameter"
+        description: "x parameter"
         required: true
-        type: "string"
+        type: "number"
       - name: "y"
         in: "formData"
-        description: "Example body parameter"
+        description: "y parameter"
         required: true
-        type: "string"
-
+        type: "number"
     responses:
       200:
         description: "success"
         schema:
           type: "string"
           example: "text"
+
+/shiratsuchi/block:
+  delete:
+    tags:
+      - block
+    produces:
+      - "text/html; charset=utf-8"
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+          example: "text"
+
+

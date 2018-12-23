@@ -1,40 +1,35 @@
 const chai = require('chai');
 const app = require('../../../../routes/app.js');
 
-const initialBlock = () => ({
-  x: 0,
-  y: 0,
-});
+const initialBlock = () => ({ x: 0, y: 0 });
 
-// integration test
-describe('field apiについてのテスト', () => {
+describe('field app についてのテスト', () => {
   it('初期状態のfieldを取得する', async () => {
-    // Given ないこともあ
+    // Given
 
     // When
-    const { body } = await chai.request(app).get('/dev/rennie/field');
+    const { body } = await chai.request(app).get(`/dev/rennie/field`);
 
-    // Then
     expect(body).toHaveLength(1);
     expect(body[0]).toMatchObject(initialBlock());
   });
+});
 
-  // it('postした座標が返り値に追加される', async () => {
-  //   // Given
-  //   const position = {
-  //     x: 2,
-  //     y: 4,
-  //   };
+it('POSTした座標が返り値に追加される', async () => {
+  // Given
+  const position = {
+    x: 1,
+    y: 0,
+  };
 
-  //   // When
-  //   const { body } = await chai
-  //     .request(app)
-  //     .post('/dev/rennie/block')
-  //     .set('content-type', 'application/x-www-form-urlencoded')
-  //     .send(position);
+  // When
+  const { body } = await chai
+    .request(app)
+    .post('/dev/rennie/block')
+    .set('content-type', 'application/x-www-form-urlencoded')
+    .send(position);
 
-  //   // Then
-  //   expect(body).toHaveLength(2);
-  //   expect(body).toEqual(expect.arrayContaining([initialBlock(), position]));
-  // });
+  // Then
+  expect(body).toHaveLength(2);
+  expect(body).toEqual(expect.arrayContaining([initialBlock(), position]));
 });

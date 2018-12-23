@@ -1,25 +1,25 @@
 const chai = require('chai');
 const app = require('../../../../routes/app.js');
-const array2Positions = require('./utils/array2Positions');
+const array2Positions = require('./utils/array2Positions.js');
 
 const initialBlock = () => ({ x: 0, y: 0 });
 
 describe('前のゲーム情報のリセット処理、および、リクエスト返り値の追加テスト', () => {
   it('座標をリセットできる。', async () => {
     // 1: Given
-    const positions = [{ x: 1, y: 1 }, { x: 2, y: 1 }];
+    const positions = [{ x: 1, y: 1 }, { x: -1, y: -1 }];
 
     // 2: When
     let lastBody;
     for (let i = 0; i < positions.length; i += 1) {
       const { body } = await chai
         .request(app)
-        .post('/dev/ryoko/block')
+        .post('/dev/shiratsuchi/block')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(positions[i]);
       lastBody = body;
     }
-    const { body } = await chai.request(app).delete('/dev/ryoko/block');
+    const { body } = await chai.request(app).delete('/dev/shiratsuchi/block');
 
     // 3: Then
     expect(lastBody).toHaveLength(positions.length + 1);
@@ -29,7 +29,7 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
 
   it('同じ座標にはpostしても登録されない', async () => {
     // 前のテストのBlockをサーバーから消しておく
-    await chai.request(app).delete('/dev/ryoko/block');
+    await chai.request(app).delete('/dev/shiratsuchi/block');
 
     // 1: Given
     const positions = [{ x: 1, y: 1 }, { x: 1, y: 1 }];
@@ -39,7 +39,7 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
     for (let i = 0; i < positions.length; i += 1) {
       const { body } = await chai
         .request(app)
-        .post('/dev/ryoko/block')
+        .post('/dev/shiratsuchi/block')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(positions[i]);
       lastBody = body;
@@ -57,16 +57,16 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
 
   it('周囲の八方向のみ開ける', async () => {
     // 前のテストのBlockをサーバーから消しておく
-    await chai.request(app).delete('/dev/ryoko/block');
+    await chai.request(app).delete('/dev/shiratsuchi/block');
 
     // 1: Given
     // prettier-ignore
     const positions = array2Positions([
-      5,0,0,0,3,
-      0,0,0,0,0,
+      0,0,0,0,3,
+      0,0,0,0,4,
       2,0,0,0,0,
-      1,0,4,0,0,
-      0,0,0,0,6,
+      1,0,0,0,0,
+      0,0,0,0,0,
     ]);
 
     // 2: When
@@ -74,7 +74,7 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
     for (let i = 0; i < positions.length; i += 1) {
       const { body } = await chai
         .request(app)
-        .post('/dev/ryoko/block')
+        .post('/dev/shiratsuchi/block')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(positions[i]);
       lastBody = body;
