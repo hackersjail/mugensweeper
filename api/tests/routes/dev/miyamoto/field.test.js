@@ -3,6 +3,7 @@ const app = require('../../../../routes/app.js');
 const { connectDB, disconnectDB, dropDB } = require('../../../../database.js');
 const MiyamotoFieldModel = require('../../../../models/dev/miyamoto/FieldModel.js');
 const { initField } = require('../../../../models/dev/miyamoto/fieldStore.js');
+const { getUser } = require('../../../../models/dev/miyamoto/userStore.js');
 
 const propFilter = '-_id -__v';
 
@@ -19,9 +20,13 @@ describe('field APIについてのテスト', () => {
 
   it('最初のfield情報を取得する', async () => {
     // Given
+    const { token } = (await getUser())[0].token;
 
     // When
-    const { body } = await chai.request(app).get('/dev/miyamoto/field');
+    const { body } = await chai
+      .request(app)
+      .get('/dev/miyamoto/field')
+      .set('Authorization', token);
     const initialField = await MiyamotoFieldModel.find({}, propFilter).lean();
 
     // Then: Response
