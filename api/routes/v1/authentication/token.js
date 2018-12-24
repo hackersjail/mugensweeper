@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const getHash = require('random-hash');
 const config = require('./config');
 
+// 宮本環境専用のuserId生成
 function genHash() {
   let tempHash = '';
   let flag = 0;
@@ -14,9 +15,9 @@ function genHash() {
   return tempHash;
 }
 
-// Generate an Access Token for the given User ID
+// Access Token (JWT) の生成
 function generateAccessToken() {
-  const expiresIn = '7 days';
+  const expiresIn = '5y';
   const audience = config.get('authentication.token.audience');
   const issuer = config.get('authentication.token.issuer');
   const secret = config.get('authentication.token.secret');
