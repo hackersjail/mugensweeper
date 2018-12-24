@@ -10,7 +10,7 @@ module.exports = {
   getField() {
     return RyokoFieldModel.find({}, propFilter).lean();
   },
-  async addBlock(block) {
-    await new RyokoFieldModel(block).save();
+  addBlock(block) {
+    return new RyokoFieldModel(block).save();
   },
 };
