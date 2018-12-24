@@ -17,5 +17,8 @@ tags:
       200:
         description: "success"
         schema:
+          type: "object"
+      401:
+        description: "error"
+        schema:
           type: "string"
-          example: "text"
