@@ -1,0 +1,52 @@
+tags:
+  - name: shiratsuchi field
+    description: shiratsuchi field API
+/shiratsuchi/field:
+  get:
+    tags:
+      - shiratsuchi field
+    produces:
+      - "text/html; charset=utf-8"
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+          example: "text"
+
+/shiratsuchi/block/:
+  post:
+    tags:
+      - shiratsuchi block
+    produces:
+      - "text/html; charset=utf-8"
+    parameters:
+      - name: "x"
+        in: "formData"
+        description: "x parameter"
+        required: true
+        type: "number"
+      - name: "y"
+        in: "formData"
+        description: "y parameter"
+        required: true
+        type: "number"
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+          example: "text"
+
+/shiratsuchi/block:
+  delete:
+    tags:
+      - shiratsuchi block
+    produces:
+      - "text/html; charset=utf-8"
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+          example: "text"
