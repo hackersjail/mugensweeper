@@ -3,7 +3,6 @@ yarn-debug.log*
 yarn-error.log*
 
 .circleci
-.git
 .github
 .nuxt
 .vscode
