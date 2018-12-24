@@ -4,7 +4,7 @@ const app = require('../../../../routes/app.js');
 describe('ユーザー情報を返せるかどうか', () => {
   it('任意で複数ユーザー名をpostして、ユーザーIDつきでリーターンできるか', async () => {
     // Given
-    const nameList = [{ userName: 'yui' }, { userName: 'taro' }];
+    const nameList = [{ userName: 'yuika' }, { userName: 'taro' }];
     // When
     for (let i = 0; i < nameList.length; i += 1) {
       const { userName } = nameList[i];
@@ -15,17 +15,16 @@ describe('ユーザー情報を返せるかどうか', () => {
         .send({ userName });
       // then
       expect(body[i]).toHaveProperty('userId');
-      expect(body[i]).toHaveProperty('userName');
       expect(body[i].userName).toBe(userName);
     }
   });
-  it('ユーザー名の文字数(3~7文字)、文字種(*,/,￥,＆,")制限', async () => {
+  it('ユーザー名の文字数(3~7文字)、文字種(半角文字のみ入力可)制限', async () => {
     // 1: Given
     const nameList = [
       { userName: 'ss', judge: false },
       { userName: 'tttt', judge: true },
       { userName: 'jjjjjjjjjjjj', judge: false },
-      { userName: '#$%w', judge: false },
+      { userName: 'あいうえ', judge: false },
     ];
 
     // 2: When
