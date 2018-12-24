@@ -49,6 +49,6 @@ tags:
         description: "success"
         schema:
           type: "string"
-          example: "text"
+          example: "text@"
 
 
