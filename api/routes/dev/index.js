@@ -12,9 +12,6 @@ router.use('/miyamoto/block', require('./miyamoto/block.js'));
 router.use('/matsuda/field', require('./matsuda/field.js'));
 router.use('/mishima/field', require('./mishima/field.js'));
 router.use('/mishima/block', require('./mishima/block.js'));
-router.use('/eto/block', require('./eto/block.js'));
 router.use('/hiro/field', require('./hiro/field.js'));
-router.use('/shiratsuchi/field', require('./shiratsuchi/field.js'));
-router.use('/shiratsuchi/block', require('./shiratsuchi/block.js'));
 
 module.exports = router;
