@@ -19,20 +19,4 @@ describe('field-APIについてテストする', () => {
     expect(body).toHaveLength(1);
     expect(body[0]).toMatchObject(initialBlock());
   });
-  it('postした座標が返り値に追加される', async () => {
-    // Given
-    const position = {
-      x: 1,
-      y: 0,
-    };
-    // When
-    const { body } = await chai
-      .request(app)
-      .post('/dev/mishima/block')
-      .set('content-type', 'application/x-www-form-urlencoded')
-      .send(position);
-    // Then
-    expect(body).toHaveLength(2);
-    expect(body).toEqual(expect.arrayContaining([initialBlock(), position]));
-  });
 });

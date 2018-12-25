@@ -7,10 +7,8 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint',
   },
-  extends: ['airbnb-base', 'plugin:vue/recommended', 'plugin:prettier/recommended'],
-  // required to lint *.vue files
+  extends: ['airbnb-base', 'plugin:vue/essential', 'plugin:prettier/recommended'],
   plugins: ['vue', 'prettier'],
-  // add your custom rules here
   rules: {
     'no-console': process.env.NODE_ENV === 'development' ? 'off' : 'error',
     'no-debugger': process.env.NODE_ENV === 'development' ? 'off' : 'error',
