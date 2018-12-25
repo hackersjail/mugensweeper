@@ -3,4 +3,4 @@ const mongoose = require('mongoose'); // mongoDS専用の言語がmongoose Mongo
 const { Schema } = mongoose;
 const schema = new Schema({ x: Number, y: Number });
 
-module.exports = mongoose.model('FieldModel', schema);
+module.exports = mongoose.model('RennieFieldModel', schema);
