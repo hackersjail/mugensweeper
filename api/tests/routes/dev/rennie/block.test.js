@@ -5,7 +5,9 @@ const { connectDB, disconnectDB, dropDB } = require('../../../../database.js');
 const FieldModel = require('../../../../models/dev/rennie/FieldModel.js');
 const { initField } = require('../../../../models/dev/rennie/fieldStore.js');
 
+
 const propFilter = '-_id -__v';
+
 
 const initialBlock = () => ({ x: 0, y: 0 });
 

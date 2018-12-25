@@ -4,6 +4,7 @@ const { connectDB, disconnectDB, dropDB } = require('../../../../database.js');
 const FieldModel = require('../../../../models/dev/rennie/FieldModel.js');
 const { initField } = require('../../../../models/dev/rennie/fieldStore.js');
 
+
 const propFilter = '-_id -__v';
 
 const initialBlock = () => ({ x: 0, y: 0 });
@@ -15,14 +16,15 @@ describe('field apiについてのテスト', () => {
   beforeEach(initField);
   afterEach(dropDB);
   afterAll(disconnectDB);
+
   it('初期状態のfieldを取得する', async () => {
-    // Given ないこともあ
+    // Given
 
     // When
     const { body } = await chai.request(app).get('/dev/rennie/field');
     const afterField = await FieldModel.find({}, propFilter).lean();
 
-    // Then
+
     expect(body).toHaveLength(1);
     expect(body[0]).toMatchObject(initialBlock());
 
@@ -31,6 +33,7 @@ describe('field apiについてのテスト', () => {
     expect(afterField[0]).toMatchObject(initialBlock());
   });
 });
+
 
 describe('field apiについてのテスト', () => {
   beforeAll(connectDB);
@@ -61,4 +64,5 @@ describe('field apiについてのテスト', () => {
     expect(afterField).toHaveLength(2);
     expect(afterField).toEqual(expect.arrayContaining([initialBlock(), position]));
   });
+
 });
