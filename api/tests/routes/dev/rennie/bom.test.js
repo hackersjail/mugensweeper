@@ -1,4 +1,4 @@
-const bomMap = require('../../../../models/dev/rennie/bomMap.js');
+const bomMap = require('../../../../models/rennie/bomMap.js');
 
 const directions = [[0, -1], [1, 0], [0, 1], [-1, 0], [-1, -1], [1, 1], [-1, 1], [1, -1]];
 
