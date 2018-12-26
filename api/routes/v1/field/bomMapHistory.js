@@ -1,5 +1,5 @@
 module.exports = {
-  getBomHis(x, y) {
+  createBomMap(x, y) {
     const block = { x, y };
     return block;
   },
