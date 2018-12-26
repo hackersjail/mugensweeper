@@ -15,7 +15,7 @@ describe('field apiについてのテスト', () => {
   afterEach(dropDB);
   afterAll(disconnectDB);
   it('初期状態のfieldを取得する', async () => {
-    // Given ないこともあ
+    // Given
 
     // When
     const { body } = await chai.request(app).get('/dev/rennie/field');

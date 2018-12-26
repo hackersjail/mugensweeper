@@ -4,7 +4,7 @@ const propFilter = '-_id -__v';
 
 module.exports = {
   async initField() {
-    await FieldModel.remove();
+    await FieldModel.deleteMany();
     await new FieldModel({ x: 0, y: 0 }).save();
   },
   getField() {
