@@ -21,7 +21,7 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
 
   it('座標をリセットできる。', async () => {
     // Given
-    const { token } = (await getUser())[0].token;
+    const { token } = (await getUser())[0];
     const positions = [
       {
         x: 1,
@@ -68,7 +68,7 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
     await chai.request(app).delete('/dev/miyamoto/block');
 
     // 1: Given
-    const { token } = (await getUser())[0].token;
+    const { token } = (await getUser())[0];
     const positions = [{ x: 1, y: 1 }, { x: 1, y: 1 }];
 
     // 2: When
@@ -101,7 +101,7 @@ describe('前のゲーム情報のリセット処理、および、リクエス�
 
   it('周囲の八方向のみ開ける', async () => {
     // 前のテストのBlockをサーバーから消しておく
-    const { token } = (await getUser())[0].token;
+    const { token } = (await getUser())[0];
     await chai.request(app).delete('/dev/miyamoto/block');
 
     // 1: Given

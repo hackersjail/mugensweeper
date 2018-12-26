@@ -20,7 +20,7 @@ describe('field APIについてのテスト', () => {
 
   it('最初のfield情報を取得する', async () => {
     // Given
-    const { token } = (await getUser())[0].token;
+    const { token } = (await getUser())[0];
 
     // When
     const { body } = await chai
