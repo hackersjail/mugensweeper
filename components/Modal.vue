@@ -1,12 +1,12 @@
 <template>
-    <transition name="modal">
-      <div v-if="overlay" class="modalLayer">
-        <div class="initMsg">
-          <div class="title">mugenSweeper</div>
-          <div class="startBtn" @click="closeOverLayer">START</div>
-        </div>
+  <transition name="modal">
+    <div v-if="overlay" class="modalLayer">
+      <div class="initMsg">
+        <div class="title">mugenSweeper</div>
+        <div class="startBtn" @click="closeOverLayer">START</div>
       </div>
-    </transition>
+    </div>
+  </transition>
 </template>
 
 <script>
