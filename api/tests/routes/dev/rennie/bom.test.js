@@ -1,6 +1,6 @@
-const bomMap = require('../../../../../api/models/dev/ryoko/bomMap');
+const bomMap = require('../../../../models/dev/rennie/bomMap.js');
 
-const directions = [[-1, -1], [0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0]];
+const directions = [[0, -1], [1, 0], [0, 1], [-1, 0], [-1, -1], [1, 1], [-1, 1], [1, -1]];
 
 describe('爆弾マップのテスト', () => {
   it('原点の周囲の爆弾マップが返ってくる', () => {
@@ -8,17 +8,14 @@ describe('爆弾マップのテスト', () => {
     const bomCount = Math.ceil(Math.random() * 3);
     const position = { x: 0, y: 0 };
 
-    // When
+    // when
     const map = bomMap.initSet(bomCount, position);
-    // [{x,y,bom: t|f},...]
-
     // Then
-    const mapMatcher = directions.map(([x, y]) => ({ x, y }));
+    // 期待する配列
+    const mapMatchers = directions.map(([x, y]) => ({ x, y })); // 原点だからそのまま
     const bomReturn = map.filter(({ bom }) => bom).length;
     expect(map).toHaveLength(8);
-    expect(map.map(({ x, y }) => ({ x, y }))).toMatchObject(
-      expect.arrayContaining([...mapMatcher]),
-    );
+    expect(map.map(({ x, y }) => ({ x, y }))).toEqual(expect.arrayContaining(mapMatchers));
     expect(bomReturn).toBe(bomCount);
   });
 });

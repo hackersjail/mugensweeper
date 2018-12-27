@@ -3,4 +3,4 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const schema = new Schema({ x: Number, y: Number });
 
-module.exports = mongoose.model('MishimaFieldModel', schema);
+module.exports = mongoose.model('EtoFieldModel', schema);
