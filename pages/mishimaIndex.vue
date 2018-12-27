@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <Modal/>
+    <modal />
     <section class="container">
       <div>
         <logo />
