@@ -45,7 +45,7 @@
     "husky": "1.2.1",
     "jest": "23.6.0",
     "lint-staged": "8.1.0",
-    "mongodb-memory-server": "2.9.0",
+    "mongodb-memory-server": "2.9.1",
     "nodemon": "1.18.9",
     "npm-run-all": "4.1.5",
     "prettier": "1.15.3"
