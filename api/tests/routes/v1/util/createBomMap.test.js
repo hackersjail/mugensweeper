@@ -1,4 +1,4 @@
-const { createBomMap } = require('../../../../routes/v1/field/bomMapHistory.js');
+const { createBomMap } = require('../../../../routes/v1/util/createBomMap.js');
 
 describe('Node.jsの起動/再起動時（サーバー⇨DB）', () => {
   it('bom mapのhistroyを取得したら、fieldに反映される関数のテスト', () => {
@@ -9,14 +9,10 @@ describe('Node.jsの起動/再起動時（サーバー⇨DB）', () => {
       { x: 0, y: 1, actionId: 3 },
     ];
     // When
-    const results = [];
-    for (let i = 0; i < bomHis.length; i += 1) {
-      const result = createBomMap(bomHis[i].x, bomHis[i].y);
-      results.push(result);
-    }
+    const results = createBomMap(bomHis);
 
     // then
-    const matcher = [{ x: 1, y: 0 }, { x: 2, y: 0 }, { x: 0, y: 1 }];
+    const matcher = [[1, 0], [2, 0], [0, 1]];
 
     expect(results).toEqual(expect.objectContaining(matcher));
   });
