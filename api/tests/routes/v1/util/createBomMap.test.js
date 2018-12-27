@@ -1,4 +1,4 @@
-const { createBomMap } = require('../../../../routes/v1/util/createBomMap.js');
+const createBomMap = require('../../../../routes/v1/util/createBomMap.js');
 
 describe('Node.jsの起動/再起動時（サーバー⇨DB）', () => {
   it('bom mapのhistroyを取得したら、fieldに反映される関数のテスト', () => {
