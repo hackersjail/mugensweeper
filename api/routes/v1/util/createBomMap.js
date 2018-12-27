@@ -1,1 +1,1 @@
-module.exports = (arr) => arr.map(({ x, y }) => ({ x, y }));
+module.exports = (bomHistory) => bomHistory.map(({ x, y }) => ({ x, y }));
