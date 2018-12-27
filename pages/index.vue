@@ -1,5 +1,6 @@
 <template>
   <section class="container">
+  <modal />
     <div>
       <logo />
       <h1 class="title">mugensweeper</h1>
@@ -13,11 +14,13 @@
 </template>
 
 <script>
+import Modal from '~/components/Modal.vue';
 import Logo from '~/components/Logo.vue';
 
 export default {
   components: {
     Logo,
+    Modal,
   },
 };
 </script>
