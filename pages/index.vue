@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-  <modal />
+    <modal />
     <div>
       <logo />
       <h1 class="title">mugensweeper</h1>
