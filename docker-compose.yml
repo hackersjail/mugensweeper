@@ -10,10 +10,12 @@ services:
       - .:/usr/src/app
       - node_modules:/usr/src/app/node_modules
     environment:
+      - MONGO_URI=mongodb://mongo:27017/mugensweeper
       - NUXT_HOST=0.0.0.0
+      - NUXT_PORT=3000
     ports:
-      - $PORT:$API_PORT
-      - $NUXT_PORT:$NUXT_PORT
+      - 10000:10000
+      - 3000:3000
     links:
       - mongo:mongo
   mongo:
@@ -29,7 +31,7 @@ services:
     container_name: mugensweeper-mongo-express
     restart: always
     ports:
-      - $MONGO_EXPRESS_PORT:8081
+      - 8081:8081
 
 volumes:
   node_modules:
