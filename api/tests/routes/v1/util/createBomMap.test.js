@@ -12,7 +12,7 @@ describe('Node.jsの起動/再起動時（サーバー⇨DB）', () => {
     const results = createBomMap(bomHis);
 
     // then
-    const matcher = [[1, 0], [2, 0], [0, 1]];
+    const matcher = [{ x: 1, y: 0 }, { x: 2, y: 0 }, { x: 0, y: 1 }];
 
     expect(results).toEqual(expect.objectContaining(matcher));
   });
