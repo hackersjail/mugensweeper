@@ -10,6 +10,7 @@ services:
       - .:/usr/src/app
       - node_modules:/usr/src/app/node_modules
     environment:
+      - MONGO_ENV=development
       - MONGO_URI=mongodb://mongo:27017/mugensweeper
       - NUXT_HOST=0.0.0.0
       - NUXT_PORT=3000
