@@ -1,7 +1,7 @@
 const createBomMap = require('../../../../routes/v1/util/createBomMap.js');
 
 describe('Node.jsの起動/再起動時（サーバー⇨DB）', () => {
-  it('bom mapのhistroyを取得したら、fieldに反映される関数のテスト', () => {
+  it('Bom HistroyからBom Mapを生成し返すテスト', () => {
     // Given
     const bomHis = [
       { x: 1, y: 0, actionId: 1 },
