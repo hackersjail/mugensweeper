@@ -1,9 +1,9 @@
-const FieldHistory2array = require('../utils/FieldHistory2array.js');
+const fieldHistory2array = require('../util/fieldHistory2array.js');
 
 describe('field情報を返せるかどうか', () => {
   it('field historyを取得したら fieldが作成される関数のテスト', async () => {
     // Given
-    const fieldHistory = FieldHistory2array([
+    const fieldHistory = fieldHistory2array([
       { recordtime: 1545819243, userId: 2, x: 0, y: -1, action: 'opened', actionId: 1 },
       { recordtime: 1545819253, userId: 1, x: -1, y: -2, action: 'opened', actionId: 2 },
       { recordtime: 1545819263, userId: 3, x: 1, y: 1, action: 'opened', actionId: 3 },
