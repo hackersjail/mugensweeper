@@ -13,8 +13,7 @@ tags:
         schema:
           type: "string"
           example: "text"
-
-/shiratsuchi/block/:
+/shiratsuchi/block:
   post:
     tags:
       - shiratsuchi block
@@ -37,7 +36,6 @@ tags:
         schema:
           type: "string"
           example: "text"
-
   delete:
     tags:
       - shiratsuchi block
