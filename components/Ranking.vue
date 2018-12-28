@@ -1,5 +1,5 @@
 <template>
-  <table class="modalLayer">
+  <table class="rankingLayer">
     <tr v-for="(user, i) in orderedUsers" :key="i">
       <div v-if="i < 5">
         <td>{{ i + 1 }}</td>
@@ -34,7 +34,7 @@ export default {
 </script>
 
 <style scoped>
-.modalLayer {
+.rankingLayer {
   width: 100%;
   height: 100%;
 }
