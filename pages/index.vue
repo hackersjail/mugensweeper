@@ -10,17 +10,20 @@
         <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
       </div>
     </div>
+    <ranking />
   </section>
 </template>
 
 <script>
 import Modal from '~/components/Modal.vue';
 import Logo from '~/components/Logo.vue';
+import Ranking from '~/components/Ranking.vue';
 
 export default {
   components: {
     Logo,
     Modal,
+    Ranking,
   },
 };
 </script>
