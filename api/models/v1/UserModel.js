@@ -2,10 +2,9 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const userSchema = new Schema({
-  userID: String,
+const schema = new Schema({
+  userId: String,
   userName: String,
-  createDate: Date,
 });
 
-module.exports = mongoose.model('UserModel', userSchema);
+module.exports = mongoose.model('UserModel', schema);

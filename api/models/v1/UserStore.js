@@ -1,16 +1,16 @@
 const UserModel = require('./UserModel.js');
 
-const userArray = [];
+const propFilter = '-_id -__v';
 
 module.exports = {
-  async addUser(user) {
-    userArray.push(user);
-    await new UserModel(user).save();
+  addUser(user) {
+    return UserModel(user).save();
   },
-  getUserIds(user) {
-    if (user.userID) {
-      return userArray.find((value) => value.userID === user.userID);
-    }
-    return null;
+  getUser() {
+    return UserModel.find({}, propFilter).lean();
+  },
+
+  getUserIds() {
+    return UserModel.find({}, { userId: 1 }, propFilter).lean();
   },
 };

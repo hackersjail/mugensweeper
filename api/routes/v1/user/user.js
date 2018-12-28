@@ -1,8 +1,9 @@
 const router = require('express').Router();
+const { addUser, getUser } = require('../../../../api/models/v1/userStore.js');
 
 const user = [];
 
-router.route('/').post((req, res) => {
+router.route('/').post(async (req, res) => {
   const { length } = req.body.userName;
   const { userName } = req.body;
 
@@ -30,7 +31,9 @@ router.route('/').post((req, res) => {
 
   if (length >= 3 && length <= 7 && harfLetter(userName)) {
     user.push({ userName, userId });
-    res.status(200).send(user);
+    addUser({ userName, userId });
+
+    res.status(200).send(await getUser());
   } else {
     res.status(401).send('Error');
   }
