@@ -9,8 +9,7 @@ module.exports = {
   getUser() {
     return UserModel.find({}, propFilter).lean();
   },
-
   getUserIds() {
-    return UserModel.find({}, { userId: 1 }, propFilter).lean();
+    return UserModel.find({}, { _id: 0, userId: 1 }).lean();
   },
 };
