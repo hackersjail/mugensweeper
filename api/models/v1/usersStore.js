@@ -3,8 +3,8 @@ const UserModel = require('./UserModel.js');
 const propFilter = '-_id -__v';
 
 module.exports = {
-  addUser(user) {
-    return UserModel(user).save();
+  addUser(users) {
+    return UserModel(users).save();
   },
   getUser() {
     return UserModel.find({}, propFilter).lean();
