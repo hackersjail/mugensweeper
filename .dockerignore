@@ -1,0 +1,14 @@
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+.circleci
+.github
+.nuxt
+.vscode
+Dockerfile
+README.md
+coverage
+dist
+docker-compose.yml
+node_modules
