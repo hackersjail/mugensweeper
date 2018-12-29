@@ -1,0 +1,6 @@
+{
+  "ext": "js",
+  "ignore": ["api/tests/setup.js", "api/tests/**/utils/"],
+  "watch": ["api/tests/"],
+  "exec": "npm test -- --onlyChanged"
+}
