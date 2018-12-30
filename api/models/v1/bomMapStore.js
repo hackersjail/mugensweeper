@@ -3,6 +3,7 @@ const createBomMap = require('../../routes/v1/util/createBomMap.js');
 
 const propFilter = '-_id -__v';
 const bomMap = [];
+const addedBom = [];
 module.exports = {
   async initData() {
     const boms = await BomHistoryModel.find({}, propFilter).lean();
@@ -17,17 +18,16 @@ module.exports = {
     // use ryoko san's funciton to get new bom info.
     const Ryoko = [];
     const block = Ryoko;
-    [...bomMap].push(block);
+    addedBom.push(block);
   },
   async saveData() {
-    const currentBomMap = [...bomMap];
     const newBomHistory = [];
-    for (let i = 0; i < currentBomMap.length; i += 1) {
-      if (bomMap.indexOf(currentBomMap[i]) === -1) {
-        newBomHistory.push(currentBomMap[i]);
+    for (let i = 0; i < addedBom.length; i += 1) {
+      if (bomMap.indexOf(addedBom[i]) === -1) {
+        newBomHistory.push(addedBom[i]);
       }
       await new BomHistoryModel(newBomHistory).save();
-      [...bomMap].empty();
+      addedBom.empty();
     }
   },
 };
