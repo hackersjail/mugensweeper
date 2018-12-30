@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <modal v-if="overlay" />
+    <modal v-if="overlay" @closeOverlay="closeOverlay" />
     <div>
       <logo />
       <h1 class="title">mugensweeper</h1>
@@ -20,7 +20,7 @@ import Logo from '~/components/Logo.vue';
 export default {
   data() {
     return {
-      overlay: false,
+      overlay: true,
     };
   },
   components: {
@@ -28,8 +28,8 @@ export default {
     Modal,
   },
   methods: {
-    changeOverlay() {
-      this.overlay = !this.overlay;
+    closeOverlay() {
+      this.overlay = false;
     },
   },
 };
