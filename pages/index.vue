@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <modal />
+    <modal v-if="overlay" @closeOverlay="closeOverlay" />
     <div>
       <logo />
       <h1 class="title">mugensweeper</h1>
@@ -20,10 +20,20 @@ import Logo from '~/components/Logo.vue';
 import Ranking from '~/components/Ranking.vue';
 
 export default {
+  data() {
+    return {
+      overlay: true,
+    };
+  },
   components: {
     Logo,
     Modal,
     Ranking,
+  },
+  methods: {
+    closeOverlay() {
+      this.overlay = false;
+    },
   },
 };
 </script>

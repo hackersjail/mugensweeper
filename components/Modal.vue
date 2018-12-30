@@ -1,29 +1,13 @@
 <template>
   <transition name="modal">
-    <div v-if="overlay" class="modalLayer">
+    <div class="modalLayer">
       <div class="initMsg">
         <div class="title">mugenSweeper</div>
-        <div class="startBtn" @click="closeOverLayer">START</div>
+        <div class="startBtn" @click="$emit('closeOverlay')">START</div>
       </div>
     </div>
   </transition>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      overlay: true,
-    };
-  },
-  methods: {
-    closeOverLayer() {
-      this.overlay = false;
-      this.$emit('judgename');
-    },
-  },
-};
-</script>
 
 <style scoped>
 .modalLayer {
