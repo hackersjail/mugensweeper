@@ -17,10 +17,12 @@ async function start() {
 
   app.listen(PORT, () => {
     if (NODE_ENV === 'development') {
+      /* eslint-disable no-console */
       console.log(`API Server is listening on: http://localhost:${PORT}`);
       swaggerSpecs.forEach(({ version }) => {
         console.log(`API ${version} on: http://localhost:${PORT}/docs/${version}`);
       });
+      /* eslint-enable no-console */
     }
   });
 }
