@@ -8,7 +8,7 @@ const users = [
     userName: 'test',
     userID: 'Tl9HrM',
     token:
-      'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJGQXhrWXAiLCJleHAiOjE3MDQwMTQyOTgsImF1ZCI6Im11Z2Vuc3dlZXBlcnMiLCJpc3MiOiJtdWdlbnN3ZWVwZXJzIn0.Gvi5iBINEbX79l48fzDuxjUMwOy1qDRth2Tsqb-8liM',
+      'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzSk52a3giLCJleHAiOjE3MDQwMTc2MjIsImF1ZCI6Im11Z2Vuc3dlZXBlcnMiLCJpc3MiOiJtdWdlbnN3ZWVwZXJzIn0.98Pxlqc_1AA0hZSwjn7-YNCb5ZIfPkbZ6bhkcnElUK4',
   },
 ];
 
