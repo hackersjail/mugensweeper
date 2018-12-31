@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const auth = require('../v1/authentication/auth.js')();
 
-router.use('/user_id_generate', require('./miyamoto/user_id_generate.js'));
+router.use('/user_id_generate', require('./miyamoto/userIdGenerate.js'));
 
 router.use('/example', require('./example.js'));
 router.use('/ryoko/field', require('./ryoko/field.js'));

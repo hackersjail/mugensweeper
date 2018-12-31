@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
-const { generateAccessToken } = require('../../v1/authentication/token.js');
+const generateAccessToken = require('../../v1/authentication/generateAccessToken.js');
 const { addUser } = require('../../../models/dev/miyamoto/userStore.js');
 
 router.route('/').post((req, res) => {
