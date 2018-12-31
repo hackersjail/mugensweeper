@@ -23,5 +23,12 @@ module.exports = {
         jest: true,
       },
     },
+    {
+      files: ['store/**/*.js'],
+      rules: {
+        'no-shadow': 0,
+        'no-param-reassign': 0,
+      },
+    },
   ],
 };

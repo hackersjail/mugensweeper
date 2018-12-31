@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  dev:
+    build: .
+    container_name: mugensweeper-dev
+    tty: true
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+    environment:
+      - MONGO_ENV=development
+      - MONGO_URI=mongodb://mongo:27017/mugensweeper
+      - NUXT_HOST=0.0.0.0
+      - NUXT_PORT=3000
+    ports:
+      - 10000:10000
+      - 3000:3000
+    links:
+      - mongo:mongo
+  mongo:
+    image: mongo
+    container_name: mugensweeper-mongo
+    restart: always
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - 27017:27017
+  mongo-express:
+    image: mongo-express
+    container_name: mugensweeper-mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+
+volumes:
+  node_modules:
+    driver: local
+  mongo_data:
+    driver: local

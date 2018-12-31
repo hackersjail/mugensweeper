@@ -10,7 +10,7 @@
   "scripts": {
     "server": "node api/server.js",
     "dev": "npm-run-all --parallel dev:*",
-    "dev:api": "nodemon --exec \"npm run server\" --config api/nodemon.json",
+    "dev:api": "nodemon --exec 'npm run server' --config api/nodemon.json",
     "dev:client": "nuxt",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
@@ -18,7 +18,9 @@
     "test": "jest --config api/jest.config.js",
     "test:watch": "npm test -- --watch",
     "test:coverage": "npm test -- --coverage",
-    "coverage": "codecov"
+    "coverage": "codecov",
+    "docker:dev": "npm-run-all --parallel 'dev:api -- --legacy-watch' dev:client",
+    "docker:test": "nodemon --config api/nodemon-docker.json --legacy-watch"
   },
   "dependencies": {
     "@nuxtjs/axios": "5.3.6",
@@ -40,9 +42,9 @@
     "eslint-config-prettier": "3.3.0",
     "eslint-loader": "2.1.1",
     "eslint-plugin-import": "2.14.0",
-    "eslint-plugin-prettier": "3.0.0",
+    "eslint-plugin-prettier": "3.0.1",
     "eslint-plugin-vue": "5.0.0",
-    "husky": "1.2.1",
+    "husky": "1.3.1",
     "jest": "23.6.0",
     "lint-staged": "8.1.0",
     "mongodb-memory-server": "2.9.1",

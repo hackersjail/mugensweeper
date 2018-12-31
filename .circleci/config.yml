@@ -15,12 +15,8 @@ jobs:
             - ~/.cache/yarn
           key: yarn-packages-v1-{{ checksum "yarn.lock" }}
       - run: yarn lint
-      - run: yarn test:coverage
-      - run:
-          command: |
-            if [ $CIRCLE_BRANCH = "develop" ] ; then
-              yarn coverage
-            fi
+      - run: yarn test:coverage --runInBand
+      - run: yarn coverage
 
 workflows:
   version: 2
