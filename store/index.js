@@ -16,14 +16,14 @@ export const plugins = [
 
     store.subscribe((mutation) => {
       if (mutation.type !== 'setAccessToken') return; // setAccessTokenの発火時のみ起動
-      localStorage.setItem(USER_KEY_NAME, JSON.stringify(mutation.payload));
+      localStorage.setItem(USER_KEY_NAME, JSON.stringify(mutation.payload.token));
     });
   },
 ];
 
 export const mutations = {
-  setAccessToken(state, { accessToken, userId, userName }) {
-    state.token = accessToken;
+  setAccessToken(state, { token, userId, userName }) {
+    state.token = token;
     state.userId = userId;
     state.userName = userName;
   },
@@ -32,7 +32,7 @@ export const mutations = {
 export const actions = {
   async getAccessToken({ commit, state }, userName) {
     if (!state.token) {
-      const userData = await this.$axios.$post('/api/routes/dev/user_id_generate', { userName });
+      const userData = await this.$axios.$post('/user_id_generate', { userName });
       commit('setAccessToken', userData);
     }
   },
