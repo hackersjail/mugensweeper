@@ -3,8 +3,8 @@ const judgeField = require('../../routes/v1/util/judgeField.js');
 
 const propFilter = '-_id -__v';
 const getdata = FieldHistoryModel.find({}, propFilter).lean();
-const prefield = []; // DB登録済みのフィールド
-const addfield = []; // 追加予定のフィールド
+const prefield = [];
+const addfield = [];
 
 module.exports = {
   async initData() {
