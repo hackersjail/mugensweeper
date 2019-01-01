@@ -43,7 +43,10 @@ describe('field情報を返せるかどうか', () => {
       { recordtime: timeStamp, userId: 1, x: 2, y: 2, action: 'opened', actionId: 4 },
       { recordtime: timeStamp, userId: 2, x: 1, y: 2, action: 'opened', actionId: 5 },
     ];
-    const add = { recordtime: timeStamp, userId: 2, x: 2, y: 3, action: 'opened', actionId: 6 };
+    const add = [
+      { recordtime: timeStamp, userId: 2, x: 2, y: 3, action: 'opened', actionId: 6 },
+      { recordtime: timeStamp, userId: 2, x: 2, y: 4, action: 'opened', actionId: 7 },
+    ];
 
     // When
     const beforePostField = await Promise.all(
@@ -51,8 +54,8 @@ describe('field情報を返せるかどうか', () => {
     );
     await initData();
     const afterPostField = addData(add);
-    await saveData();
-    const afterSaveField = await getData();
+    saveData();
+    const afterSaveField = getData();
 
     // Then
     const matcher = [
@@ -62,9 +65,10 @@ describe('field情報を返せるかどうか', () => {
       { recordtime: timeStamp, userId: 1, x: 2, y: 2, action: 'opened', actionId: 4 },
       { recordtime: timeStamp, userId: 2, x: 1, y: 2, action: 'opened', actionId: 5 },
       { recordtime: timeStamp, userId: 2, x: 2, y: 3, action: 'opened', actionId: 6 },
+      { recordtime: timeStamp, userId: 2, x: 2, y: 4, action: 'opened', actionId: 7 },
     ];
     expect(afterPostField).toHaveLength(beforePostField.length);
-    expect(afterSaveField).toHaveLength(beforePostField.length + 1);
+    expect(afterSaveField).toHaveLength(beforePostField.length + 2);
     expect(afterSaveField).toEqual(matcher);
   });
 });

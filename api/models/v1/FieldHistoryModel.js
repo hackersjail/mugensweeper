@@ -10,6 +10,4 @@ const schema = new Schema({
   actionId: Number,
 });
 
-if (!mongoose.models.FieldModel) mongoose.model('FieldHistoryModel', schema);
-
-module.exports = mongoose.model('FieldHistoryModel');
+module.exports = mongoose.model('FieldHistoryModel', schema);
