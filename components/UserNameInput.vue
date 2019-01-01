@@ -1,9 +1,9 @@
 <template>
   <section>
     <!-- モーダルウィンドウ -->
-    <div v-if="nameInput" id="modalContent">
+    <div v-if="nameInput" class="modalContent">
       <!-- モーダルウィンドウのコンテンツ開始 -->
-      <div id="modalContentInnar">
+      <div class="modalContentInnar">
         <!-- <div class="title">ユーザー名登録</div> -->
         <h2 class="explain">ユーザー名登録</h2>
         <h5 class="explain">3文字以上、7文字以下でご登録ください。</h5>
@@ -14,13 +14,13 @@
       </div>
       <!-- モーダルウィンドウのコンテンツ終了 -->
     </div>
-    <div id="modalBg" />
+    <div class="modalBg" />
     <!-- モーダルウィンドウ -->
   </section>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   props: ['nameInput'],
@@ -29,26 +29,20 @@ export default {
       name: '',
     };
   },
-  mounted() {
-    this.modalSet();
-  },
-  computed: {
-    ...mapState(['userName', 'userId', 'token']),
-  },
   methods: {
     ...mapActions(['getAccessToken']),
-    modalSet() {
-      const modalContent = document.getElementById('modalContent');
-      const modalContentInnar = document.getElementById('modalContentInnar');
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      const cw = modalContentInnar.getBoundingClientRect().width;
-      const ch = modalContentInnar.getBoundingClientRect().height;
+    // modalSet() {
+    //   const modalContent = document.getElementById('modalContent');
+    //   const modalContentInnar = document.getElementById('modalContentInnar');
+    //   const w = window.innerWidth;
+    //   const h = window.innerHeight;
+    //   const cw = modalContentInnar.getBoundingClientRect().width;
+    //   const ch = modalContentInnar.getBoundingClientRect().height;
 
-      // 取得した値をcssに追加する
-      modalContent.style.left = `${(w - cw) / 2}px`;
-      modalContent.style.top = `${+((h - ch) / 2)}px`;
-    },
+    //   // 取得した値をcssに追加する
+    //   modalContent.style.left = `${(w - cw) / 2}px`;
+    //   modalContent.style.top = `${+((h - ch) / 2)}px`;
+    // },
     registName() {
       this.getAccessToken(this.name);
     },
@@ -99,20 +93,21 @@ export default {
   width: 80px;
 }
 
-#modalContent {
+.modalContent {
   background: transparent;
   position: fixed;
   z-index: 2;
-  text-align: center;
+  top: calc(50% - 150px / 2);
+  left: calc(50% - 250px / 2);
 }
 
-#modalContentInnar {
+.modalContentInnar {
   margin: 0 auto;
   width: 100%;
   z-index: 2;
 }
 
-#modalBg {
+.modalBg {
   z-index: 1;
   position: fixed;
   top: 0;
