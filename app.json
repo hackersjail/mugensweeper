@@ -1,15 +1,10 @@
 {
   "name": "preview-mugensweeper",
   "description": "",
-  "scripts": {
-  },
-  "env": {
-  },
-  "formation": {
-  },
-  "addons": [
-
-  ],
+  "scripts": {},
+  "env": {},
+  "formation": {},
+  "addons": [],
   "stack": "heroku-18",
   "buildpacks": [
     {
