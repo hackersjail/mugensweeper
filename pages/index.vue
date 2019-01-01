@@ -1,25 +1,26 @@
 <template>
   <section class="container">
-    <div v-if="!token"><user-name-input :nameInput="nameInput" /></div>
+    <user-name-input v-if="!token" @register-name="registerName" />
     {{ userName }}
   </section>
 </template>
 
 <script>
 import UserNameInput from '~/components/UserNameInput.vue';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   components: {
     UserNameInput,
   },
-  data() {
-    return {
-      nameInput: true,
-    };
-  },
   computed: {
     ...mapState(['userName', 'token']),
+  },
+  methods: {
+    ...mapActions(['getAccessToken']),
+    registerName(inputName) {
+      this.getAccessToken(inputName);
+    },
   },
 };
 </script>

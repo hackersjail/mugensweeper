@@ -1,15 +1,15 @@
 <template>
   <section>
     <!-- モーダルウィンドウ -->
-    <div v-if="nameInput" class="modalContent">
+    <div class="modalContent">
       <!-- モーダルウィンドウのコンテンツ開始 -->
       <div class="modalContentInnar">
         <!-- <div class="title">ユーザー名登録</div> -->
         <h2 class="explain">ユーザー名登録</h2>
         <h5 class="explain">3文字以上、7文字以下でご登録ください。</h5>
-        <form class="form" @submit.prevent="registName">
+        <form class="form" @submit.prevent="registerName">
           <input type="text" class="input" v-model="name" minlength="3" maxlength="7" required />
-          <div class="registBtn" @click="registName">登録</div>
+          <div class="registBtn" @click="inputName">登録</div>
         </form>
       </div>
       <!-- モーダルウィンドウのコンテンツ終了 -->
@@ -20,31 +20,15 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
-  props: ['nameInput'],
   data() {
     return {
       name: '',
     };
   },
   methods: {
-    ...mapActions(['getAccessToken']),
-    // modalSet() {
-    //   const modalContent = document.getElementById('modalContent');
-    //   const modalContentInnar = document.getElementById('modalContentInnar');
-    //   const w = window.innerWidth;
-    //   const h = window.innerHeight;
-    //   const cw = modalContentInnar.getBoundingClientRect().width;
-    //   const ch = modalContentInnar.getBoundingClientRect().height;
-
-    //   // 取得した値をcssに追加する
-    //   modalContent.style.left = `${(w - cw) / 2}px`;
-    //   modalContent.style.top = `${+((h - ch) / 2)}px`;
-    // },
-    registName() {
-      this.getAccessToken(this.name);
+    inputName() {
+      this.$emit('register-name', this.name);
     },
   },
 };
