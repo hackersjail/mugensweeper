@@ -17,7 +17,7 @@ module.exports = (array) => {
       const userId = array[i].u;
       const flags = array[i].f;
       const index = array.indexOf(array[i]);
-      const { res } = result.slice(index, index + 1)[0];
+      const res = result.slice(index, index + 1)[0];
       res.userId = userId;
       res.actionId = flags;
       res.action = 'opened';

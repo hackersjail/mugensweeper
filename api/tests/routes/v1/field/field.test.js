@@ -38,7 +38,7 @@ describe('field情報を返せるかどうか', () => {
   it('DBにfieldHistoryを追加するテスト', async () => {
     // Given
     // prettier-ignore
-    const  fieldHistory = array2fieldHistory([
+    const fieldHistory = array2fieldHistory([
       0, 0, 0, { u: 2, f: 5 }, { u: 1, f: 4 },
       0, 0, 0, { u: 3, f: 3 }, 0,
       0, 0, 0, 0, 0,
@@ -46,8 +46,8 @@ describe('field情報を返せるかどうか', () => {
       0, { u: 1, f: 2 }, 0, 0, 0,
     ]);
     // prettier-ignore
-    const  add = array2fieldHistory([
-      0, 0, 0, 0, 0,0,  { u: 2, f: 7 },
+    const add = array2fieldHistory([
+      0, 0, 0, 0, 0, 0, { u: 2, f: 7 },
       0, 0, 0, 0, 0, 0, { u: 2, f: 6 },
       0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0,
@@ -57,31 +57,26 @@ describe('field情報を返せるかどうか', () => {
     ]);
 
     // When
-    const beforePostField = await Promise.all(
-      fieldHistory.map((fieldHis) => new FieldHistoryModel(fieldHis).save()),
-    );
+    const beforePostField = await FieldHistoryModel.insertMany(fieldHistory);
     await initData();
     await addData(add);
     const afterPostField = getData();
-    const db2field = fieldHistory2array(afterPostField);
     await saveData();
     const afterSaveField = getData();
 
     // Then
     // prettier-ignore
-    const matchers = [
+    const matchers = array2fieldHistory([
       0, 0, 0, 0, 0, 0, { u: 2, f: 7 },
       0, 0, 0, 0, { u: 2, f: 5 }, { u: 1, f: 4 }, { u: 2, f: 6 },
-      0, 0, 0, 0,{ u: 3, f: 3 }, 0, 0,
+      0, 0, 0, 0, { u: 3, f: 3 }, 0, 0,
       0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, { u: 2, f: 1 }, 0, 0, 0,
       0, 0, { u: 1, f: 2 }, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0,
-    ];
+    ]);
 
     expect(afterPostField).toHaveLength(beforePostField.length + 2);
-    expect(afterSaveField).toHaveLength(afterPostField.length);
-    expect(afterSaveField).toEqual(afterPostField);
-    expect(db2field).toEqual(matchers);
+    expect(afterSaveField).toEqual(matchers);
   });
 });
