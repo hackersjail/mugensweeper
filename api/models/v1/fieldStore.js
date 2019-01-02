@@ -12,7 +12,7 @@ module.exports = {
   },
 
   getData() {
-    return prefield.concat(adds);
+    return [...prefield, ...adds];
   },
 
   addData(add) {
