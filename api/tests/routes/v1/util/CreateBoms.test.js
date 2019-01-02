@@ -22,7 +22,7 @@ describe('BomMapを生成する', () => {
     const results = [];
     for (let i = 0; i < positions.length; i += 1) {
       const result = bomMap(rate, field, positions[i]);
-      results.push([...result]);
+      results.push(result);
     }
 
     // 3: Then
