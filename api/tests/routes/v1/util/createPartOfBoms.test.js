@@ -1,4 +1,4 @@
-const bomMap = require('../../../../routes/v1/util/createPartOfBoms.js');
+const createPartOfBoms = require('../../../../routes/v1/util/createPartOfBoms.js');
 const array2Fields = require('./utils/array2Fields.js');
 const array2Machers = require('./utils/array2Machers.js');
 
@@ -21,7 +21,7 @@ describe('BomMapを生成する', () => {
 
     const results = [];
     for (let i = 0; i < positions.length; i += 1) {
-      const result = bomMap(rate, field, positions[i]);
+      const result = createPartOfBoms(rate, field, positions[i]);
       results.push(result);
     }
 
