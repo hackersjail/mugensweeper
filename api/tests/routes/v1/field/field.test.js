@@ -77,6 +77,6 @@ describe('field情報を返せるかどうか', () => {
     ]);
 
     expect(afterPostField).toHaveLength(beforePostField.length + 2);
-    expect(afterSaveField).toEqual(matchers);
+    expect(afterSaveField).toEqual(expect.arrayContaining(matchers));
   });
 });
