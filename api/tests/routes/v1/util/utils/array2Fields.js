@@ -6,6 +6,6 @@ module.exports = (array) => {
     .sort((a, b) => a.num - b.num)
     .map(({ i }) => ({
       x: (i % sqrt) - (sqrt + 1) / 2 + 1,
-      y: Math.floor(i / sqrt) - (sqrt + 1) / 2 + 1,
+      y: -(Math.floor(i / sqrt) - (sqrt + 1) / 2 + 1) || 0,
     }));
 };

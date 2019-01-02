@@ -1,11 +1,15 @@
 module.exports = (array) => {
   const sqrt = Math.sqrt(array.length);
-  return array
-    .map((num, i) => num && { num, i })
-    .filter((a) => a !== 0)
-    .sort((a, b) => a.num - b.num)
-    .map(({ i }) => ({
-      x: (i % sqrt) - (sqrt + 1) / 2 + 1,
-      y: Math.floor(i / sqrt) - (sqrt + 1) / 2 + 1,
-    }));
+  const array3 = [];
+  for (let n = 1; n <= 3; n += 1) {
+    const array2 = array
+      .map((num, i) => num && { num, i })
+      .filter(({ num }) => num === n)
+      .map(({ i }) => ({
+        x: (i % sqrt) - (sqrt + 1) / 2 + 1,
+        y: -(Math.floor(i / sqrt) - (sqrt + 1) / 2 + 1) || 0,
+      }));
+    array3.push(array2);
+  }
+  return array3;
 };
