@@ -1,7 +1,8 @@
-const { bomMap } = require('../../../../routes/v1/util/CreateBoms.js');
+const bomMap = require('../../../../routes/v1/util/createBoms.js');
 const array2Fields = require('./utils/array2Fields.js');
 const array2Machers = require('./utils/array2Machers.js');
 
+// console.log(bomMap());
 describe('BomMapを生成する', () => {
   it('与えた座標の周囲の余剰にBomMapが返ってくる', () => {
     // 1: Given
