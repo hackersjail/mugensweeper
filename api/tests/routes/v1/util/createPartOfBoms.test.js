@@ -1,4 +1,4 @@
-const bomMap = require('../../../../routes/v1/util/createBoms.js');
+const bomMap = require('../../../../routes/v1/util/createPartOfBoms.js');
 const array2Fields = require('./utils/array2Fields.js');
 const array2Machers = require('./utils/array2Machers.js');
 
