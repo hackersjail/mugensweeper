@@ -10,6 +10,7 @@
         <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
       </div>
     </div>
+    <ranking :ranked-users="rankedUsers" />
     <user-name-input v-if="!token" @register-name="registerName" />
     {{ userName }}
   </section>
@@ -18,6 +19,7 @@
 <script>
 import Modal from '~/components/Modal.vue';
 import Logo from '~/components/Logo.vue';
+import Ranking from '~/components/Ranking.vue';
 import UserNameInput from '~/components/UserNameInput.vue';
 import { mapState, mapActions } from 'vuex';
 
@@ -30,10 +32,11 @@ export default {
   components: {
     Logo,
     Modal,
+    Ranking,
     UserNameInput,
   },
   computed: {
-    ...mapState(['userName', 'token']),
+    ...mapState(['userName', 'token', 'rankedUsers']),
   },
   methods: {
     ...mapActions(['getAccessToken']),
