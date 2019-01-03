@@ -15,12 +15,14 @@ jobs:
             - ~/.cache/yarn
           key: yarn-packages-v1-{{ checksum "yarn.lock" }}
       - run: yarn lint
-      - run: yarn test:coverage
+      - run: yarn test:coverage --runInBand
       - run:
-          command: |
-            if [ $CIRCLE_BRANCH = "develop" ] ; then
-              yarn coverage
-            fi
+          name: Test with current Node.js version
+          command: npx --package node@^11 node ./node_modules/.bin/jest --config api/jest.config.js  --runInBand
+      - run:
+          name: Run a security audit
+          command: yarn audit
+      - run: yarn coverage
 
 workflows:
   version: 2
