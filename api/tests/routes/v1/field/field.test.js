@@ -1,4 +1,3 @@
-const fieldHistory2array = require('../util/fieldHistory2array.js');
 const array2fieldHistory = require('../util/array2fieldHistory.js');
 const FieldHistoryModel = require('../../../../models/v1/FieldHistoryModel.js');
 const { initData, getData, addData, saveData } = require('../../../../models/v1/fieldStore.js');
@@ -11,28 +10,26 @@ describe('field情報を返せるかどうか', () => {
   beforeEach(initData);
   afterEach(dropDB);
   afterAll(disconnectDB);
-  it('field historyを取得したら fieldが作成される関数のテスト', () => {
+  it('配列をfield historyに変換する関数のテスト', () => {
     // Given
-    const fieldHistory = fieldHistory2array([
-      { recordtime: timeStamp, userId: 2, x: 0, y: -1, action: 'opened', actionId: 1 },
-      { recordtime: timeStamp, userId: 1, x: -1, y: -2, action: 'opened', actionId: 2 },
-      { recordtime: timeStamp, userId: 3, x: 1, y: 1, action: 'opened', actionId: 3 },
-      { recordtime: timeStamp, userId: 1, x: 2, y: 2, action: 'opened', actionId: 4 },
-      { recordtime: timeStamp, userId: 2, x: 1, y: 2, action: 'opened', actionId: 5 },
-    ]);
-
     // prettier-ignore
-    const  fieldHistory2 = [
+    const  fieldHistory = array2fieldHistory([
       0, 0, 0, { u: 2, f: 5 }, { u: 1, f: 4 },
       0, 0, 0, { u: 3, f: 3 }, 0,
       0, 0, 0, 0, 0,
       0, 0, { u: 2, f: 1 }, 0, 0,
       0, { u: 1, f: 2 }, 0, 0, 0,
-    ]
-    // When
+    ]);
 
+    const fieldHistory2 = [
+      { recordtime: timeStamp, userId: 2, x: 0, y: -1, action: 'opened', actionId: 1 },
+      { recordtime: timeStamp, userId: 1, x: -1, y: -2, action: 'opened', actionId: 2 },
+      { recordtime: timeStamp, userId: 3, x: 1, y: 1, action: 'opened', actionId: 3 },
+      { recordtime: timeStamp, userId: 1, x: 2, y: 2, action: 'opened', actionId: 4 },
+      { recordtime: timeStamp, userId: 2, x: 1, y: 2, action: 'opened', actionId: 5 },
+    ];
     // Then
-    expect(fieldHistory).toEqual(fieldHistory2);
+    expect(fieldHistory).toEqual(expect.arrayContaining(fieldHistory2));
   });
 
   it('DBにfieldHistoryを追加するテスト', async () => {
