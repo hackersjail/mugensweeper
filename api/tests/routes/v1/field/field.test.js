@@ -1,4 +1,5 @@
 const fieldHistory2array = require('../util/fieldHistory2array.js');
+const array2fieldHistory = require('../util/array2fieldHistory.js');
 const FieldHistoryModel = require('../../../../models/v1/FieldHistoryModel.js');
 const { initData, getData, addData, saveData } = require('../../../../models/v1/fieldStore.js');
 const { connectDB, disconnectDB, dropDB } = require('../../../../database.js');
@@ -36,39 +37,46 @@ describe('field情報を返せるかどうか', () => {
 
   it('DBにfieldHistoryを追加するテスト', async () => {
     // Given
-    const fieldHistory = [
-      { recordtime: timeStamp, userId: 2, x: 0, y: -1, action: 'opened', actionId: 1 },
-      { recordtime: timeStamp, userId: 1, x: -1, y: -2, action: 'opened', actionId: 2 },
-      { recordtime: timeStamp, userId: 3, x: 1, y: 1, action: 'opened', actionId: 3 },
-      { recordtime: timeStamp, userId: 1, x: 2, y: 2, action: 'opened', actionId: 4 },
-      { recordtime: timeStamp, userId: 2, x: 1, y: 2, action: 'opened', actionId: 5 },
-    ];
-    const add = [
-      { recordtime: timeStamp, userId: 2, x: 2, y: 3, action: 'opened', actionId: 6 },
-      { recordtime: timeStamp, userId: 2, x: 2, y: 4, action: 'opened', actionId: 7 },
-    ];
+    // prettier-ignore
+    const fieldHistory = array2fieldHistory([
+      0, 0, 0, { u: 2, f: 5 }, { u: 1, f: 4 },
+      0, 0, 0, { u: 3, f: 3 }, 0,
+      0, 0, 0, 0, 0,
+      0, 0, { u: 2, f: 1 }, 0, 0,
+      0, { u: 1, f: 2 }, 0, 0, 0,
+    ]);
+    // prettier-ignore
+    const add = array2fieldHistory([
+      0, 0, 0, 0, 0, 0, { u: 2, f: 7 },
+      0, 0, 0, 0, 0, 0, { u: 2, f: 6 },
+      0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0,
+    ]);
 
     // When
-    const beforePostField = await Promise.all(
-      fieldHistory.map((fieldHis) => new FieldHistoryModel(fieldHis).save()),
-    );
+    const beforePostField = await FieldHistoryModel.insertMany(fieldHistory);
     await initData();
-    const afterPostField = addData(add);
-    saveData();
+    await addData(add);
+    const afterPostField = getData();
+    await saveData();
     const afterSaveField = getData();
 
     // Then
-    const matcher = [
-      { recordtime: timeStamp, userId: 2, x: 0, y: -1, action: 'opened', actionId: 1 },
-      { recordtime: timeStamp, userId: 1, x: -1, y: -2, action: 'opened', actionId: 2 },
-      { recordtime: timeStamp, userId: 3, x: 1, y: 1, action: 'opened', actionId: 3 },
-      { recordtime: timeStamp, userId: 1, x: 2, y: 2, action: 'opened', actionId: 4 },
-      { recordtime: timeStamp, userId: 2, x: 1, y: 2, action: 'opened', actionId: 5 },
-      { recordtime: timeStamp, userId: 2, x: 2, y: 3, action: 'opened', actionId: 6 },
-      { recordtime: timeStamp, userId: 2, x: 2, y: 4, action: 'opened', actionId: 7 },
-    ];
-    expect(afterPostField).toHaveLength(beforePostField.length);
-    expect(afterSaveField).toHaveLength(beforePostField.length + 2);
-    expect(afterSaveField).toEqual(matcher);
+    // prettier-ignore
+    const matchers = array2fieldHistory([
+      0, 0, 0, 0, 0, 0, { u: 2, f: 7 },
+      0, 0, 0, 0, { u: 2, f: 5 }, { u: 1, f: 4 }, { u: 2, f: 6 },
+      0, 0, 0, 0, { u: 3, f: 3 }, 0, 0,
+      0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, { u: 2, f: 1 }, 0, 0, 0,
+      0, 0, { u: 1, f: 2 }, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0,
+    ]);
+
+    expect(afterPostField).toHaveLength(beforePostField.length + 2);
+    expect(afterSaveField).toEqual(expect.arrayContaining(matchers));
   });
 });

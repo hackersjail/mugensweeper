@@ -1,4 +1,4 @@
-function judgeField(prefield, add) {
+module.exports = (prefield, add) => {
   const posi = {
     x: add.x,
     y: add.y,
@@ -10,5 +10,4 @@ function judgeField(prefield, add) {
     }
   }
   return true;
-}
-module.exports = judgeField;
+};

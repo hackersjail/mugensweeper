@@ -1,6 +1,6 @@
 module.exports = (array) => {
   const result = [];
-  const len = Math.floor(Math.sqrt(array.length)); // 配列生成用の値
+  const len = Math.floor(array.length / 2); // 配列生成用の値
 
   // 全配列を生成
   for (let i = 0; i < array.length ** 2; i += 1) {
