@@ -3,7 +3,6 @@ module.exports = (array) => {
   const result2 = [];
   const len = Math.sqrt(array.length); // 1辺の長さ
   const num = Math.floor(len / 2); // 周囲計算用の数値
-  const timeStamp = Math.round(new Date().getTime() / 1000);
 
   // 全配列を生成
   for (let y = num; y > -num - 1; y -= 1) {
@@ -17,12 +16,13 @@ module.exports = (array) => {
     if (array[i] !== 0) {
       const userId = array[i].u;
       const flags = array[i].f;
+      const time = array[i].t;
       const index = array.indexOf(array[i]);
       const res = result.slice(index, index + 1)[0];
       res.userId = userId;
       res.actionId = flags;
+      res.recordtime = time;
       res.action = 'opened';
-      res.recordtime = timeStamp;
       result2.push(res);
     }
   }
