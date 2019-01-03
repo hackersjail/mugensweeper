@@ -12,11 +12,12 @@
 
 <script>
 export default {
+  props: {
+    rankedUsers: [],
+  },
   computed: {
     orderedUsers() {
-      return [...this.$store.state.rankedUsers].sort(
-        (user1, user2) => user2.userScore - user1.userScore,
-      );
+      return [...this.rankedUsers].sort((user1, user2) => user2.userScore - user1.userScore);
     },
   },
 };
