@@ -1,5 +1,6 @@
 <template>
   <section class="container">
+    <modal v-if="overlay" @closeOverlay="closeOverlay" />
     <div>
       <logo />
       <h1 class="title">mugensweeper</h1>
@@ -9,15 +10,39 @@
         <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
       </div>
     </div>
+    <user-name-input v-if="!token" @register-name="registerName" />
+    {{ userName }}
   </section>
 </template>
 
 <script>
+import Modal from '~/components/Modal.vue';
 import Logo from '~/components/Logo.vue';
+import UserNameInput from '~/components/UserNameInput.vue';
+import { mapState, mapActions } from 'vuex';
 
 export default {
+  data() {
+    return {
+      overlay: true,
+    };
+  },
   components: {
     Logo,
+    Modal,
+    UserNameInput,
+  },
+  computed: {
+    ...mapState(['userName', 'token']),
+  },
+  methods: {
+    ...mapActions(['getAccessToken']),
+    registerName(inputName) {
+      this.getAccessToken(inputName);
+    },
+    closeOverlay() {
+      this.overlay = false;
+    },
   },
 };
 </script>
@@ -29,27 +54,5 @@ export default {
   justify-content: center;
   align-items: center;
   text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
 }
 </style>
