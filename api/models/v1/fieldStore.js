@@ -22,8 +22,10 @@ module.exports = {
   },
 
   async saveData() {
-    await FieldHistoryModel.insertMany(adds);
-    prefield.push(...adds);
-    adds.length = 0;
+    if (adds.lenghth !== 0) {
+      await FieldHistoryModel.insertMany(adds);
+      prefield.push(...adds);
+      adds.length = 0;
+    }
   },
 };
