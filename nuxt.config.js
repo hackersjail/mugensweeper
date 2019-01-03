@@ -29,7 +29,7 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['@/plugins/axios'],
 
   /*
    ** Nuxt.js modules
@@ -62,6 +62,12 @@ module.exports = {
           exclude: /(node_modules)/,
         });
       }
+    },
+  },
+  watchers: {
+    webpack: {
+      aggregateTimeout: 300,
+      poll: 1000,
     },
   },
 };
