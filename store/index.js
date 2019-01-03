@@ -1,9 +1,12 @@
 const USER_KEY_NAME = 'msweeP';
+const DEFAULT_GRID_X = 48;
 
 export const state = () => ({
   userName: null,
   userId: null,
   token: null,
+  blocks: null,
+  gridX: DEFAULT_GRID_X,
 });
 
 export const plugins = [
@@ -27,6 +30,16 @@ export const mutations = {
     state.userId = userId;
     state.userName = userName;
   },
+  setField(state, [...blocks]) {
+    state.blocks = blocks;
+  },
+  setInitPos(state, position) {
+    // 基準地点設定
+    state.dragFlg = true;
+    state.dragInit = position;
+    state.swipeInit.x = state.moveDist.x;
+    state.swipeInit.y = state.moveDist.y;
+  },
 };
 
 export const actions = {
@@ -34,6 +47,12 @@ export const actions = {
     if (!state.token) {
       const userData = await this.$axios.$post('/user_id_generate', { userName });
       commit('setAccessToken', userData);
+    }
+  },
+  async getField({ state, commit }) {
+    if (state.token) {
+      const fieldData = await this.$axios.$get('/field');
+      commit('setField', fieldData);
     }
   },
 };
