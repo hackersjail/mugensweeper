@@ -4,6 +4,9 @@ const app = require('./routes/app.js');
 const { NODE_ENV, PORT } = require('./config.js');
 const { connectDB } = require('./database.js');
 
+const { initData, saveData } = require('./models/v1/fieldStore.js');
+const sleep = require('./util/sleep.js');
+
 async function start() {
   await connectDB();
 
@@ -25,6 +28,16 @@ async function start() {
       /* eslint-enable no-console */
     }
   });
+
+  await initData();
+
+  while (true) {
+    const startTime = Date.now(); // 開始時間
+    await saveData();
+    const endTime = Date.now(); // 終了時間
+    const time = endTime - startTime;
+    await sleep(time < 1000 ? 1000 - time : 0);
+  }
 }
 
 start();
