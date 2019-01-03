@@ -13,7 +13,7 @@ describe('field情報を返せるかどうか', () => {
   it('配列をfield historyに変換する関数のテスト', () => {
     // Given
     // prettier-ignore
-    const  fieldHistory = array2fieldHistory([
+    const fieldHistory = array2fieldHistory([
       0, 0, 0, { u: 2, f: 5 }, { u: 1, f: 4 },
       0, 0, 0, { u: 3, f: 3 }, 0,
       0, 0, 0, 0, 0,
