@@ -14,7 +14,7 @@
 export default {
   data() {
     return {
-      users: [
+      rankedUsers: [
         { userId: 1, userName: 'mishima', userScore: 123 },
         { userId: 2, userName: 'shiratsuchi', userScore: 124 },
         { userId: 3, userName: 'miyamoto', userScore: 125 },
@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     orderedUsers() {
-      return [...this.users].sort((user1, user2) => user2.userScore - user1.userScore);
+      return [...this.rankedUsers].sort((user1, user2) => user2.userScore - user1.userScore);
     },
   },
 };
