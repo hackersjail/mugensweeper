@@ -7,7 +7,7 @@
       <svg viewbox="0 0 100% 100%" width="100%" height="100%">
         <line
           class="border-x"
-          v-for="i in calcGridY() + 2"
+          v-for="i in calcGridY + this.infinitLine"
           :key="'borderX' + i"
           x1="0"
           :x2="$window.width"
@@ -17,7 +17,7 @@
 
         <line
           class="border-y"
-          v-for="i in gridX + 2"
+          v-for="i in gridX + this.infinitLine"
           :key="'borderY' + i"
           :x1="calcBorderPos(i).x"
           :x2="calcBorderPos(i).x"
@@ -50,6 +50,8 @@ import { mapState, mapActions } from 'vuex';
 export default {
   data() {
     return {
+      // 盤面が現表示領域のみであれば1、画面スクロール可能にして無限に盤面が続いているように見せるには2に変更
+      infinitLine: 1,
       overlay: true,
     };
   },
@@ -64,7 +66,7 @@ export default {
       return () => this.$window.width / this.gridX;
     },
     calcGridY() {
-      return () => Math.ceil(this.$window.height / this.calcGridWidth());
+      return Math.ceil(this.$window.height / this.calcGridWidth());
     },
     calcCenterPos() {
       return () => ({

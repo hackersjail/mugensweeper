@@ -52,7 +52,7 @@ export const actions = {
     }
   },
   async getField({ commit }) {
-    const fieldData = await this.$axios.$get('/field');
+    const fieldData = await this.$axios.$get('/field/temp');
     commit('setField', fieldData);
   },
 };
