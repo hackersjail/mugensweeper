@@ -87,9 +87,10 @@ export default {
     calcObjPos() {
       return (object) => {
         const centerPos = this.calcCenterPos();
+        const gridWidth = this.calcGridWidth();
         return {
-          x: centerPos.x + this.calcGridWidth() * object.x - this.calcGridWidth() / 2,
-          y: centerPos.y + this.calcGridWidth() * object.y - this.calcGridWidth() / 2,
+          x: centerPos.x + gridWidth * object.x - gridWidth / 2,
+          y: centerPos.y + gridWidth * object.y - gridWidth / 2,
         };
       };
     },
