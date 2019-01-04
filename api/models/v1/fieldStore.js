@@ -12,11 +12,12 @@ module.exports = {
   },
 
   getData() {
-    return [...prefield, ...adds];
+    return [...prefield];
   },
 
   addData(add) {
     if (judgeField(prefield, add)) {
+      prefield.push(add);
       adds.push(add);
     }
   },
@@ -24,7 +25,6 @@ module.exports = {
   async saveData() {
     if (adds.lenghth !== 0) {
       await FieldHistoryModel.insertMany(adds);
-      prefield.push(...adds);
       adds.length = 0;
     }
   },
