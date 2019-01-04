@@ -5,7 +5,7 @@ const {
   generateRanking,
 } = require('../../../../models/v1/pointStore.js');
 
-const time = Math.round(new Date().getTime() / 1000);
+const t = Math.round(new Date().getTime() / 1000);
 
 describe('ブロックを開くとき', () => {
   it('得点に関するテスト', () => {
@@ -13,10 +13,10 @@ describe('ブロックを開くとき', () => {
     // prettier-ignore
     const fieldinfo = array2fieldHistory([
       0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, { t:time, u: 1, f: 7 }, { t:time, u: 3, f: 8 }, { t:time, u: 4, f: 13 }, 0,
-      0, 0, 0, 0, { t:time, u: 2, f: 2 }, { t:time, u: 1, f: 6 }, 0, { t:time, u: 3, f: 9 }, 0,
-      0, 0, 0, 0, { t:time, u: 1, f: 1 }, { t:time, u: 2, f: 5 }, { t:time, u: 2, f: 4 }, { t:time, u: 4, f: 10 }, { t:time, u: 5, f: 12 },
-      0, 0, 0, 0, 0, { t:time, u: 1, f: 3 }, { t:time, u: 1, f: 11 }, 0, { t:time, u: 1, f: 14 },
+      0, 0, 0, 0, 0, { t, u: 1, f: 7 }, { t, u: 3, f: 8 }, { t, u: 4, f: 13 }, 0,
+      0, 0, 0, 0, { t, u: 2, f: 2 }, { t, u: 1, f: 6 }, 0, { t, u: 3, f: 9 }, 0,
+      0, 0, 0, 0, { t, u: 1, f: 1 }, { t, u: 2, f: 5 }, { t, u: 2, f: 4 }, { t, u: 4, f: 10 }, { t, u: 5, f: 12 },
+      0, 0, 0, 0, 0, { t, u: 1, f: 3 }, { t, u: 1, f: 11 }, 0, { t, u: 1, f: 14 },
       0, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0, 0, 0,
