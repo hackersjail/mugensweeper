@@ -4,6 +4,15 @@ export const state = () => ({
   userName: null,
   userId: null,
   token: null,
+  rankedUsers: [
+    { userId: 1, userName: 'mishima', userScore: 123 },
+    { userId: 2, userName: 'shiratsuchi', userScore: 124 },
+    { userId: 3, userName: 'miyamoto', userScore: 125 },
+    { userId: 4, userName: 'ryoko', userScore: 126 },
+    { userId: 5, userName: 'hiroshima', userScore: 127 },
+    { userId: 6, userName: 'etoh', userScore: 128 },
+    { userId: 7, userName: 'matsuda', userScore: 129 },
+  ],
 });
 
 export const plugins = [
