@@ -59,12 +59,16 @@ export default {
     UserNameInput,
   },
   computed: {
-    ...mapState(['userName', 'token', 'rankedUsers', 'blocks', 'gridX', 'infinitLine']),
+    ...mapState(['userName', 'token', 'rankedUsers', 'blocks', 'gridX']),
     calcGridWidth() {
       return () => this.$window.width / this.gridX;
     },
     gridY() {
       return Math.ceil(this.$window.height / this.calcGridWidth());
+    },
+    infinitLine() {
+      // 盤面が現表示領域のみであれば1、画面スクロール可能にして無限に盤面が続いているように見せるには2に変更
+      return 1;
     },
     calcCenterPos() {
       return () => ({
