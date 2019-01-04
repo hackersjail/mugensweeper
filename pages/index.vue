@@ -1,6 +1,7 @@
 <template>
   <section class="container">
-    <user-name-input v-if="!token" @register-name="registerName" />
+    <modal v-if="overlay" @closeOverlay="closeOverlay" />
+    <user-name-input v-if="!token && !overlay" @register-name="registerName" />
 
     <div class="field">
       <svg viewbox="0 0 100% 100%" width="100%" height="100%">
@@ -35,19 +36,30 @@
         />
       </svg>
     </div>
+
+    <ranking v-if="token && !overlay" :ranked-users="rankedUsers" />
   </section>
 </template>
 
 <script>
+import Modal from '~/components/Modal.vue';
+import Ranking from '~/components/Ranking.vue';
 import UserNameInput from '~/components/UserNameInput.vue';
 import { mapState, mapActions } from 'vuex';
 
 export default {
+  data() {
+    return {
+      overlay: true,
+    };
+  },
   components: {
+    Modal,
+    Ranking,
     UserNameInput,
   },
   computed: {
-    ...mapState(['userName', 'token', 'blocks', 'gridX']),
+    ...mapState(['userName', 'token', 'rankedUsers', 'blocks', 'gridX']),
     calcGridWidth() {
       return () => this.$window.width / this.gridX;
     },
@@ -96,18 +108,16 @@ export default {
     registerName(inputName) {
       this.getAccessToken(inputName);
     },
+    closeOverlay() {
+      this.overlay = false;
+      this.init();
+    },
     init() {
-      this.setIntervalObj = setInterval(async () => {
-        if (this.token) {
-          // eslint-disable-next-line
-          await this.getField().then(() => {
-          });
-        }
+      this.setIntervalObj = setInterval(() => {
+        // eslint-disable-next-line
+        this.getField()
       }, 1000);
     },
-  },
-  mounted() {
-    this.init();
   },
 };
 </script>

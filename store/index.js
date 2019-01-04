@@ -7,6 +7,15 @@ export const state = () => ({
   token: null,
   blocks: null,
   gridX: DEFAULT_GRID_X,
+  rankedUsers: [
+    { userId: 1, userName: 'mishima', userScore: 123 },
+    { userId: 2, userName: 'shiratsuchi', userScore: 124 },
+    { userId: 3, userName: 'miyamoto', userScore: 125 },
+    { userId: 4, userName: 'ryoko', userScore: 126 },
+    { userId: 5, userName: 'hiroshima', userScore: 127 },
+    { userId: 6, userName: 'etoh', userScore: 128 },
+    { userId: 7, userName: 'matsuda', userScore: 129 },
+  ],
 });
 
 export const plugins = [
@@ -19,7 +28,7 @@ export const plugins = [
 
     store.subscribe((mutation) => {
       if (mutation.type !== 'setAccessToken') return; // setAccessTokenの発火時のみ起動
-      localStorage.setItem(USER_KEY_NAME, JSON.stringify(mutation.payload.token));
+      localStorage.setItem(USER_KEY_NAME, JSON.stringify(mutation.payload));
     });
   },
 ];
@@ -30,15 +39,8 @@ export const mutations = {
     state.userId = userId;
     state.userName = userName;
   },
-  setField(state, [...blocks]) {
+  setField(state, blocks) {
     state.blocks = blocks;
-  },
-  setInitPos(state, position) {
-    // 基準地点設定
-    state.dragFlg = true;
-    state.dragInit = position;
-    state.swipeInit.x = state.moveDist.x;
-    state.swipeInit.y = state.moveDist.y;
   },
 };
 
@@ -49,10 +51,8 @@ export const actions = {
       commit('setAccessToken', userData);
     }
   },
-  async getField({ state, commit }) {
-    if (state.token) {
-      const fieldData = await this.$axios.$get('/field');
-      commit('setField', fieldData);
-    }
+  async getField({ commit }) {
+    const fieldData = await this.$axios.$get('/field');
+    commit('setField', fieldData);
   },
 };

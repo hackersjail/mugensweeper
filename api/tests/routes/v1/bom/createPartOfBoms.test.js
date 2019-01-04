@@ -1,6 +1,6 @@
-const createPartOfBoms = require('../../../../routes/v1/util/createPartOfBoms.js');
-const array2Fields = require('./utils/array2Fields.js');
-const array2Machers = require('./utils/array2Machers.js');
+const createPartOfBoms = require('../../../../routes/v1/bom/createPartOfBoms.js');
+const array2Fields = require('../util/array2Fields.js');
+const array2Machers = require('../util/array2Machers.js');
 
 describe('BomMapを生成する', () => {
   it('与えた座標の周囲の余剰にBomMapが返ってくる', () => {
@@ -41,7 +41,9 @@ describe('BomMapを生成する', () => {
     ])
 
     for (let t = 0; t < positions.length; t += 1) {
-      expect(machers[t]).toContainEqual(...results[t]);
+      for (let p = 0; p < results[t].length; p += 1) {
+        expect(machers[t]).toContainEqual(results[t][p]);
+      }
     }
   });
 });
