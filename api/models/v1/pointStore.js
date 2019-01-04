@@ -2,7 +2,6 @@ const eachPoints = (fieldInfo) =>
   fieldInfo.reduce((sortedField, block) => {
     const currentBlock = sortedField.find((a) => a.userId === block.userId);
     const currentIndex = sortedField.findIndex((a) => a.userId === block.userId);
-
     if (block.exploded === true) {
       sortedField.splice(currentIndex, 1, {
         userId: block.userId,
@@ -16,13 +15,12 @@ const eachPoints = (fieldInfo) =>
     } else {
       sortedField.push({ userId: block.userId, points: 1 });
     }
-
     return sortedField;
   }, []);
 
 module.exports = {
   createNewfieldWithBomMap(fieldInfo, bomMap) {
-    const field = fieldInfo;
+    const field = [...fieldInfo];
     for (let i = 0; i < field.length; i += 1) {
       for (let m = 0; m < bomMap.length; m += 1) {
         const exploded =
