@@ -2,7 +2,7 @@ const eachPoints = (fieldInfo) =>
   fieldInfo.reduce((sortedField, block) => {
     const currentBlock = sortedField.find((a) => a.userId === block.userId);
     const currentIndex = sortedField.findIndex((a) => a.userId === block.userId);
-    if (block.bom === true) {
+    if (block.bom === 'exploded') {
       sortedField.splice(currentIndex, 1, {
         userId: block.userId,
         points: 0,
@@ -33,7 +33,7 @@ module.exports = {
             y: field[i].y,
             userId: field[i].userId,
             actoinId: field[i].actionId,
-            bom: true,
+            bom: 'exploded',
           };
         }
       }
@@ -42,7 +42,7 @@ module.exports = {
   },
   calculatePointsForPlayer(fieldInfo, user) {
     const eachPoint = eachPoints(fieldInfo);
-    const result = eachPoint.filter((block) => block.userId === user.userId);
+    const result = eachPoint.find((block) => block.userId === user);
     return result;
   },
   generateRanking(fieldInfo) {
