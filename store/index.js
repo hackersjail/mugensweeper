@@ -7,6 +7,8 @@ export const state = () => ({
   token: null,
   blocks: null,
   gridX: DEFAULT_GRID_X,
+  // 盤面が現表示領域のみであれば1、画面スクロール可能にして無限に盤面が続いているように見せるには2に変更
+  infinitLine: 1,
   rankedUsers: [
     { userId: 1, userName: 'mishima', userScore: 123 },
     { userId: 2, userName: 'shiratsuchi', userScore: 124 },
