@@ -53,10 +53,13 @@ describe('field情報を返せるかどうか', () => {
       0, 0, 0, 0, 0, 0, 0,
     ]);
 
+    const dupli = { x: 2, y: 2, userId: 4, actionId: 9, recordtime: t, action: 'opened' };
+
     // When
     const beforePostField = await FieldHistoryModel.insertMany(fieldHistory);
     await initData();
-    Promise.all(add.map((adds) => addData(adds)));
+    add.forEach(addData);
+    addData(dupli);
     const afterPostField = getData();
     await saveData();
     const afterSaveField = getData();
