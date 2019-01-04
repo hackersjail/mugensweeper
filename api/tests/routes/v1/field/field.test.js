@@ -44,7 +44,7 @@ describe('field情報を返せるかどうか', () => {
     ]);
     // prettier-ignore
     const add = array2fieldHistory([
-      0, 0, 0, 0, 0, 0, { t:time, u: 2, f: 7 },
+      0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, { t:time, u: 2, f: 6 },
       0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0,
@@ -56,7 +56,7 @@ describe('field情報を返せるかどうか', () => {
     // When
     const beforePostField = await FieldHistoryModel.insertMany(fieldHistory);
     await initData();
-    await addData(add);
+    Promise.all(add.map((adds) => addData(adds)));
     const afterPostField = getData();
     await saveData();
     const afterSaveField = getData();
@@ -64,7 +64,7 @@ describe('field情報を返せるかどうか', () => {
     // Then
     // prettier-ignore
     const matchers = array2fieldHistory([
-      0, 0, 0, 0, 0, 0, { t:time, u: 2, f: 7 },
+      0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, { t:time, u: 2, f: 5 }, { t:time, u: 1, f: 4 }, { t:time, u: 2, f: 6 },
       0, 0, 0, 0, { t:time, u: 3, f: 3 }, 0, 0,
       0, 0, 0, 0, 0, 0, 0,
@@ -73,7 +73,7 @@ describe('field情報を返せるかどうか', () => {
       0, 0, 0, 0, 0, 0, 0,
     ]);
 
-    expect(afterPostField).toHaveLength(beforePostField.length + 2);
+    expect(afterPostField).toHaveLength(beforePostField.length + 1);
     expect(afterSaveField).toEqual(expect.arrayContaining(matchers));
   });
 });

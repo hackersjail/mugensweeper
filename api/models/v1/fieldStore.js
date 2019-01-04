@@ -17,7 +17,7 @@ module.exports = {
 
   addData(add) {
     if (judgeField(prefield, add)) {
-      adds.push(...add);
+      adds.push(add);
     }
   },
 
