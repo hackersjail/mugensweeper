@@ -1,33 +1,27 @@
-const { connectDB, disconnectDB, dropDB } = require('../../../../database.js');
+const array2fieldHistory = require('./array2fieldHistory.js');
 const {
   createNewfieldWithBomMap,
-  calculatePointsForAPlayer,
+  calculatePointsForPlayer,
   generateRanking,
 } = require('../../../../models/v1/pointStore.js');
 
+const time = Math.round(new Date().getTime() / 1000);
+
 describe('ブロックを開くとき', () => {
-  beforeAll(connectDB);
-  // beforeEach(initData);
-  afterEach(dropDB);
-  afterAll(disconnectDB);
-  it('得点に関するテスト', async () => {
+  it('得点に関するテスト', () => {
     // Given
-    const fieldinfo = [
-      { x: 0, y: 1, userId: 1, actionId: 1 },
-      { x: 0, y: 2, userId: 2, actionId: 2 },
-      { x: 1, y: 0, userId: 1, actionId: 3 },
-      { x: 2, y: 1, userId: 2, actionId: 4 },
-      { x: 1, y: 1, userId: 2, actionId: 5 },
-      { x: 1, y: 2, userId: 1, actionId: 6 },
-      { x: 1, y: 3, userId: 1, actionId: 7 },
-      { x: 2, y: 3, userId: 3, actionId: 8 },
-      { x: 3, y: 2, userId: 3, actionId: 9 },
-      { x: 3, y: 1, userId: 4, actionId: 10 },
-      { x: 2, y: 0, userId: 1, actionId: 11 },
-      { x: 4, y: 1, userId: 5, actionId: 12 },
-      { x: 3, y: 3, userId: 4, actionId: 13 },
-      { x: 4, y: 0, userId: 1, actionId: 14 },
-    ];
+    // prettier-ignore
+    const fieldinfo = array2fieldHistory([
+      0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, { t:time, u: 1, f: 7 }, { t:time, u: 3, f: 8 }, { t:time, u: 4, f: 13 }, 0,
+      0, 0, 0, 0, { t:time, u: 2, f: 2 }, { t:time, u: 1, f: 6 }, 0, { t:time, u: 3, f: 9 }, 0,
+      0, 0, 0, 0, { t:time, u: 1, f: 1 }, { t:time, u: 2, f: 5 }, { t:time, u: 2, f: 4 }, { t:time, u: 4, f: 10 }, { t:time, u: 5, f: 12 },
+      0, 0, 0, 0, 0, { t:time, u: 1, f: 3 }, { t:time, u: 1, f: 11 }, 0, { t:time, u: 1, f: 14 },
+      0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0,
+    ]);
 
     const bomMap = [
       { x: 1, y: 2, actionId: 1 },
@@ -53,7 +47,7 @@ describe('ブロックを開くとき', () => {
     // fieldHistoryとbomHistoryを使って爆弾情報を含んだfieldの生成
     const field2 = createNewfieldWithBomMap(fieldinfo, bomMap);
     // １人のuserのpointを計算
-    const playerPoint = calculatePointsForAPlayer(field2, user);
+    const playerPoint = calculatePointsForPlayer(field2, user);
     // ランキングの生成
     const ranking = generateRanking(field2);
 
