@@ -64,15 +64,15 @@ describe('field情報を返せるかどうか', () => {
     await saveData();
     const afterSaveField = getData();
 
-    let lastBody;
     for (let i = 0; i < add.length; i += 1) {
-      const { body } = await chai
+      await chai
         .request(app)
         .post('/v1/field')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(add[i]);
-      lastBody = body;
     }
+
+    const { body } = await chai.request(app).get('/v1/field');
 
     // Then
     // prettier-ignore
@@ -91,7 +91,7 @@ describe('field情報を返せるかどうか', () => {
     expect(afterSaveField).toEqual(expect.arrayContaining(matchers));
 
     // ・Response
-    expect(lastBody).toHaveLength(beforePostField.length + 2);
-    expect(lastBody).toEqual(expect.arrayContaining(matchers));
+    expect(body).toHaveLength(beforePostField.length + 2);
+    expect(body).toEqual(expect.arrayContaining(matchers));
   });
 });
