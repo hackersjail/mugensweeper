@@ -1,3 +1,5 @@
+const chai = require('chai');
+const app = require('../../../../routes/app.js');
 const array2fieldHistory = require('../util/array2fieldHistory.js');
 const FieldHistoryModel = require('../../../../models/v1/FieldHistoryModel.js');
 const { initData, getData, addData, saveData } = require('../../../../models/v1/fieldStore.js');
@@ -10,6 +12,7 @@ describe('field情報を返せるかどうか', () => {
   beforeEach(initData);
   afterEach(dropDB);
   afterAll(disconnectDB);
+
   it('配列をfield historyに変換する関数のテスト', () => {
     // Given
     // prettier-ignore
@@ -61,6 +64,16 @@ describe('field情報を返せるかどうか', () => {
     await saveData();
     const afterSaveField = getData();
 
+    for (let i = 0; i < add.length; i += 1) {
+      await chai
+        .request(app)
+        .post('/v1/field')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send(add[i]);
+    }
+
+    const { body } = await chai.request(app).get('/v1/field');
+
     // Then
     // prettier-ignore
     const matchers = array2fieldHistory([
@@ -73,7 +86,12 @@ describe('field情報を返せるかどうか', () => {
       0, 0, 0, 0, 0, 0, 0,
     ]);
 
+    // ・DB
     expect(afterPostField).toHaveLength(beforePostField.length + 2);
     expect(afterSaveField).toEqual(expect.arrayContaining(matchers));
+
+    // ・Response
+    expect(body).toHaveLength(beforePostField.length + 2);
+    expect(body).toEqual(expect.arrayContaining(matchers));
   });
 });
