@@ -40,7 +40,7 @@ module.exports = {
     }
     return field;
   },
-  calculatePointsForAPlayer(fieldInfo, user) {
+  calculatePointsForPlayer(fieldInfo, user) {
     const eachPoint = eachPoints(fieldInfo);
     const result = eachPoint.filter((block) => block.userId === user.userId);
     return result;
