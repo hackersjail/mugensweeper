@@ -1,7 +1,7 @@
-module.exports = (field, bom) => {
-  for (let i = 0; i < bom.length; i += 1) {
-    const exploded = field.x === bom[i].x && field.y === bom[i].y;
-    return { ...field, exploded };
+module.exports = (block, bom) => {
+  const match = bom.find((bomBlock) => bomBlock.x === block.x && bomBlock.y === block.y);
+  if (match !== undefined) {
+    return { ...block, exploded: true };
   }
-  return { x: bom.x, y: bom.y };
+  return { ...block, exploded: false };
 };

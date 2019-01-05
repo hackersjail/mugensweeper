@@ -1,5 +1,5 @@
 const array2fieldHistory = require('./array2fieldHistory.js');
-const judgeAddBom = require('../../../../routes/v1/util/judgeExploded.js');
+const judgeExploded = require('../../../../routes/v1/util/judgeExploded.js');
 
 describe('ブロックを開くとき', () => {
   it('得点に関するテスト', () => {
@@ -22,9 +22,10 @@ describe('ブロックを開くとき', () => {
     // When
     const results = [];
     for (let i = 0; i < clickedField.length; i += 1) {
-      const exploded = judgeAddBom(clickedField[i], bomMap);
+      const exploded = judgeExploded(clickedField[i], bomMap);
       results.push(exploded);
     }
+
     // then
     expect(results).toEqual(matcher);
   });
