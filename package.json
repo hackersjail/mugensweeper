@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node api/server.js",
     "dev": "npm-run-all --parallel dev:*",
-    "dev:api": "nodemon --exec 'npm start' --config api/nodemon.json",
+    "dev:api": "nodemon --exec \"npm start\" --config api/nodemon.json",
     "dev:client": "nuxt",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
@@ -19,7 +19,7 @@
     "test:watch": "npm test -- --watch",
     "test:coverage": "npm test -- --coverage",
     "coverage": "codecov",
-    "docker:dev": "npm-run-all --parallel 'dev:api -- --legacy-watch' dev:client",
+    "docker:dev": "npm-run-all --parallel \"dev:api -- --legacy-watch\" dev:client",
     "docker:test": "nodemon --config api/nodemon-docker.json --legacy-watch"
   },
   "dependencies": {
