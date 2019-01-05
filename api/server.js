@@ -3,9 +3,9 @@ const swaggerSpecs = require('./swagger.js');
 const app = require('./routes/app.js');
 const { NODE_ENV, PORT } = require('./config.js');
 const { connectDB } = require('./database.js');
-
-const { initData, saveData } = require('./models/v1/fieldStore.js');
+const { initData, saveData, getData } = require('./models/v1/fieldStore.js');
 const sleep = require('./util/sleep.js');
+const FieldHistoryModel = require('./models/v1/FieldHistoryModel.js');
 
 async function start() {
   await connectDB();
@@ -28,8 +28,15 @@ async function start() {
       /* eslint-enable no-console */
     }
   });
-
   await initData();
+
+  if (getData().length === 0) {
+    await new FieldHistoryModel({ x: 0, y: 0 }).save();
+    await initData();
+  }
+
+  // 検証への使用度高関数のため保存
+  // await deleteData();
 
   while (true) {
     const startTime = Date.now(); // 開始時間

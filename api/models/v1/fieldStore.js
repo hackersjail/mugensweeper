@@ -28,4 +28,9 @@ module.exports = {
       adds.length = 0;
     }
   },
+  // 頻出関数のため保存
+  // async deleteData() {
+  //   await FieldHistoryModel.deleteMany();
+  //   prefield.length = 0;
+  // },
 };

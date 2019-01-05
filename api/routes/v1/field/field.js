@@ -3,11 +3,11 @@ const { getData, addData } = require('../../../models/v1/fieldStore.js');
 
 router
   .route('/')
-  .post(async (req, res) => {
-    res.json(await addData({ x: +req.body.x, y: +req.body.y }));
+  .post((req, res) => {
+    res.json(addData({ x: +req.body.x, y: +req.body.y }));
   })
-  .get(async (req, res) => {
-    res.json(await getData());
+  .get((req, res) => {
+    res.json(getData());
   });
 
 module.exports = router;
