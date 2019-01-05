@@ -4,7 +4,7 @@
     <user-name-input v-if="!token && !overlay" @register-name="registerName" />
     <ranking v-if="token && !overlay" :ranked-users="rankedUsers" />
 
-    <div class="field" @click.left="coordinatesOfClickedPoint">
+    <div class="field" @click.left="getRelativeCoordinates">
       <svg viewbox="0 0 100% 100%" width="100%" height="100%">
         <line
           class="border-x"
@@ -39,8 +39,8 @@
         <!-- 原点がわかりやすいように識別 -->
         <rect
           class="rect2"
-          :x="calcObjPos({ x: 0, y: 0 }).x"
-          :y="calcObjPos({ x: 0, y: 0 }).y"
+          :x="calcObjPos(originOfCoordinates).x"
+          :y="calcObjPos(originOfCoordinates).y"
           :width="calcGridWidth()"
           :height="calcGridWidth()"
         />
@@ -115,16 +115,8 @@ export default {
         };
       };
     },
-    coordinatesOfClickedPoint() {
-      return (e) => {
-        const gridWidth = this.calcGridWidth();
-        const centerPos = this.calcCenterPos();
-        return {
-          // 原点移動量の調整は今時点では行わない
-          x: Math.round((e.pageX - centerPos.x) / gridWidth),
-          y: Math.round(-(e.pageY - centerPos.y) / gridWidth),
-        };
-      };
+    originOfCoordinates() {
+      return { x: 0, y: 0 };
     },
   },
   methods: {
@@ -141,6 +133,15 @@ export default {
         // eslint-disable-next-line
         this.getField()
       }, 1000);
+    },
+    getRelativeCoordinates(e) {
+      const gridWidth = this.calcGridWidth;
+      const centerPos = this.calcCenterPos;
+      return {
+        // 原点移動量の調整は今時点では行わない
+        x: Math.round((e.pageX - centerPos.x) / gridWidth),
+        y: -Math.round((e.pageY - centerPos.y) / gridWidth),
+      };
     },
   },
 };
