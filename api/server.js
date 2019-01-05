@@ -4,8 +4,9 @@ const app = require('./routes/app.js');
 const { NODE_ENV, PORT } = require('./config.js');
 const { connectDB } = require('./database.js');
 
-const { initData, saveData } = require('./models/v1/fieldStore.js');
+const { initData, saveData, getData } = require('./models/v1/fieldStore.js');
 const sleep = require('./util/sleep.js');
+const FieldHistoryModel = require('./models/v1/FieldHistoryModel.js');
 
 async function start() {
   await connectDB();
@@ -29,6 +30,9 @@ async function start() {
     }
   });
 
+  if (!(await getData())) {
+    await FieldHistoryModel.insertMany({ x: 0, y: 0 });
+  }
   await initData();
 
   while (true) {

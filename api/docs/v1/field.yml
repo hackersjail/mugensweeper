@@ -2,17 +2,6 @@ tags:
   - name: Field
     description: field API
 /field:
-  get:
-    tags:
-      - Field
-    produces:
-      - "text/html; charset=utf-8"
-    responses:
-      200:
-        description: "success"
-        schema:
-          type: "string"
-          example: "text"
   post:
     tags:
       - Field
@@ -35,3 +24,13 @@ tags:
         schema:
           type: "string"
           example: "text"
+  get:
+    tags:
+      - Field
+    produces:
+      - "text/html; charset=utf-8"
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
