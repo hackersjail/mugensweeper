@@ -31,7 +31,7 @@ async function start() {
   });
   const get = getData();
   if (get.length === 0) {
-    new FieldHistoryModel({ x: 0, y: 0 }).save();
+    await new FieldHistoryModel({ x: 0, y: 0 }).save();
   }
   await initData();
 
