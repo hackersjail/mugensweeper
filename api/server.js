@@ -37,7 +37,7 @@ async function start() {
 
   while (true) {
     const startTime = Date.now(); // 開始時間
-    saveData();
+    await saveData();
     const endTime = Date.now(); // 終了時間
     const time = endTime - startTime;
     await sleep(time < 1000 ? 1000 - time : 0);
