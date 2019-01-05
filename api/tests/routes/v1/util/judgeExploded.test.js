@@ -1,20 +1,11 @@
 const array2fieldHistory = require('./array2fieldHistory.js');
 const judgeAddBom = require('../../../../routes/v1/util/judgeExploded.js');
 
-const t = Math.round(new Date().getTime() / 1000);
-
 describe('ブロックを開くとき', () => {
   it('得点に関するテスト', () => {
     // Given
     // prettier-ignore
-    const clickedField = array2fieldHistory([
-
-      0, 0, { t, u: 1, f: 2 }, 0, 0,
-      0, 0, { t, u: 1, f: 1 }, 0, 0,
-      0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0,
-    ]);
+    const clickedField = [{ x: 0, y: 1 }, { x: 0, y: 2 }];
 
     // prettier-ignore
     const bomMap = array2fieldHistory([
