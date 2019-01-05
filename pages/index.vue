@@ -2,8 +2,9 @@
   <section class="container">
     <modal v-if="overlay" @closeOverlay="closeOverlay" />
     <user-name-input v-if="!token && !overlay" @register-name="registerName" />
+    <ranking v-if="token && !overlay" :ranked-users="rankedUsers" />
 
-    <div class="field">
+    <div class="field" @click.left="getRelativeCoordinates">
       <svg viewbox="0 0 100% 100%" width="100%" height="100%">
         <line
           class="border-x"
@@ -31,8 +32,17 @@
           :key="'block' + i"
           :x="calcObjPos(block).x"
           :y="calcObjPos(block).y"
-          :width="30"
-          :height="30"
+          :width="calcGridWidth()"
+          :height="calcGridWidth()"
+        />
+
+        <!-- 原点がわかりやすいように識別 -->
+        <rect
+          class="rect2"
+          :x="calcObjPos(originOfCoordinates).x"
+          :y="calcObjPos(originOfCoordinates).y"
+          :width="calcGridWidth()"
+          :height="calcGridWidth()"
         />
       </svg>
     </div>
@@ -40,8 +50,6 @@
     <div class="target">
       <div v-for="(block, i) in blocks" :class="`block${i}`" :key="`block${i}`" />
     </div>
-
-    <ranking v-if="token && !overlay" :ranked-users="rankedUsers" />
   </section>
 </template>
 
@@ -83,9 +91,10 @@ export default {
     calcObjPos() {
       return (object) => {
         const centerPos = this.calcCenterPos();
+        const gridWidth = this.calcGridWidth();
         return {
-          x: centerPos.x + 30 * object.x - 15,
-          y: centerPos.y + 30 * object.y - 15,
+          x: centerPos.x + gridWidth * object.x - gridWidth / 2,
+          y: centerPos.y + gridWidth * object.y - gridWidth / 2,
         };
       };
     },
@@ -109,6 +118,9 @@ export default {
             gridWidth * (i - 1),
         };
       };
+    },
+    originOfCoordinates() {
+      return { x: 0, y: 0 };
     },
   },
   methods: {
@@ -140,6 +152,15 @@ export default {
                           left: ${centerPos.x + 30 * tmp.x - 15}px;`;
         }
       }
+    },
+    getRelativeCoordinates(e) {
+      const gridWidth = this.calcGridWidth;
+      const centerPos = this.calcCenterPos;
+      return {
+        // 原点移動量の調整は今時点では行わない
+        x: Math.round((e.pageX - centerPos.x) / gridWidth),
+        y: -Math.round((e.pageY - centerPos.y) / gridWidth),
+      };
     },
   },
 };
@@ -182,5 +203,11 @@ export default {
   background-position: -301px 0px;
   width: 30px;
   height: 30px;
+}
+/* 原点がわかりやすいように識別 */
+.rect2 {
+  fill: yellow;
+  stroke: black;
+  stroke-width: 0.5px;
 }
 </style>

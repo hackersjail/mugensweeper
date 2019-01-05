@@ -26,7 +26,7 @@ module.exports = (array) => {
       result2.push(res);
     }
   }
-  result2.sort((a, b) => a.actionId > b.actionId);
+  result2.sort((a, b) => a.actionId - b.actionId);
 
   return result2;
 };
