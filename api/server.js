@@ -3,7 +3,6 @@ const swaggerSpecs = require('./swagger.js');
 const app = require('./routes/app.js');
 const { NODE_ENV, PORT } = require('./config.js');
 const { connectDB } = require('./database.js');
-
 const { initData, saveData, getData } = require('./models/v1/fieldStore.js');
 const sleep = require('./util/sleep.js');
 const FieldHistoryModel = require('./models/v1/FieldHistoryModel.js');
@@ -29,11 +28,11 @@ async function start() {
       /* eslint-enable no-console */
     }
   });
-  const get = getData();
-  if (get.length === 0) {
+  await initData();
+
+  if (getData().length === 0) {
     await new FieldHistoryModel({ x: 0, y: 0 }).save();
   }
-  await initData();
 
   while (true) {
     const startTime = Date.now(); // 開始時間
