@@ -32,7 +32,11 @@ async function start() {
 
   if (getData().length === 0) {
     await new FieldHistoryModel({ x: 0, y: 0 }).save();
+    await initData();
   }
+
+  // 検証への使用度高関数のため保存
+  // await deleteData();
 
   while (true) {
     const startTime = Date.now(); // 開始時間
