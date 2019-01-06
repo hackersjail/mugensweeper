@@ -147,14 +147,13 @@ export default {
       return block.exploded;
     },
     styles(block) {
+      if (!this.explodeBlock(block)) return false;
       const centerPos = this.calcCenterPos();
       const gridWidth = this.calcGridWidth();
-      return block.exploded
-        ? {
-            top: `${centerPos.y + gridWidth * block.y - gridWidth / 2}px`,
-            left: `${centerPos.x + gridWidth * block.x - gridWidth / 2}px`,
-          }
-        : false;
+      return {
+        top: `${centerPos.y + gridWidth * block.y - gridWidth / 2}px`,
+        left: `${centerPos.x + gridWidth * block.x - gridWidth / 2}px`,
+      };
     },
     getRelativeCoordinates(e) {
       const gridWidth = this.calcGridWidth;
