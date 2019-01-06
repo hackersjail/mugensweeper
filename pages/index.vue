@@ -138,9 +138,8 @@ export default {
       this.init();
     },
     init() {
-      this.setIntervalObj = setInterval(async () => {
-        await this.getField();
-        await this.explodeBlock(this.blocks);
+      this.setIntervalObj = setInterval(() => {
+        this.getField();
       }, 1000);
     },
     explodeBlock(block) {
