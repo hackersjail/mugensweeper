@@ -10,7 +10,6 @@
           class="border-x"
           v-for="i in gridY + infinitLine"
           :key="'borderX' + i"
-          x1="0"
           :x2="$window.width"
           :y1="calcBorderPos(i).y"
           :y2="calcBorderPos(i).y"
@@ -22,7 +21,6 @@
           :key="'borderY' + i"
           :x1="calcBorderPos(i).x"
           :x2="calcBorderPos(i).x"
-          y1="0"
           :y2="$window.height"
         />
 
