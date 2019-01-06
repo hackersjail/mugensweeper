@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const schema = new Schema({
   userName: String,
   userId: String,
-  recordtime: Number,
+  recordtime: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model('UserHistoryModel', schema);

@@ -1,12 +1,6 @@
 const chai = require('chai');
 const app = require('../../../../routes/app.js');
-const {
-  initData,
-  getData,
-  addData,
-  saveData,
-  deleteData,
-} = require('../../../../models/v1/userStore.js');
+const { initData, getData, addData, saveData } = require('../../../../models/v1/userStore.js');
 const { connectDB, disconnectDB, dropDB } = require('../../../../database.js');
 
 describe('ユーザー情報を返せるかどうか', () => {
@@ -22,18 +16,19 @@ describe('ユーザー情報を返せるかどうか', () => {
     // Response
 
     // When
+    let lastBody;
     for (let i = 0; i < nameList.length; i += 1) {
       const { userName } = nameList[i];
-      await chai
+      const { body } = await chai
         .request(app)
         .post('/v1/user')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send({ userName });
-      const { body } = await chai.request(app).get('/v1/user');
+      lastBody = body;
 
       // then
-      expect(body[i]).toHaveProperty('userId');
-      expect(body[i].userName).toBe(userName);
+      expect(lastBody).toHaveProperty('userId');
+      expect(lastBody.userName).toBe(userName);
     }
 
     // DB
@@ -43,7 +38,6 @@ describe('ユーザー情報を返せるかどうか', () => {
     addData(nameList[0].userName);
     await saveData();
     const afterSaveUser = getData();
-    await deleteData();
 
     // then
     expect(afterSaveUser[0]).toHaveProperty('userId');

@@ -17,20 +17,6 @@ tags:
       200:
         description: "success"
         schema:
-          type: "string"
-      401:
-        description: "error"
-        schema:
-          type: "string"
-  get:
-    tags:
-      - User
-    produces:
-      - "text/html; charset=utf-8"
-    responses:
-      200:
-        description: "success"
-        schema:
           type: "object"
       401:
         description: "error"

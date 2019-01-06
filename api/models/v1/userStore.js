@@ -3,7 +3,6 @@ const UserHistoryModel = require('./UserHistoryModel.js');
 const propFilter = '-_id -__v';
 const preUser = [];
 const adds = [];
-const recordtime = Math.round(new Date().getTime() / 1000);
 
 module.exports = {
   async initData() {
@@ -15,8 +14,7 @@ module.exports = {
     return [...preUser];
   },
 
-  addData(add) {
-    const userName = add;
+  addData(userName) {
     // ユニークな8桁のIDを生成
     const letters = 'abcdefghijklmnopqrstuvwxyz0123456789'; // 生成する文字列に含める文字
     let userId = null;
@@ -36,8 +34,9 @@ module.exports = {
       }
     }
 
-    preUser.push({ recordtime, userName, userId });
-    adds.push({ recordtime, userName, userId });
+    preUser.push({ userName, userId });
+    adds.push({ userName, userId });
+    return { userName, userId };
   },
 
   async saveData() {
@@ -47,8 +46,9 @@ module.exports = {
     }
   },
 
-  async deleteData() {
-    await UserHistoryModel.deleteMany();
-    preUser.length = 0;
-  },
+  // 検証への使用度高関数のため保存
+  // async deleteData() {
+  //   await UserHistoryModel.deleteMany();
+  //   preUser.length = 0;
+  // },
 };
