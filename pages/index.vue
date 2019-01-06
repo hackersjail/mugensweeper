@@ -52,7 +52,7 @@
         v-for="(block, i) in blocks"
         :class="{ 'splite-bomb': explodeBlock(block) }"
         :style="styles(block)"
-        :key="`block${i}`"
+        :key="i"
       />
     </div>
   </section>
@@ -138,17 +138,13 @@ export default {
       this.init();
     },
     init() {
-      this.setIntervalObj = setInterval(() => {
-        // eslint-disable-next-line
-        this.getField().then(() => {
-          this.explodeBlock(this.blocks);
-        });
+      this.setIntervalObj = setInterval(async () => {
+        await this.getField();
+        await this.explodeBlock(this.blocks);
       }, 1000);
     },
     explodeBlock(block) {
-      if (Object.prototype.hasOwnProperty.call(block, 'exploded') && block.exploded) {
-        return true;
-      }
+      if (block.exploded) return true;
       return false;
     },
     styles(block) {
@@ -156,7 +152,6 @@ export default {
         const centerPos = this.calcCenterPos();
         const gridWidth = this.calcGridWidth();
         return {
-          position: 'relative',
           top: `${centerPos.y + gridWidth * block.y - gridWidth / 2}px`,
           left: `${centerPos.x + gridWidth * block.x - gridWidth / 2}px`,
         };
@@ -213,6 +208,7 @@ export default {
   background-position: -301px 0px;
   width: 30px;
   height: 30px;
+  position: relative;
 }
 /* 原点がわかりやすいように識別 */
 .rect2 {
