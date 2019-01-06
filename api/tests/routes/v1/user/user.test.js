@@ -8,11 +8,15 @@ describe('ユーザー情報を返せるかどうか', () => {
     // When
     for (let i = 0; i < nameList.length; i += 1) {
       const { userName } = nameList[i];
-      const { body } = await chai
+
+      await chai
         .request(app)
         .post('/v1/user')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send({ userName });
+
+      const { body } = await chai.request(app).get('/v1/user');
+
       // then
       expect(body[i]).toHaveProperty('userId');
       expect(body[i].userName).toBe(userName);

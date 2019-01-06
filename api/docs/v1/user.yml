@@ -10,9 +10,23 @@ tags:
     parameters:
       - name: "userName"
         in: "formData"
-        description: "User formData parameter"
+        description: "User name"
         required: true
         type: "string"
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+      401:
+        description: "error"
+        schema:
+          type: "string"
+  get:
+    tags:
+      - User
+    produces:
+      - "text/html; charset=utf-8"
     responses:
       200:
         description: "success"
