@@ -144,19 +144,17 @@ export default {
       }, 1000);
     },
     explodeBlock(block) {
-      if (block.exploded) return true;
-      return false;
+      return block.exploded;
     },
     styles(block) {
-      if (this.explodeBlock(block)) {
-        const centerPos = this.calcCenterPos();
-        const gridWidth = this.calcGridWidth();
-        return {
-          top: `${centerPos.y + gridWidth * block.y - gridWidth / 2}px`,
-          left: `${centerPos.x + gridWidth * block.x - gridWidth / 2}px`,
-        };
-      }
-      return false;
+      const centerPos = this.calcCenterPos();
+      const gridWidth = this.calcGridWidth();
+      return block.exploded
+        ? {
+            top: `${centerPos.y + gridWidth * block.y - gridWidth / 2}px`,
+            left: `${centerPos.x + gridWidth * block.x - gridWidth / 2}px`,
+          }
+        : false;
     },
     getRelativeCoordinates(e) {
       const gridWidth = this.calcGridWidth;
