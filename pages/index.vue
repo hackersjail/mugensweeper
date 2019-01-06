@@ -48,7 +48,12 @@
     </div>
 
     <div class="target">
-      <div v-for="(block, i) in blocks" :class="`block${i}`" :key="`block${i}`" />
+      <div
+        v-for="(block, i) in blocks"
+        :class="{ 'splite-bomb': explodeBlock(block) }"
+        :style="styles(block)"
+        :key="`block${i}`"
+      />
     </div>
   </section>
 </template>
@@ -81,6 +86,9 @@ export default {
     infinitLine() {
       // 盤面が現表示領域のみであれば1、画面スクロール可能にして無限に盤面が続いているように見せるには2に変更
       return 1;
+    },
+    blockLine() {
+      return 30;
     },
     calcCenterPos() {
       return () => ({
@@ -140,18 +148,23 @@ export default {
         });
       }, 1000);
     },
-    explodeBlock(blocks) {
-      const centerPos = this.calcCenterPos();
-      for (let i = 0; i < blocks.length; i += 1) {
-        const tmp = blocks[i];
-        if (Object.prototype.hasOwnProperty.call(tmp, 'exploded') && tmp.exploded) {
-          const elm = document.getElementsByClassName(`block${i}`);
-          elm[0].classList.add('splite-bomb');
-          elm[0].style = `position: relative;
-                          top: ${centerPos.y + 30 * tmp.y - 15}px;
-                          left: ${centerPos.x + 30 * tmp.x - 15}px;`;
-        }
+    explodeBlock(block) {
+      if (Object.prototype.hasOwnProperty.call(block, 'exploded') && block.exploded) {
+        return true;
       }
+      return false;
+    },
+    styles(block) {
+      if (this.explodeBlock(block)) {
+        const centerPos = this.calcCenterPos();
+        const side = this.blockLine;
+        return {
+          position: 'relative',
+          top: `${centerPos.y + side * block.y - side / 2}px`,
+          left: `${centerPos.x + side * block.x - side / 2}px`,
+        };
+      }
+      return false;
     },
     getRelativeCoordinates(e) {
       const gridWidth = this.calcGridWidth;
