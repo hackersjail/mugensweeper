@@ -87,9 +87,6 @@ export default {
       // 盤面が現表示領域のみであれば1、画面スクロール可能にして無限に盤面が続いているように見せるには2に変更
       return 1;
     },
-    blockLine() {
-      return 30;
-    },
     calcCenterPos() {
       return () => ({
         x: this.$window.width / 2,
@@ -157,11 +154,11 @@ export default {
     styles(block) {
       if (this.explodeBlock(block)) {
         const centerPos = this.calcCenterPos();
-        const side = this.blockLine;
+        const gridWidth = this.calcGridWidth();
         return {
           position: 'relative',
-          top: `${centerPos.y + side * block.y - side / 2}px`,
-          left: `${centerPos.x + side * block.x - side / 2}px`,
+          top: `${centerPos.y + gridWidth * block.y - gridWidth / 2}px`,
+          left: `${centerPos.x + gridWidth * block.x - gridWidth / 2}px`,
         };
       }
       return false;
