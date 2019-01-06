@@ -18,7 +18,7 @@ module.exports = {
       { x: 0, y: 1, userId: 'abcdefg' },
       { x: 1, y: 1, userId: 'abcdefg' },
       { x: -1, y: 0, userId: '1234567' },
-      { x: -1, y: -1, userId: '1234567' },
+      { x: -1, y: -1, userId: '1234567', exploded: true },
       { x: -1, y: 1, userId: '1234abc' },
       { x: 0, y: -1, userId: '1234abc' },
     ];

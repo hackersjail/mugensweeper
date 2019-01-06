@@ -46,6 +46,10 @@
         />
       </svg>
     </div>
+
+    <div class="target">
+      <div v-for="(block, i) in blocks" :class="`block${i}`" :key="`block${i}`" />
+    </div>
   </section>
 </template>
 
@@ -131,8 +135,23 @@ export default {
     init() {
       this.setIntervalObj = setInterval(() => {
         // eslint-disable-next-line
-        this.getField()
+        this.getField().then(() => {
+          this.explodeBlock(this.blocks);
+        });
       }, 1000);
+    },
+    explodeBlock(blocks) {
+      const centerPos = this.calcCenterPos();
+      for (let i = 0; i < blocks.length; i += 1) {
+        const tmp = blocks[i];
+        if (Object.prototype.hasOwnProperty.call(tmp, 'exploded') && tmp.exploded) {
+          const elm = document.getElementsByClassName(`block${i}`);
+          elm[0].classList.add('splite-bomb');
+          elm[0].style = `position: relative;
+                          top: ${centerPos.y + 30 * tmp.y - 15}px;
+                          left: ${centerPos.x + 30 * tmp.x - 15}px;`;
+        }
+      }
     },
     getRelativeCoordinates(e) {
       const gridWidth = this.calcGridWidth;
@@ -163,6 +182,10 @@ export default {
   bottom: 0;
   background-color: gray;
 }
+.target {
+  width: 100%;
+  height: 100%;
+}
 .border-x,
 .border-y {
   stroke: black;
@@ -172,6 +195,14 @@ export default {
   fill: lightgray;
   stroke: black;
   stroke-width: 0.5px;
+}
+.splite-bomb {
+  overflow: hidden;
+  background-image: url('../assets/img.png');
+  background-repeat: no-repeat;
+  background-position: -301px 0px;
+  width: 30px;
+  height: 30px;
 }
 /* 原点がわかりやすいように識別 */
 .rect2 {
