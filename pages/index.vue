@@ -30,8 +30,8 @@
           :key="'block' + i"
           :x="objPos(block).x"
           :y="objPos(block).y"
-          :width="gridWidth()"
-          :height="gridWidth()"
+          :width="gridWidth"
+          :height="gridWidth"
         />
 
         <!-- 原点がわかりやすいように識別 -->
@@ -39,8 +39,8 @@
           class="rect2"
           :x="objPos(originOfCoordinates).x"
           :y="objPos(originOfCoordinates).y"
-          :width="gridWidth()"
-          :height="gridWidth()"
+          :width="gridWidth"
+          :height="gridWidth"
         />
       </svg>
     </div>
@@ -76,10 +76,10 @@ export default {
   computed: {
     ...mapState(['userName', 'token', 'rankedUsers', 'blocks', 'gridX']),
     gridWidth() {
-      return () => this.$window.width / this.gridX;
+      return this.$window.width / this.gridX;
     },
     gridY() {
-      return Math.ceil(this.$window.height / this.gridWidth());
+      return Math.ceil(this.$window.height / this.gridWidth);
     },
     infinitLine() {
       // 盤面が現表示領域のみであれば1、画面スクロール可能にして無限に盤面が続いているように見せるには2に変更
@@ -94,33 +94,29 @@ export default {
     objPos() {
       return (object) => {
         const centerPos = this.centerPos();
-        const gridWidth = this.gridWidth();
         return {
-          x: centerPos.x + gridWidth * object.x - gridWidth / 2,
-          y: centerPos.y + gridWidth * object.y - gridWidth / 2,
+          x: centerPos.x + this.gridWidth * object.x - this.gridWidth / 2,
+          y: centerPos.y + this.gridWidth * object.y - this.gridWidth / 2,
         };
       };
     },
     borderPos() {
-      return (i) => {
-        const gridWidth = this.gridWidth();
-        return {
-          x:
-            this.centerPos().x -
-            // Gridの中心が座標となるよう修正
-            gridWidth / 2 -
-            // 画面サイズとグリッド幅から始点計算
-            Math.ceil(this.$window.width / 2 / gridWidth) * gridWidth +
-            gridWidth * (i - 1),
-          y:
-            this.centerPos().y - // 中心座標
-            // Gridの中心が座標となるよう修正
-            gridWidth / 2 -
-            // 画面サイズとグリッド幅から始点
-            Math.ceil(this.$window.height / 2 / gridWidth) * gridWidth +
-            gridWidth * (i - 1),
-        };
-      };
+      return (i) => ({
+        x:
+          this.centerPos().x -
+          // Gridの中心が座標となるよう修正
+          this.gridWidth / 2 -
+          // 画面サイズとグリッド幅から始点計算
+          Math.ceil(this.$window.width / 2 / this.gridWidth) * this.gridWidth +
+          this.gridWidth * (i - 1),
+        y:
+          this.centerPos().y - // 中心座標
+          // Gridの中心が座標となるよう修正
+          this.gridWidth / 2 -
+          // 画面サイズとグリッド幅から始点
+          Math.ceil(this.$window.height / 2 / this.gridWidth) * this.gridWidth +
+          this.gridWidth * (i - 1),
+      });
     },
     originOfCoordinates() {
       return { x: 0, y: 0 };
@@ -143,19 +139,17 @@ export default {
     styles(block) {
       if (!block.exploded) return false;
       const centerPos = this.centerPos();
-      const gridWidth = this.gridWidth();
       return {
-        top: `${centerPos.y + gridWidth * block.y - gridWidth / 2}px`,
-        left: `${centerPos.x + gridWidth * block.x - gridWidth / 2}px`,
+        top: `${centerPos.y + this.gridWidth * block.y - this.gridWidth / 2}px`,
+        left: `${centerPos.x + this.gridWidth * block.x - this.gridWidth / 2}px`,
       };
     },
     getRelativeCoordinates(e) {
-      const gridWidth = this.gridWidth();
       const centerPos = this.centerPos();
       return {
         // 原点移動量の調整は今時点では行わない
-        x: Math.round((e.pageX - centerPos.x) / gridWidth),
-        y: -Math.round((e.pageY - centerPos.y) / gridWidth),
+        x: Math.round((e.pageX - centerPos.x) / this.gridWidth),
+        y: -Math.round((e.pageY - centerPos.y) / this.gridWidth),
       };
     },
   },
