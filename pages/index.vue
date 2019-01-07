@@ -50,7 +50,7 @@
     <div class="target">
       <div
         v-for="(block, i) in blocks"
-        :class="{ 'splite-bomb': explodeBlock(block) }"
+        :class="{ 'splite-bomb': block.exploded }"
         :style="styles(block)"
         :key="i"
       />
@@ -142,11 +142,8 @@ export default {
         this.getField();
       }, 1000);
     },
-    explodeBlock(block) {
-      return block.exploded;
-    },
     styles(block) {
-      if (!this.explodeBlock(block)) return false;
+      if (!block.exploded) return false;
       const centerPos = this.calcCenterPos();
       const gridWidth = this.calcGridWidth();
       return {
