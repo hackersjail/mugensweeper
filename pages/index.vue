@@ -10,7 +10,6 @@
           class="border-x"
           v-for="i in gridY + infinitLine"
           :key="'borderX' + i"
-          x1="0"
           :x2="$window.width"
           :y1="calcBorderPos(i).y"
           :y2="calcBorderPos(i).y"
@@ -22,7 +21,6 @@
           :key="'borderY' + i"
           :x1="calcBorderPos(i).x"
           :x2="calcBorderPos(i).x"
-          y1="0"
           :y2="$window.height"
         />
 
@@ -48,7 +46,12 @@
     </div>
 
     <div class="target">
-      <div v-for="(block, i) in blocks" :class="`block${i}`" :key="`block${i}`" />
+      <div
+        v-for="(block, i) in blocks"
+        :class="{ 'splite-bomb': block.exploded }"
+        :style="styles(block)"
+        :key="i"
+      />
     </div>
   </section>
 </template>
@@ -134,24 +137,17 @@ export default {
     },
     init() {
       this.setIntervalObj = setInterval(() => {
-        // eslint-disable-next-line
-        this.getField().then(() => {
-          this.explodeBlock(this.blocks);
-        });
+        this.getField();
       }, 1000);
     },
-    explodeBlock(blocks) {
+    styles(block) {
+      if (!block.exploded) return false;
       const centerPos = this.calcCenterPos();
-      for (let i = 0; i < blocks.length; i += 1) {
-        const tmp = blocks[i];
-        if (Object.prototype.hasOwnProperty.call(tmp, 'exploded') && tmp.exploded) {
-          const elm = document.getElementsByClassName(`block${i}`);
-          elm[0].classList.add('splite-bomb');
-          elm[0].style = `position: relative;
-                          top: ${centerPos.y + 30 * tmp.y - 15}px;
-                          left: ${centerPos.x + 30 * tmp.x - 15}px;`;
-        }
-      }
+      const gridWidth = this.calcGridWidth();
+      return {
+        top: `${centerPos.y + gridWidth * block.y - gridWidth / 2}px`,
+        left: `${centerPos.x + gridWidth * block.x - gridWidth / 2}px`,
+      };
     },
     getRelativeCoordinates(e) {
       const gridWidth = this.calcGridWidth;
@@ -203,6 +199,7 @@ export default {
   background-position: -301px 0px;
   width: 30px;
   height: 30px;
+  position: relative;
 }
 /* 原点がわかりやすいように識別 */
 .rect2 {
