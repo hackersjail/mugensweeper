@@ -10,7 +10,6 @@
           class="border-x"
           v-for="i in gridY + infinitLine"
           :key="'borderX' + i"
-          x1="0"
           :x2="$window.width"
           :y1="calcBorderPos(i).y"
           :y2="calcBorderPos(i).y"
@@ -22,7 +21,6 @@
           :key="'borderY' + i"
           :x1="calcBorderPos(i).x"
           :x2="calcBorderPos(i).x"
-          y1="0"
           :y2="$window.height"
         />
 
@@ -45,6 +43,15 @@
           :height="calcGridWidth()"
         />
       </svg>
+    </div>
+
+    <div class="target">
+      <div
+        v-for="(block, i) in blocks"
+        :class="{ 'splite-bomb': block.exploded }"
+        :style="styles(block)"
+        :key="i"
+      />
     </div>
   </section>
 </template>
@@ -130,9 +137,17 @@ export default {
     },
     init() {
       this.setIntervalObj = setInterval(() => {
-        // eslint-disable-next-line
-        this.getField()
+        this.getField();
       }, 1000);
+    },
+    styles(block) {
+      if (!block.exploded) return false;
+      const centerPos = this.calcCenterPos();
+      const gridWidth = this.calcGridWidth();
+      return {
+        top: `${centerPos.y + gridWidth * block.y - gridWidth / 2}px`,
+        left: `${centerPos.x + gridWidth * block.x - gridWidth / 2}px`,
+      };
     },
     getRelativeCoordinates(e) {
       const gridWidth = this.calcGridWidth;
@@ -163,6 +178,10 @@ export default {
   bottom: 0;
   background-color: gray;
 }
+.target {
+  width: 100%;
+  height: 100%;
+}
 .border-x,
 .border-y {
   stroke: black;
@@ -172,6 +191,15 @@ export default {
   fill: lightgray;
   stroke: black;
   stroke-width: 0.5px;
+}
+.splite-bomb {
+  overflow: hidden;
+  background-image: url('../assets/img.png');
+  background-repeat: no-repeat;
+  background-position: -301px 0px;
+  width: 30px;
+  height: 30px;
+  position: relative;
 }
 /* 原点がわかりやすいように識別 */
 .rect2 {
