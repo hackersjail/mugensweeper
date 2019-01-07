@@ -4,6 +4,7 @@ const app = require('./routes/app.js');
 const { NODE_ENV, PORT } = require('./config.js');
 const { connectDB } = require('./database.js');
 const { initData, saveData, getData } = require('./models/v1/fieldStore.js');
+const { initUser } = require('./models/v1/userStore.js');
 const sleep = require('./util/sleep.js');
 const FieldHistoryModel = require('./models/v1/FieldHistoryModel.js');
 
@@ -29,14 +30,18 @@ async function start() {
     }
   });
   await initData();
+  await initUser();
 
   if (getData().length === 0) {
-    await new FieldHistoryModel({ x: 0, y: 0 }).save();
+    await new FieldHistoryModel({ x: 0, y: 0, userId: '00000000' }).save();
+    await new FieldHistoryModel({ userName: 'master', userId: '00000000' }).save();
     await initData();
+    await initUser();
   }
 
   // 検証への使用度高関数のため保存
   // await deleteData();
+  // await deleteUser();
 
   while (true) {
     const startTime = Date.now(); // 開始時間

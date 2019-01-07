@@ -7,4 +7,4 @@ const schema = new Schema({
   recordtime: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('UserHistoryModel', schema);
+module.exports = mongoose.model('UserModel', schema);

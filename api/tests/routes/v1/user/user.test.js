@@ -1,11 +1,11 @@
 const chai = require('chai');
 const app = require('../../../../routes/app.js');
-const { initData, getData, addData, saveData } = require('../../../../models/v1/userStore.js');
+const { initUser, getUser, addUser } = require('../../../../models/v1/userStore.js');
 const { connectDB, disconnectDB, dropDB } = require('../../../../database.js');
 
 describe('ユーザー情報を返せるかどうか', () => {
   beforeAll(connectDB);
-  beforeEach(initData);
+  beforeEach(initUser);
   afterEach(dropDB);
   afterAll(disconnectDB);
 
@@ -34,14 +34,13 @@ describe('ユーザー情報を返せるかどうか', () => {
     // DB
 
     // When
-    await initData();
-    addData(nameList[0].userName);
-    await saveData();
-    const afterSaveUser = getData();
+    await initUser();
+    await addUser(nameList[0].userName);
+    const afteraddUser = getUser();
 
     // then
-    expect(afterSaveUser[0]).toHaveProperty('userId');
-    expect(afterSaveUser[0].userName).toBe(nameList[0].userName);
+    expect(afteraddUser[0]).toHaveProperty('userId');
+    expect(afteraddUser[0].userName).toBe(nameList[0].userName);
   });
 
   it('ユーザー名の文字数(3~7文字)、文字種(半角文字のみ入力可)制限', async () => {

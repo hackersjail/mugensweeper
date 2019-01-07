@@ -1,20 +1,19 @@
-const UserHistoryModel = require('./UserHistoryModel.js');
+const UserModel = require('./UserModel.js');
 
 const propFilter = '-_id -__v';
 const preUser = [];
-const adds = [];
 
 module.exports = {
-  async initData() {
-    const pre = await UserHistoryModel.find({}, propFilter).lean();
+  async initUser() {
+    const pre = await UserModel.find({}, propFilter).lean();
     preUser.push(...pre);
   },
 
-  getData() {
+  getUser() {
     return [...preUser];
   },
 
-  addData(userName) {
+  async addUser(userName) {
     // ユニークな8桁のIDを生成
     const letters = 'abcdefghijklmnopqrstuvwxyz0123456789'; // 生成する文字列に含める文字
     let userId = null;
@@ -35,20 +34,13 @@ module.exports = {
     }
 
     preUser.push({ userName, userId });
-    adds.push({ userName, userId });
+    await UserModel.insertMany({ userName, userId });
     return { userName, userId };
   },
 
-  async saveData() {
-    if (adds.lenghth !== 0) {
-      await UserHistoryModel.insertMany(adds);
-      adds.length = 0;
-    }
-  },
-
   // 検証への使用度高関数のため保存
-  // async deleteData() {
-  //   await UserHistoryModel.deleteMany();
+  // async deleteUser() {
+  //   await UserModel.deleteMany();
   //   preUser.length = 0;
   // },
 };
