@@ -86,31 +86,28 @@ export default {
       return 1;
     },
     centerPos() {
-      return () => ({
+      return {
         x: this.$window.width / 2,
         y: this.$window.height / 2,
-      });
+      };
     },
     objPos() {
-      return (object) => {
-        const centerPos = this.centerPos();
-        return {
-          x: centerPos.x + this.gridWidth * object.x - this.gridWidth / 2,
-          y: centerPos.y + this.gridWidth * object.y - this.gridWidth / 2,
-        };
-      };
+      return (object) => ({
+        x: this.centerPos.x + this.gridWidth * object.x - this.gridWidth / 2,
+        y: this.centerPos.y + this.gridWidth * object.y - this.gridWidth / 2,
+      });
     },
     borderPos() {
       return (i) => ({
         x:
-          this.centerPos().x -
+          this.centerPos.x -
           // Gridの中心が座標となるよう修正
           this.gridWidth / 2 -
           // 画面サイズとグリッド幅から始点計算
           Math.ceil(this.$window.width / 2 / this.gridWidth) * this.gridWidth +
           this.gridWidth * (i - 1),
         y:
-          this.centerPos().y - // 中心座標
+          this.centerPos.y - // 中心座標
           // Gridの中心が座標となるよう修正
           this.gridWidth / 2 -
           // 画面サイズとグリッド幅から始点
@@ -138,18 +135,16 @@ export default {
     },
     styles(block) {
       if (!block.exploded) return false;
-      const centerPos = this.centerPos();
       return {
-        top: `${centerPos.y + this.gridWidth * block.y - this.gridWidth / 2}px`,
-        left: `${centerPos.x + this.gridWidth * block.x - this.gridWidth / 2}px`,
+        top: `${this.centerPos.y + this.gridWidth * block.y - this.gridWidth / 2}px`,
+        left: `${this.centerPos.x + this.gridWidth * block.x - this.gridWidth / 2}px`,
       };
     },
     getRelativeCoordinates(e) {
-      const centerPos = this.centerPos();
       return {
         // 原点移動量の調整は今時点では行わない
-        x: Math.round((e.pageX - centerPos.x) / this.gridWidth),
-        y: -Math.round((e.pageY - centerPos.y) / this.gridWidth),
+        x: Math.round((e.pageX - this.centerPos.x) / this.gridWidth),
+        y: -Math.round((e.pageY - this.centerPos.y) / this.gridWidth),
       };
     },
   },
