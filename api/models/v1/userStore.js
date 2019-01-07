@@ -34,7 +34,7 @@ module.exports = {
     }
 
     preUser.push({ userName, userId });
-    await UserModel.insertMany({ userName, userId });
+    await new UserModel({ userName, userId }).save();
     return { userName, userId };
   },
 
