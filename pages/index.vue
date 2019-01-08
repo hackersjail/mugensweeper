@@ -1,8 +1,8 @@
 <template>
   <section class="container">
     <modal v-if="overlay" @closeOverlay="closeOverlay" />
-    <user-name-input v-if="!token && !overlay" @register-name="registerName" />
-    <ranking v-if="token && !overlay" :ranked-users="rankedUsers" />
+    <user-name-input v-if="visibleName" @register-name="registerName" />
+    <ranking v-if="visibleRanking" :ranked-users="rankedUsers" />
 
     <div class="field" @click.left="getRelativeCoordinates">
       <svg viewbox="0 0 100% 100%" width="100%" height="100%">
@@ -117,6 +117,14 @@ export default {
     },
     originOfCoordinates() {
       return { x: 0, y: 0 };
+    },
+    visibleName() {
+      if (!this.token && !this.overlay) return true;
+      return false;
+    },
+    visibleRanking() {
+      if (this.token && !this.overlay) return true;
+      return false;
     },
   },
   methods: {
