@@ -1,16 +1,16 @@
 const UserModel = require('./UserModel.js');
 
 const propFilter = '-_id -__v';
-const preUser = [];
+const users = [];
 
 module.exports = {
   async initUser() {
     const pre = await UserModel.find({}, propFilter).lean();
-    preUser.push(...pre);
+    users.push(...pre);
   },
 
   getUser() {
-    return [...preUser];
+    return [...users];
   },
 
   async addUser(userName) {
@@ -23,24 +23,24 @@ module.exports = {
         r += letters[Math.floor(Math.random() * letters.length)];
       }
 
-      if (preUser.length < 1) {
+      if (users.length < 1) {
         userId = r;
       } else {
-        const find = preUser.find((v) => v.userId === r);
+        const find = users.find((v) => v.userId === r);
         if (!find) {
           userId = r;
         }
       }
     }
-
-    preUser.push({ userName, userId });
-    await new UserModel({ userName, userId }).save();
-    return { userName, userId };
+    const userData = { userName, userId };
+    users.push(userData);
+    await new UserModel(userData).save();
+    return userData;
   },
 
   // 検証への使用度高関数のため保存
   // async deleteUser() {
   //   await UserModel.deleteMany();
-  //   preUser.length = 0;
+  //   users.length = 0;
   // },
 };
