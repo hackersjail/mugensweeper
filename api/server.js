@@ -7,6 +7,7 @@ const { initData, saveData, getData } = require('./models/v1/fieldStore.js');
 const { initUser } = require('./models/v1/userStore.js');
 const sleep = require('./util/sleep.js');
 const FieldHistoryModel = require('./models/v1/FieldHistoryModel.js');
+const UserModel = require('./models/v1/UserModel.js');
 
 async function start() {
   await connectDB();
@@ -29,14 +30,13 @@ async function start() {
       /* eslint-enable no-console */
     }
   });
-  await initData();
-  await initUser();
+
+  await Promise.all([initUser(), initData()]);
 
   if (getData().length === 0) {
+    await new UserModel({ userName: 'master', userId: '00000000' }).save();
     await new FieldHistoryModel({ x: 0, y: 0, userId: '00000000' }).save();
-    await new FieldHistoryModel({ userName: 'master', userId: '00000000' }).save();
-    await initData();
-    await initUser();
+    await Promise.all([initUser(), initData()]);
   }
 
   // 検証への使用度高関数のため保存
