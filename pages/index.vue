@@ -119,12 +119,10 @@ export default {
       return { x: 0, y: 0 };
     },
     visibleName() {
-      if (!this.token && !this.overlay) return true;
-      return false;
+      return !this.token && !this.overlay;
     },
     visibleRanking() {
-      if (this.token && !this.overlay) return true;
-      return false;
+      return this.token && !this.overlay;
     },
   },
   methods: {
