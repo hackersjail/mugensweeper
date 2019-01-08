@@ -10,7 +10,7 @@ tags:
     parameters:
       - name: "userName"
         in: "formData"
-        description: "User formData parameter"
+        description: "User name"
         required: true
         type: "string"
     responses:
