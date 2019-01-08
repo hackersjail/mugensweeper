@@ -23,7 +23,10 @@ tags:
         description: "success"
         schema:
           type: "string"
-          example: "text"
+      401:
+        description: "error"
+        schema:
+          type: "string"
   get:
     tags:
       - Field
@@ -32,5 +35,9 @@ tags:
     responses:
       200:
         description: "success"
+        schema:
+          type: "object"
+      401:
+        description: "error"
         schema:
           type: "string"
