@@ -1,31 +1,53 @@
-version: 2
-jobs:
-  test:
+version: 2.1
+
+executors:
+  default:
+    working_directory: ~/repo
     docker:
       - image: circleci/node:10.14
-    working_directory: ~/repo
+
+commands:
+  restore_npm:
     steps:
-      - checkout
       - restore_cache:
-          keys:
-            - yarn-packages-v1-{{ checksum "yarn.lock" }}
-      - run: yarn
+          name: Restore npm dependencies
+          key: yarn-packages-v1-{{ checksum "yarn.lock" }}
+  save_npm:
+    steps:
       - save_cache:
+          name: Cache npm dependencies
+          key: yarn-packages-v1-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
-          key: yarn-packages-v1-{{ checksum "yarn.lock" }}
-      - run: yarn lint
-      - run: yarn test:coverage --runInBand
+
+jobs:
+  test:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - restore_npm
       - run:
-          name: Test with current Node.js version
-          command: npx --package node@^11 node ./node_modules/.bin/jest --config api/jest.config.js  --runInBand
+          name: Install npm dependencies
+          command: yarn
+      - save_npm
+      - run:
+          name: Run lint
+          command: yarn lint
+      - run:
+          name: Run test
+          command: yarn test:coverage --runInBand
+      - run:
+          name: Run test with current Node.js version
+          command: npx --package node@^11 node ./node_modules/.bin/jest --config api/jest.config.js --runInBand
       - run:
           name: Run a security audit
           command: yarn audit
-      - run: yarn coverage
+      - run:
+          name: Report coverage results
+          command: yarn coverage
 
 workflows:
-  version: 2
   test_and_deploy:
     jobs:
       - test
