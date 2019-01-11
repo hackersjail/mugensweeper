@@ -4,9 +4,27 @@ executors:
   default:
     working_directory: ~/repo
     docker:
-      - image: circleci/node:10.14
+      - image: circleci/node:10.15
+        environment:
+          TZ: Asia/Tokyo
 
 commands:
+  restore_repo:
+    steps:
+      - restore_cache:
+          name: Restore repository
+          key: repo-v1-{{ .Environment.CIRCLE_SHA1 }}
+  save_repo:
+    steps:
+      - checkout
+      - run:
+          name: Make Shell Script executable
+          command: chmod a+x ./.circleci/webhook.sh
+      - save_cache:
+          name: Cache repository
+          key: repo-v1-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/repo
   restore_npm:
     steps:
       - restore_cache:
@@ -19,13 +37,37 @@ commands:
           key: yarn-packages-v1-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
+  setup_awscli:
+    steps:
+      - run:
+          name: Install AWS CLI
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y awscli
+  notify_deployment_failed:
+    steps:
+      - run:
+          name: Notify deployment failed
+          command: ./.circleci/webhook.sh
+          environment:
+            DEPLOY_RESULT: failed
+            WEBHOOK_COLOR: "#d10c20"
+          when: on_fail
+  notify_deployment_succeeded:
+    steps:
+      - run:
+          name: Notify deployment succeeded
+          command: ./.circleci/webhook.sh
+          environment:
+            DEPLOY_RESULT: succeeded
+            WEBHOOK_COLOR: "#41aa58"
 
 jobs:
   test:
     executor:
       name: default
     steps:
-      - checkout
+      - save_repo
       - restore_npm
       - run:
           name: Install npm dependencies
@@ -46,8 +88,56 @@ jobs:
       - run:
           name: Report coverage results
           command: yarn coverage
+  deploy_api:
+    executor:
+      name: default
+    environment:
+      DEPLOY_ENV: api
+    steps:
+      - restore_repo
+      - setup_awscli
+      - run:
+          name: Deploy API server
+          command: |
+            [ $CIRCLE_BRANCH = "master" ] && group=$AWS_PROD_GROUP || group=$AWS_STG_GROUP
+            aws deploy create-deployment --application-name $AWS_APP_NAME --deployment-group-name $group \
+            --github-location repository="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME",commitId="$CIRCLE_SHA1"
+      - notify_deployment_failed
+      - notify_deployment_succeeded
+  deploy_web:
+    executor:
+      name: default
+    environment:
+      DEPLOY_ENV: web
+    steps:
+      - restore_repo
+      - restore_npm
+      - run:
+          name: Generate static files
+          command: yarn generate
+      - setup_awscli
+      - run:
+          name: Deploy static files
+          command: aws s3 sync dist s3://$AWS_BUCKET --delete
+      - notify_deployment_failed
+      - notify_deployment_succeeded
 
 workflows:
   test_and_deploy:
     jobs:
       - test
+      - deploy_api:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - master
+                - develop
+      - deploy_web:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - master
