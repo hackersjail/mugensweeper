@@ -126,7 +126,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['getAccessToken', 'getField']),
+    ...mapActions(['getAccessToken', 'getField', 'postField']),
     registerName(inputName) {
       this.getAccessToken(inputName);
     },
@@ -147,11 +147,12 @@ export default {
       };
     },
     getRelativeCoordinates(e) {
-      return {
+      const block = {
         // 原点移動量の調整は今時点では行わない
         x: Math.round((e.pageX - this.centerPos.x) / this.gridWidth),
         y: -Math.round((e.pageY - this.centerPos.y) / this.gridWidth),
       };
+      this.postField(block, this.userName);
     },
   },
 };

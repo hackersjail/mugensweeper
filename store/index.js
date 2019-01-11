@@ -55,4 +55,12 @@ export const actions = {
     const fieldData = await this.$axios.$get('/field/temp');
     commit('setField', fieldData);
   },
+  async postField({ commit }, block, userName) {
+    const fieldData = await this.$axios.$post('/field', {
+      x: block.x,
+      y: block.y,
+      username: userName,
+    });
+    commit('setField', fieldData);
+  },
 };
