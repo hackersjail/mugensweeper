@@ -16,6 +16,11 @@ export const state = () => ({
     { userId: 6, userName: 'etoh', userScore: 128 },
     { userId: 7, userName: 'matsuda', userScore: 129 },
   ],
+  moveDist: { x: 0, y: 0 }, // 原点の移動量
+  swipeInit: { x: 0, y: 0 }, // swipe基準点
+  dragInit: { x: 0, y: 0 }, // drag基準点
+  touchTime: 0, // ダブルタッチ無効判定に使用
+  dragFlg: false,
 });
 
 export const plugins = [
@@ -41,6 +46,26 @@ export const mutations = {
   },
   setField(state, blocks) {
     state.blocks = blocks;
+  },
+  setInitPos(state, position) {
+    // 基準地点設定
+    state.dragFlg = true;
+    state.dragInit = position;
+    state.swipeInit.x = state.moveDist.x;
+    state.swipeInit.y = state.moveDist.y;
+  },
+  gridMove(state, position) {
+    if (state.dragFlg) {
+      const requestXHalf = state.swipeInit.x - (position.x - state.dragInit.x);
+      const requestYHalf = state.swipeInit.y + (position.y - state.dragInit.y);
+      state.moveDist.x = requestXHalf;
+      state.moveDist.y = requestYHalf;
+    }
+  },
+  resetInitPos(state) {
+    // touchend
+    state.dragFlg = false;
+    state.touchTime = new Date().getTime();
   },
 };
 

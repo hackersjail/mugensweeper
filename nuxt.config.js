@@ -32,7 +32,7 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/axios', '@/plugins/window-state'],
+  plugins: ['@/plugins/axios', '@/plugins/window-state', '@/plugins/vue-touch'],
 
   /*
    ** Nuxt.js modules
