@@ -37,7 +37,7 @@
     "random-hash": "4.0.1",
     "swagger-jsdoc": "3.2.6",
     "swagger-ui-express": "4.0.2",
-    "universal-url": "2.0.0"
+    "vue-touch": "^2.0.0-beta.4"
   },
   "devDependencies": {
     "babel-eslint": "10.0.1",
