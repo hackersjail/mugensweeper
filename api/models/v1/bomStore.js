@@ -8,15 +8,15 @@ const unsavedBom = [];
 module.exports = {
   async initBom() {
     const boms = await BomHistoryModel.find({}, propFilter).lean();
-    bomMap.push(...boms);
+    bomMap.push(...createBomMap(boms));
   },
 
   getBom() {
-    return [...createBomMap(bomMap)];
+    return [...bomMap];
   },
 
   addBom(add) {
-    bomMap.push(add);
+    bomMap.push(...createBomMap([add]));
     unsavedBom.push(add);
   },
 
