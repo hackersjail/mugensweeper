@@ -3,24 +3,25 @@ const createBomMap = require('../../routes/v1/bom/createBomMap.js');
 
 const propFilter = '-_id -__v';
 const bomMap = [];
-const addedBom = [];
+const unsavedBom = [];
 
 module.exports = {
-  async initBoms() {
+  async initBom() {
     const boms = await BomHistoryModel.find({}, propFilter).lean();
-    bomMap.push(createBomMap(boms));
+    bomMap.push(...boms);
   },
 
-  getBoms() {
-    return [...bomMap];
+  getBom() {
+    return [...createBomMap(bomMap)];
   },
 
-  addBoms(add) {
-    addedBom.push(add);
+  addBom(add) {
+    bomMap.push(add);
+    unsavedBom.push(add);
   },
 
-  async saveBoms() {
-    await BomHistoryModel.insertMany(addedBom);
-    addedBom.length = 0;
+  async saveBom() {
+    await BomHistoryModel.insertMany(unsavedBom);
+    unsavedBom.length = 0;
   },
 };

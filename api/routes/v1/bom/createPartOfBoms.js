@@ -1,5 +1,4 @@
 const directions = [[-1, -1], [0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0]];
-const { addBoms } = require('../../../models/v1/bomStore.js');
 
 module.exports = (rate, field, positions) => {
   const aroundPositions = [];
@@ -33,6 +32,5 @@ module.exports = (rate, field, positions) => {
       boms.push(leftBlock[b]);
     }
   }
-  addBoms(boms);
   return boms;
 };
