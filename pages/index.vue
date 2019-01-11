@@ -8,7 +8,7 @@
       class="field"
       @touchstart="onTouchStart"
       @mousedown="setInitPos"
-      @touchmove="onTouchMove"
+      @touchmove.prevent="onTouchMove"
       @mousemove="gridMove"
       @touchend="resetInitPos"
       @touchcancel="resetInitPos"
@@ -84,7 +84,7 @@ export default {
     UserNameInput,
   },
   computed: {
-    ...mapState(['userName', 'token', 'rankedUsers', 'blocks', 'gridX', 'moveDist', 'touchTime']),
+    ...mapState(['userName', 'token', 'rankedUsers', 'blocks', 'gridX', 'moveDist']),
     gridWidth() {
       return this.$window.width / this.gridX;
     },
@@ -138,6 +138,9 @@ export default {
     visibleRanking() {
       return this.token && !this.overlay;
     },
+    touchTime() {
+      return Date.now();
+    },
   },
   methods: {
     ...mapActions(['getAccessToken', 'getField']),
@@ -176,7 +179,7 @@ export default {
     },
     onTouchStart(e) {
       // ダブルタップ無効化
-      if (new Date().getTime() - this.touchTime < 350) {
+      if (Date.now() - this.touchTime < 350) {
         e.preventDefault();
       }
 
@@ -189,8 +192,6 @@ export default {
       this.setInitPos(position);
     },
     onTouchMove(e) {
-      e.preventDefault();
-
       // drag現在地点
       const movePos = {
         x: e.pageX || e.changedTouches[0].clientX,
