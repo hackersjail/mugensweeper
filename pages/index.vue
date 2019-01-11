@@ -10,9 +10,9 @@
       @mousedown="setInitPos"
       @touchmove.prevent="onTouchMove"
       @mousemove="gridMove"
-      @touchend="resetInitPos"
-      @touchcancel="resetInitPos"
-      @mouseup="resetInitPos"
+      @touchend.prevent="onTouchEnd"
+      @touchcancel.prevent="onTouchEnd"
+      @mouseup.prevent="onTouchEnd"
       @click.left="getRelativeCoordinates"
     >
       <svg viewbox="0 0 100% 100%" width="100%" height="100%">
@@ -76,6 +76,7 @@ export default {
   data() {
     return {
       overlay: true,
+      touchTime: null,
     };
   },
   components: {
@@ -138,9 +139,6 @@ export default {
     visibleRanking() {
       return this.token && !this.overlay;
     },
-    touchTime() {
-      return Date.now();
-    },
   },
   methods: {
     ...mapActions(['getAccessToken', 'getField']),
@@ -198,6 +196,10 @@ export default {
         y: e.pageY || e.changedTouches[0].clientY,
       };
       this.gridMove(movePos);
+    },
+    onTouchEnd() {
+      this.touchTime = Date.now();
+      this.resetInitPos();
     },
   },
 };
