@@ -58,7 +58,7 @@
     <div class="target">
       <div
         v-for="(block, i) in blocks"
-        :class="{ 'splite-bomb': blockJudge(block) }"
+        :class="blockJudge(block)"
         :style="styles(block)"
         :key="i"
       />
@@ -140,7 +140,9 @@ export default {
       return this.token && !this.overlay;
     },
     blockJudge() {
-      return (block) => block.exploded || block.bomCount !== 0;
+      return (block) => ({
+        'splite-bomb': block.exploded || block.bomCount !== 0,
+      });
     },
   },
   methods: {
