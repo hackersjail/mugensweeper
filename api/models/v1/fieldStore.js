@@ -20,28 +20,14 @@ module.exports = {
   },
 
   addData(add) {
+    const record = { ...add };
     if (judgeField(add, field)) {
       field.push(post2res(add, field));
-      unsavedField.push({
-        x: add.x,
-        y: add.y,
-        userId: add.userId,
-        actionId: add.actionId,
-        recordtime: add.recordtime,
-        action: add.action,
-        status: true,
-      });
+      record.status = true;
     } else {
-      unsavedField.push({
-        x: add.x,
-        y: add.y,
-        userId: add.userId,
-        actionId: add.actionId,
-        recordtime: add.recordtime,
-        action: add.action,
-        status: false,
-      });
+      record.status = false;
     }
+    unsavedField.push(record);
   },
 
   async saveData() {
