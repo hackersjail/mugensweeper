@@ -4,7 +4,7 @@
     <user-name-input v-if="visibleName" @register-name="registerName" />
     <ranking v-if="visibleRanking" :ranked-users="rankedUsers" />
 
-    <div class="field" @click.left="getRelativeCoordinates">
+    <div class="field" @click.left="leftClickBlock">
       <svg viewbox="0 0 100% 100%" width="100%" height="100%">
         <line
           class="border-x"
@@ -146,7 +146,7 @@ export default {
         left: `${this.centerPos.x + this.gridWidth * block.x - this.gridWidth / 2}px`,
       };
     },
-    getRelativeCoordinates(e) {
+    leftClickBlock(e) {
       const block = {
         // 原点移動量の調整は今時点では行わない
         x: Math.round((e.pageX - this.centerPos.x) / this.gridWidth),
