@@ -6924,10 +6924,10 @@ mongodb-core@3.1.9:
   optionalDependencies:
     saslprep "^1.0.0"
 
-mongodb-memory-server@2.9.1:
-  version "2.9.1"
-  resolved "https://registry.yarnpkg.com/mongodb-memory-server/-/mongodb-memory-server-2.9.1.tgz#5e1438cc2abd368c83e21059cb8d7fdffedcb304"
-  integrity sha512-SmAJMTiD3X4sY6neu+UsBAmbiyK3IikvZhf9unF0VdC3YE+vMkTcClbx1DuGVWQmimGPSt9d0odFLUmgKS3I/A==
+mongodb-memory-server@2.9.3:
+  version "2.9.3"
+  resolved "https://registry.yarnpkg.com/mongodb-memory-server/-/mongodb-memory-server-2.9.3.tgz#96ee5a10743b3209ff5d6cf836889017d306c935"
+  integrity sha512-CzIMq5w3sHSjTG0XQyaGzIC7JFflMb/i/e2Vauev5W6NGiCeSYc552dy6L1JfFh4h5z4NFhEh7BvB8WMJIXvtw==
   dependencies:
     "@babel/runtime" "^7.2.0"
     debug "^4.1.0"
