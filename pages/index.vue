@@ -174,7 +174,7 @@ export default {
         x: Math.round((e.pageX - this.centerPos.x) / this.gridWidth),
         y: -Math.round((e.pageY - this.centerPos.y) / this.gridWidth),
       };
-      this.postField(block, this.userName);
+      this.postField(block);
     },
     onTouchStart(e) {
       // ダブルタップ無効化

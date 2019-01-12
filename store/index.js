@@ -77,12 +77,14 @@ export const actions = {
     const fieldData = await this.$axios.$get('/field/temp');
     commit('setField', fieldData);
   },
-  async postField({ commit, state }, block) {
-    const fieldData = await this.$axios.$post('/field', {
+  async postField({ state, dispatch }, block) {
+    const isAdded = await this.$axios.$post('/field', {
       x: block.x,
       y: block.y,
       username: state.userName,
     });
-    commit('setField', fieldData);
+    if (isAdded) {
+      await dispatch('getField');
+    }
   },
 };
