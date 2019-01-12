@@ -3,6 +3,7 @@ const directions = [[-1, -1], [0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1],
 module.exports = (rate, field, positions) => {
   const aroundPositions = [];
   const aroundFields = [];
+  const boms = [];
 
   // positionsの周囲8マス
   const aroundPosition = directions.map(([x, y]) => ({
@@ -25,13 +26,11 @@ module.exports = (rate, field, positions) => {
     (data) => !aroundFields.find((d) => d.x === data.x && d.y === data.y),
   );
 
-  const boms = [];
   for (let b = 0; b < leftBlock.length; b += 1) {
     const random = Math.random();
     if (random < rate) {
       boms.push(leftBlock[b]);
     }
   }
-
   return boms;
 };
