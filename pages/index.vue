@@ -171,8 +171,7 @@ export default {
           this.gridWidth * block.x -
           this.gridWidth / 2 -
           this.moveDist.x}px`,
-        backgroundPosition:
-          block.bomCount !== 0 ? `${(block.bomCount - 1) * -30}px 0px` : `-301px 0px`,
+        backgroundPosition: `${block.bomCount !== 0 ? (block.bomCount - 1) * -30 : -301}px 0px`,
       };
     },
     getRelativeCoordinates(e) {
