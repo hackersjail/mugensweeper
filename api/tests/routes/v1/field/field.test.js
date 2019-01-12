@@ -5,6 +5,7 @@ const FieldHistoryModel = require('../../../../models/v1/FieldHistoryModel.js');
 const { initData, getData, addData, saveData } = require('../../../../models/v1/fieldStore.js');
 const { connectDB, disconnectDB, dropDB } = require('../../../../database.js');
 
+const propFilter = '-_id -__v';
 const t = Math.round(new Date().getTime() / 1000);
 
 describe('field情報を返せるかどうか', () => {
@@ -19,7 +20,7 @@ describe('field情報を返せるかどうか', () => {
     const fieldHistory = array2fieldHistory([
       0, 0, 0, { t, u: 2, f: 5 }, { t, u: 1, f: 4 },
       0, 0, 0, { t, u: 3, f: 3 }, 0,
-      0, 0, 0, 0, 0,
+      0, 0, { t, u: 0, f: 0 }, 0, 0,
       0, 0, { t, u: 2, f: 1 }, 0, 0,
       0, { t, u: 1, f: 2 }, 0, 0, 0,
     ]);
@@ -41,7 +42,7 @@ describe('field情報を返せるかどうか', () => {
     const fieldHistory = array2fieldHistory([
       0, 0, 0, { t, u: 2, f: 5 }, { t, u: 1, f: 4 },
       0, 0, 0, { t, u: 3, f: 3 }, 0,
-      0, 0, 0, 0, 0,
+      0, 0, { t, u: 0, f: 0 }, 0, 0,
       0, 0, { t, u: 2, f: 1 }, 0, 0,
       0, { t, u: 1, f: 2 }, 0, 0, 0,
     ]);
@@ -55,8 +56,8 @@ describe('field情報を返せるかどうか', () => {
       0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0,
     ]);
-
-    const dupli = { x: 2, y: 2, userId: 4, actionId: 9, recordtime: t, action: 'opened' };
+    // prettier-ignore
+    const dupli = { x: 2, y: 2, userId: 4, actionId: 9, recordtime: t, action: 'opened', status: false, };
 
     // When
     const beforePostField = await FieldHistoryModel.insertMany(fieldHistory);
@@ -65,7 +66,7 @@ describe('field情報を返せるかどうか', () => {
     addData(dupli);
     const afterPostField = getData();
     await saveData();
-    const afterSaveField = getData();
+    const afterSaveField = await FieldHistoryModel.find({}, propFilter).lean();
 
     for (let i = 0; i < add.length; i += 1) {
       await chai
@@ -78,25 +79,42 @@ describe('field情報を返せるかどうか', () => {
     const { body } = await chai.request(app).get('/v1/field');
 
     // Then
-    // prettier-ignore
-    const matchers = array2fieldHistory([
-      0, 0, 0, 0, 0, 0,  { t, u: 1, f: 7 },
-      0, 0, 0, 0, { t, u: 2, f: 5 }, { t, u: 1, f: 4 }, { t, u: 2, f: 6 },
-      0, 0, 0, 0, { t, u: 3, f: 3 }, 0, 0,
-      0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, { t, u: 2, f: 1 }, 0, 0, 0,
-      0, 0, { t, u: 1, f: 2 }, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0,
-    ]);
+
+    const dbMatchers = [
+      { x: 0, y: 0, userId: 0, actionId: 0, recordtime: t, action: 'opened' },
+      { x: 0, y: -1, userId: 2, actionId: 1, recordtime: t, action: 'opened' },
+      { x: -1, y: -2, userId: 1, actionId: 2, recordtime: t, action: 'opened' },
+      { x: 1, y: 1, userId: 3, actionId: 3, recordtime: t, action: 'opened' },
+      { x: 2, y: 2, userId: 1, actionId: 4, recordtime: t, action: 'opened' },
+      { x: 1, y: 2, userId: 2, actionId: 5, recordtime: t, action: 'opened' },
+      { x: 3, y: 2, userId: 2, actionId: 6, recordtime: t, action: 'opened', status: true },
+      { x: 3, y: 3, userId: 1, actionId: 7, recordtime: t, action: 'opened', status: true },
+      { x: -2, y: 3, userId: 4, actionId: 8, recordtime: t, action: 'opened', status: false },
+      { x: 2, y: 2, userId: 4, actionId: 9, recordtime: t, action: 'opened', status: false },
+    ];
+
+    const rsMatchers = [
+      { x: 0, y: -1 },
+      { x: -1, y: -2 },
+      { x: 1, y: 1 },
+      { x: 2, y: 2 },
+      { x: 1, y: 2 },
+      { x: 3, y: 2 },
+      { x: 3, y: 3 },
+    ];
 
     // ・DB
     expect(afterPostField).toHaveLength(beforePostField.length + 2);
-    expect(afterSaveField).toHaveLength(matchers.length);
-    expect(afterSaveField).toEqual(expect.arrayContaining(matchers));
+    expect(afterSaveField).toHaveLength(beforePostField.length + 4);
+    expect(afterSaveField).toEqual(expect.arrayContaining(dbMatchers));
 
     // ・Response
+    const result = [];
+    for (let n = 0; n < body.length; n += 1) {
+      result.push({ x: body[n].x, y: body[n].y });
+      expect(body[n]).toHaveProperty('bomCount');
+    }
     expect(body).toHaveLength(beforePostField.length + 2);
-    expect(body).toHaveLength(matchers.length);
-    expect(body).toEqual(expect.arrayContaining(matchers));
+    expect(result).toEqual(expect.arrayContaining(rsMatchers));
   });
 });
