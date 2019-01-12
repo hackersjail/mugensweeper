@@ -98,6 +98,11 @@ describe('field情報を返せるかどうか', () => {
     expect(afterSaveField).toEqual(expect.arrayContaining(matchers));
 
     // ・Response
+    const result = [];
+    for (let n = 0; n < body.length; n += 1) {
+      result.push({ x: body[n].x, y: body[n].y });
+      expect(body[n]).toHaveProperty('bomCount');
+    }
     expect(body).toHaveLength(beforePostField.length + 2);
     // expect(body).toHaveLength(matchers.length);
     // expect(body).toEqual(expect.arrayContaining(matchers));

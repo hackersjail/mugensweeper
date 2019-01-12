@@ -4,8 +4,7 @@ const { getData, addData } = require('../../../models/v1/fieldStore.js');
 router
   .route('/')
   .post((req, res) => {
-    const result = addData(req.body);
-    res.json(result);
+    res.json(addData(req.body));
   })
   .get((req, res) => {
     res.json(getData());

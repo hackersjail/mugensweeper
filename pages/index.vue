@@ -58,7 +58,7 @@
     <div class="target">
       <div
         v-for="(block, i) in blocks"
-        :class="{ 'splite-bomb': block.exploded }"
+        :class="blockJudge(block)"
         :style="styles(block)"
         :key="i"
       />
@@ -139,6 +139,11 @@ export default {
     visibleRanking() {
       return this.token && !this.overlay;
     },
+    blockJudge() {
+      return (block) => ({
+        'splite-bomb': block.exploded || block.bomCount !== 0,
+      });
+    },
   },
   methods: {
     ...mapActions(['getAccessToken', 'getField']),
@@ -156,7 +161,7 @@ export default {
       }, 1000);
     },
     styles(block) {
-      if (!block.exploded) return false;
+      if (!block.exploded && block.bomCount === 0) return false;
       return {
         top: `${this.centerPos.y +
           this.gridWidth * block.y -
@@ -166,6 +171,7 @@ export default {
           this.gridWidth * block.x -
           this.gridWidth / 2 -
           this.moveDist.x}px`,
+        backgroundPosition: `${block.bomCount !== 0 ? (block.bomCount - 1) * -30 : -301}px 0px`,
       };
     },
     getRelativeCoordinates(e) {
@@ -239,10 +245,9 @@ export default {
   overflow: hidden;
   background-image: url('../assets/img.png');
   background-repeat: no-repeat;
-  background-position: -301px 0px;
   width: 30px;
   height: 30px;
-  position: relative;
+  position: fixed;
 }
 /* 原点がわかりやすいように識別 */
 .rect2 {
