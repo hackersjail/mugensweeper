@@ -3,7 +3,7 @@ const fieldStore = require('../../../models/v1/fieldStore.js');
 const bomStore = require('../../../models/v1/bomStore.js');
 const { createNewfieldWithBomMap, generateRanking } = require('../../../models/v1/pointStore.js');
 
-router.get('/', async (req, res) => {
+router.post('/', async (req, res) => {
   // fieldの取得
   const field = fieldStore.getData();
   // bomMapの取得
