@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "name": "api",
+      "script": "./api/server.js",
+      "env": {
+        "NODE_ENV": "development",
+        "PORT": 10000
+      },
+      "env_production": {
+        "NODE_ENV": "production",
+        "PORT": 10001
+      }
+    }
+  ]
+}
