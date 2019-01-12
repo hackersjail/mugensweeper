@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "node api/server.js",
+    "deploy": "npm run ps:start -- --only api --env production",
     "dev": "npm-run-all --parallel dev:*",
     "dev:api": "nodemon --exec \"npm start\" --config api/nodemon.json",
     "dev:client": "nuxt",
@@ -20,7 +21,15 @@
     "test:coverage": "npm test -- --coverage",
     "coverage": "codecov",
     "docker:dev": "npm-run-all --parallel \"dev:api -- --legacy-watch\" dev:client",
-    "docker:test": "nodemon --config api/nodemon-docker.json --legacy-watch"
+    "docker:test": "nodemon --config api/nodemon-docker.json --legacy-watch",
+    "ps:start": "pm2 start process.json",
+    "ps:restart": "pm2 restart process.json",
+    "ps:stop": "pm2 stop process.json",
+    "ps:delete": "pm2 delete process.json",
+    "ps:list": "pm2 list",
+    "ps:log": "pm2 logs",
+    "ps:monit": "pm2 monit",
+    "ps:update": "pm2 update"
   },
   "dependencies": {
     "@nuxtjs/axios": "5.3.6",
@@ -34,10 +43,11 @@
     "nuxt": "2.3.4",
     "passport": "0.4.0",
     "passport-jwt": "4.0.0",
+    "pm2": "3.2.8",
     "random-hash": "4.0.1",
     "swagger-jsdoc": "3.2.6",
     "swagger-ui-express": "4.0.2",
-    "universal-url": "2.0.0"
+    "vue-touch": "^2.0.0-beta.4"
   },
   "devDependencies": {
     "babel-eslint": "10.0.1",

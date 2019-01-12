@@ -16,6 +16,10 @@ export const state = () => ({
     { userId: 6, userName: 'etoh', userScore: 128 },
     { userId: 7, userName: 'matsuda', userScore: 129 },
   ],
+  moveDist: { x: 0, y: 0 }, // 原点の移動量
+  swipeInit: { x: 0, y: 0 }, // swipe基準点
+  dragInit: { x: 0, y: 0 }, // drag基準点
+  dragFlg: false,
 });
 
 export const plugins = [
@@ -41,6 +45,24 @@ export const mutations = {
   },
   setField(state, blocks) {
     state.blocks = blocks;
+  },
+  setInitPos(state, position) {
+    // 基準地点設定
+    state.dragFlg = true;
+    state.dragInit = position;
+    state.swipeInit = state.moveDist;
+  },
+  gridMove(state, position) {
+    if (!state.dragFlg) return;
+    const requestHalf = {
+      x: state.swipeInit.x - (position.x - state.dragInit.x),
+      y: state.swipeInit.y + (position.y - state.dragInit.y),
+    };
+    state.moveDist = requestHalf;
+  },
+  resetInitPos(state) {
+    // touchend
+    state.dragFlg = false;
   },
 };
 
