@@ -2,4 +2,5 @@
 
 cd /home/ec2-user/mugensweeper
 yarn
-yarn start
+yarn ps:stop
+yarn deploy
