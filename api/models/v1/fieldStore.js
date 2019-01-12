@@ -1,6 +1,6 @@
 const FieldHistoryModel = require('./FieldHistoryModel.js');
-const post2res = require('../../routes/v1/field/post2res.js');
 const judgeField = require('../../routes/v1/util/judgeField.js');
+const post2res = require('../../routes/v1/field/post2res.js');
 
 const propFilter = '-_id -__v';
 const field = [];

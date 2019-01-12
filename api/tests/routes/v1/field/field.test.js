@@ -79,7 +79,8 @@ describe('field情報を返せるかどうか', () => {
     const { body } = await chai.request(app).get('/v1/field');
 
     // Then
-    const matchers = [
+
+    const dbMatchers = [
       { x: 0, y: 0, userId: 0, actionId: 0, recordtime: t, action: 'opened' },
       { x: 0, y: -1, userId: 2, actionId: 1, recordtime: t, action: 'opened' },
       { x: -1, y: -2, userId: 1, actionId: 2, recordtime: t, action: 'opened' },
@@ -92,10 +93,20 @@ describe('field情報を返せるかどうか', () => {
       { x: 2, y: 2, userId: 4, actionId: 9, recordtime: t, action: 'opened', status: false },
     ];
 
+    const rsMatchers = [
+      { x: 0, y: -1 },
+      { x: -1, y: -2 },
+      { x: 1, y: 1 },
+      { x: 2, y: 2 },
+      { x: 1, y: 2 },
+      { x: 3, y: 2 },
+      { x: 3, y: 3 },
+    ];
+
     // ・DB
     expect(afterPostField).toHaveLength(beforePostField.length + 2);
     expect(afterSaveField).toHaveLength(beforePostField.length + 4);
-    expect(afterSaveField).toEqual(expect.arrayContaining(matchers));
+    expect(afterSaveField).toEqual(expect.arrayContaining(dbMatchers));
 
     // ・Response
     const result = [];
@@ -104,7 +115,6 @@ describe('field情報を返せるかどうか', () => {
       expect(body[n]).toHaveProperty('bomCount');
     }
     expect(body).toHaveLength(beforePostField.length + 2);
-    // expect(body).toHaveLength(matchers.length);
-    // expect(body).toEqual(expect.arrayContaining(matchers));
+    expect(result).toEqual(expect.arrayContaining(rsMatchers));
   });
 });

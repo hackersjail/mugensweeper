@@ -1,4 +1,4 @@
-module.exports = (field, add) => {
+module.exports = (add, field) => {
   const posi = {
     x: +add.x,
     y: +add.y,
@@ -9,7 +9,7 @@ module.exports = (field, add) => {
   const around = directions.map((val) => [val[0] + posi.x, val[1] + posi.y]);
 
   for (let i = 0; i < field.length; i += 1) {
-    const { x, y } = field[i].block;
+    const { x, y } = field[i];
     if (posi.x === x && posi.y === y) {
       return false;
     }
