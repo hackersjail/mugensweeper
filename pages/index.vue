@@ -198,9 +198,8 @@ export default {
     onTouchEnd(e) {
       if (!this.dragFlg) {
         const block = {
-          // 原点移動量の調整は今時点では行わない
-          x: Math.round((e.pageX - this.centerPos.x) / this.gridWidth),
-          y: -Math.round((e.pageY - this.centerPos.y) / this.gridWidth),
+          x: Math.round((e.pageX - this.centerPos.x + this.moveDist.x) / this.gridWidth),
+          y: -Math.round((e.pageY - this.centerPos.y - this.moveDist.y) / this.gridWidth),
         };
         this.postField(block);
       }
