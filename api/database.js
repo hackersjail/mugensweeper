@@ -4,46 +4,53 @@ const { NODE_ENV, MONGO_URI } = require('./config.js');
 
 let isConnection = false;
 let mongod;
-let connection;
 
 module.exports = {
   async connectDB() {
     if (isConnection) return;
-    isConnection = true;
+    let uri;
+    let options;
 
-    if (NODE_ENV !== 'test') {
-      connection = mongoose.connect(
-        MONGO_URI,
-        { useNewUrlParser: true },
-      );
+    if (NODE_ENV !== 'test' || process.env.MONGO_ENV) {
+      uri = MONGO_URI;
+      options = { useNewUrlParser: true };
     } else if (NODE_ENV === 'test') {
       mongod = new MongoMemoryServer();
-      connection = mongoose.connect(
-        await mongod.getConnectionString(),
-        {
-          useNewUrlParser: true,
-          autoReconnect: true,
-          reconnectTries: Number.MAX_VALUE,
-          reconnectInterval: 1000,
-        },
-      );
+      uri = await mongod.getConnectionString();
+      options = {
+        useNewUrlParser: true,
+        autoReconnect: true,
+        reconnectTries: Number.MAX_VALUE,
+        reconnectInterval: 1000,
+      };
     }
+
+    mongoose.connection.once('open', () => {
+      // eslint-disable-next-line no-console
+      if (NODE_ENV !== 'test') console.log(`MongoDB connected`);
+      isConnection = true;
+    });
 
     mongoose.connection.on('error', (err) => {
       throw new Error(`MongoDB connection error: ${err}`);
     });
-    await connection;
+
+    mongoose.connection.on('close', () => {
+      // eslint-disable-next-line no-console
+      if (NODE_ENV !== 'test') console.log(`MongoDB disconnected`);
+      isConnection = false;
+    });
+
+    // prettier-ignore
+    await mongoose.connect(uri, options);
   },
   async disconnectDB() {
     if (!isConnection) return;
-    isConnection = false;
-
     await mongoose.disconnect();
     if (mongod) await mongod.stop();
   },
   async dropDB() {
     if (!isConnection) return;
-
     await mongoose.connection.dropDatabase();
   },
 };

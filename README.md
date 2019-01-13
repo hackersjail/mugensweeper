@@ -9,9 +9,10 @@
 </p>
 
 <p align="center">
-  <a href="https://jestjs.io/"><img src="https://jestjs.io/img/jest-badge.svg" alt="Jest"></a>
+  <a href="https://prettier.io/"><img src="https://badgen.net/badge/code%20style/Prettier/FF69B4" alt="Code style Prettier"></a>
+  <a href="https://jestjs.io/"><img src="https://jestjs.io/img/jest-badge.svg" alt="Tested with Jest"></a>
   <a href="https://circleci.com/"><img src="https://badgen.net/badge//CircleCI/04AA51?icon=circleci" alt="CircleCI"></a>
-  <a href="https://codecov.io/"><img src="https://badgen.net/badge//Codecov/E03997?icon=codecov" alt="Codecov">
+  <a href="https://codecov.io/"><img src="https://badgen.net/badge//Codecov/E03997?icon=codecov" alt="Codecov"></a>
   <!-- <a href="https://discordapp.com/"><img src="https://badgen.net/badge//Discord/7289DA?icon=discord" alt="Discord"></a> -->
 </p>
 

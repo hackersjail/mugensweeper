@@ -1,0 +1,43 @@
+tags:
+  - name: Field
+    description: field API
+/field:
+  post:
+    tags:
+      - Field
+    produces:
+      - "text/html; charset=utf-8"
+    parameters:
+      - name: "x"
+        in: "formData"
+        description: "x position"
+        type: number
+        required: true
+      - name: "y"
+        in: "formData"
+        description: "y position"
+        type: number
+        required: true
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+      401:
+        description: "error"
+        schema:
+          type: "string"
+  get:
+    tags:
+      - Field
+    produces:
+      - "text/html; charset=utf-8"
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "object"
+      401:
+        description: "error"
+        schema:
+          type: "string"

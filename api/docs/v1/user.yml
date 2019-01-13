@@ -1,0 +1,24 @@
+tags:
+  - name: User
+    description: User API
+/user:
+  post:
+    tags:
+      - User
+    produces:
+      - "text/html; charset=utf-8"
+    parameters:
+      - name: "userName"
+        in: "formData"
+        description: "User name"
+        required: true
+        type: "string"
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "object"
+      401:
+        description: "error"
+        schema:
+          type: "string"

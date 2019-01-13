@@ -2,6 +2,11 @@ const chai = require('chai');
 const app = require('../../../../routes/app.js');
 // const field = require('../../../../routes/dev/mishima/field');
 
+const initialBlock = () => ({
+  x: 0,
+  y: 0,
+});
+
 describe('field-APIについてテストする', () => {
   it('初期状態の盤面を取得する', async () => {
     // Given
@@ -12,6 +17,6 @@ describe('field-APIについてテストする', () => {
 
     // Then
     expect(body).toHaveLength(1);
-    expect(body[0]).toMatchObject({ x: 0, y: 0 });
+    expect(body[0]).toMatchObject(initialBlock());
   });
 });

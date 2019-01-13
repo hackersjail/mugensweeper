@@ -7,21 +7,27 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint',
   },
-  extends: ['airbnb-base', 'plugin:vue/recommended', 'plugin:prettier/recommended'],
-  // required to lint *.vue files
+  extends: ['airbnb-base', 'plugin:vue/essential', 'plugin:prettier/recommended'],
   plugins: ['vue', 'prettier'],
-  // add your custom rules here
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-console': process.env.NODE_ENV === 'development' ? 'off' : 'error',
+    'no-debugger': process.env.NODE_ENV === 'development' ? 'off' : 'error',
     'import/no-extraneous-dependencies': 'off',
     'import/no-unresolved': 'off',
+    'no-await-in-loop': 'off',
   },
   overrides: [
     {
       files: ['**/tests/**/*.test.js'],
       env: {
         jest: true,
+      },
+    },
+    {
+      files: ['store/**/*.js'],
+      rules: {
+        'no-shadow': 0,
+        'no-param-reassign': 0,
       },
     },
   ],
