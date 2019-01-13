@@ -2,7 +2,6 @@ const eachPoints = (fieldInfo) =>
   fieldInfo.reduce((sortedField, block) => {
     let currentField = sortedField;
     const currentBlock = sortedField.find((a) => a.userId === block.userId);
-    const currentIndex = sortedField.findIndex((a) => a.userId === block.userId);
     if (block.exploded) {
       sortedField.unshift({ userId: block.userId, points: 0 });
       currentField = sortedField.filter(
