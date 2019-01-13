@@ -117,4 +117,34 @@ describe('field情報を返せるかどうか', () => {
     expect(body).toHaveLength(beforePostField.length + 2);
     expect(result).toEqual(expect.arrayContaining(rsMatchers));
   });
+  it('actionIdを与えずにDBに保存していく', async () => {
+    // Given
+    // prettier-ignore
+    const fieldHistory = array2fieldHistory([
+      0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0,
+      0, 0, { t, u: 0  }, 0, 0,
+      0, 0, { t, u: 2  }, 0, 0,
+      0, { t, u: 1  }, 0, 0, 0,
+    ]);
+    // prettier-ignore
+    const add = array2fieldHistory([
+      0, 0, 0, { t, u: 2 }, { t, u: 1 },
+      0, 0, 0, { t, u: 3 }, 0,
+      0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0,
+    ]);
+
+    // When
+    await FieldHistoryModel.insertMany(fieldHistory);
+    await initData();
+    add.forEach(addData);
+    await saveData();
+    const afterPostField = await FieldHistoryModel.find({}, propFilter).lean();
+
+    // Then
+    const result = [...afterPostField].sort((a, b) => a.actionId - b.actionId);
+    expect(result[result.length - 1].actionId === 5);
+  });
 });
