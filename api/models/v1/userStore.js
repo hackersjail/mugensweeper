@@ -25,11 +25,9 @@ module.exports = {
     let flag = 0;
     while (flag === 0) {
       userId = getHash.generateHash(option);
-      if (userId.indexOf('-') === -1 && userId.indexOf('_') === -1) {
-        /* eslint no-loop-func: 0 */
-        const find = users.find((v) => v.userId === userId);
-        if (!find) flag = 1;
-      }
+      /* eslint no-loop-func: 0 */
+      const find = users.find((v) => v.userId === userId);
+      if (!find) flag = 1;
     }
     const userData = { userName, userId };
     users.push(userData);
