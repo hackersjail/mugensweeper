@@ -15,8 +15,6 @@ module.exports = (req, field) => {
   // 周囲のボム数を計算
   fieldInfo.bomCount = countBoms(getBom(), req);
   // 爆発するか判定
-  if (judgeExploded(req, getBom()).exploded) {
-    fieldInfo.exploded = true;
-  }
+  if (judgeExploded(req, getBom()).exploded) fieldInfo.exploded = true;
   return fieldInfo;
 };
