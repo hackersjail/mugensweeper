@@ -23,7 +23,6 @@ module.exports = {
   },
 
   addData(add) {
-    // const status = judgeField(add, field);
     const record = { ...add, actionId, status: judgeField(add, field) };
     if (record.status) field.push(post2res(add, field));
 
