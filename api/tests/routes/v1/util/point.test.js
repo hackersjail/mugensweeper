@@ -1,40 +1,43 @@
 const array2fieldHistory = require('./array2fieldHistory.js');
+const array2bomMap = require('./array2bomMap.js');
+
 const {
   createNewfieldWithBomMap,
   calculatePointsForPlayer,
   generateRanking,
 } = require('../../../../models/v1/pointStore.js');
 
-const t = Math.round(new Date().getTime() / 1000);
+const time = Math.round(new Date().getTime() / 1000);
+const ZERO00000 = 0;
 
 describe('ブロックを開くとき', () => {
   it('得点に関するテスト', () => {
     // Given
     // prettier-ignore
-    const fieldinfo = array2fieldHistory([
-      0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, { t, u: 1, f: 7 }, { t, u: 3, f: 8 }, { t, u: 4, f: 13 }, 0,
-      0, 0, 0, 0, { t, u: 2, f: 2 }, { t, u: 1, f: 6 }, 0, { t, u: 3, f: 9 }, 0,
-      0, 0, 0, 0, { t, u: 1, f: 1 }, { t, u: 2, f: 5 }, { t, u: 2, f: 4 }, { t, u: 4, f: 10 }, { t, u: 5, f: 12 },
-      0, 0, 0, 0, 0, { t, u: 1, f: 3 }, { t, u: 1, f: 11 }, 0, { t, u: 1, f: 14 },
-      0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0,
-    ]);
+    const fieldHistory = array2fieldHistory([
+      ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000,
+      ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, 'u1:7:op', 'u3:8:op', 'u4:13:op',ZERO00000,
+      ZERO00000, ZERO00000, ZERO00000, ZERO00000, 'u2:2:op', 'u1:6:op', ZERO00000, 'u3:9:op', ZERO00000,
+      ZERO00000, ZERO00000, ZERO00000, ZERO00000, 'u1:1:op', 'u2:5:op', 'u2:4:op', 'u4:10:op','u5:12:op',
+      ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, 'u1:3:op', 'u1:11:op', ZERO00000,'u1:14:op',
+      ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000,
+      ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000,
+      ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000,
+      ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000, ZERO00000,
+    ], time);
 
     // prettier-ignore
-    const bomMap = array2fieldHistory([
-      0, 0, 0, 0, 0, { f: 7 }, 0, { f: 8 }, { f: 13 },
-      0, 0, 0, 0, { f: 2 }, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, { f: 1 }, 0, { f: 4 }, { f: 12 },
-      0, 0, 0, 0, 0, { f: 3 }, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, { f: 10 }, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0,
-    ]);
+    const bomMap = array2bomMap([
+        0, 0, 0, 0, 0, 7, 0, 8, 13,
+        0, 0, 0, 0, 2, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 1, 0, 4, 12,
+        0, 0, 0, 0, 0, 3, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 10,0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ]);
 
     const rankingMatcher = [
       { userId: 1, points: 3 },
@@ -45,19 +48,19 @@ describe('ブロックを開くとき', () => {
     ];
 
     // fieldHistoryとbomHistoryを使って爆弾情報を含んだfieldの生成
-    const field2 = createNewfieldWithBomMap(fieldinfo, bomMap);
+    const fieldWithBomMap = createNewfieldWithBomMap(fieldHistory, bomMap);
 
     // １人のuserのpointを計算のテスト
     // when
-    for (let i = 0; i < rankingMatcher.length; i += 1) {
-      const player = calculatePointsForPlayer(field2, rankingMatcher[i].userId);
+    rankingMatcher.forEach((rank) => {
+      const player = calculatePointsForPlayer(fieldWithBomMap, rank.userId);
       // Then
-      expect(player).toEqual(rankingMatcher[i]);
-    }
+      expect(player).toEqual(rank);
+    });
 
     // Rankingのテスト
     // When
-    const ranking = generateRanking(field2);
+    const ranking = generateRanking(fieldWithBomMap);
     // Then
     expect(ranking).toEqual(rankingMatcher);
   });
