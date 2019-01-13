@@ -21,16 +21,14 @@ function generateAccessToken() {
   const audience = config.get('authentication.token.audience');
   const issuer = config.get('authentication.token.issuer');
   const secret = config.get('authentication.token.secret');
-
   const userId = genHash();
-  const token = jwt.sign({ userId }, secret, {
+
+  return jwt.sign({ userId }, secret, {
     expiresIn,
     audience,
     issuer,
     noTimestamp: true,
   });
-
-  return token;
 }
 
 module.exports = generateAccessToken;
