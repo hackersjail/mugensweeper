@@ -17,6 +17,8 @@ module.exports = (req, field) => {
   // 爆発するか判定
   if (judgeExploded(req, getBom()).exploded) {
     fieldInfo.exploded = true;
+  } else {
+    fieldInfo.exploded = false;
   }
   return fieldInfo;
 };
