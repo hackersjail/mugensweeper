@@ -23,10 +23,12 @@ module.exports = (rate, field, positions) => {
   const leftBlock = aroundPositions.filter(
     (data) => !aroundFields.find((d) => d.x === data.x && d.y === data.y),
   );
+
   for (let b = 0; b < leftBlock.length; b += 1) {
     if (Math.random() < rate) {
       boms.push(leftBlock[b]);
     }
   }
+
   return boms;
 };
