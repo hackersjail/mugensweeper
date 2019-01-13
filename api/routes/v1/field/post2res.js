@@ -4,8 +4,8 @@ const createPartOfBoms = require('../bom/createPartOfBoms.js');
 const judgeExploded = require('../util/judgeExploded.js');
 
 module.exports = (req, field) => {
-  const { x, y, actionId } = req;
-  const fieldInfo = { x, y }; // 返却用
+  const { x, y, actionId, userId } = req;
+  const fieldInfo = { x, y, userId }; // 返却用
 
   // 周囲へボムを配置
   const result = createPartOfBoms(0.7, field, req);
