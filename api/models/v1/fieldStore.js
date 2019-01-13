@@ -24,9 +24,9 @@ module.exports = {
 
   addData(add) {
     const status = judgeField(add, field);
-    const record = { ...add, actionId, status };
+    const record = { ...add, actionId, status: typeof status === 'object' };
 
-    if (status) field.push(post2res(add, field));
+    if (record.status) field.push(post2res(add, field));
 
     actionId += 1;
     unsavedField.push(record);
