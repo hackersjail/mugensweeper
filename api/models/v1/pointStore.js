@@ -1,18 +1,23 @@
 const eachPoints = (fieldInfo) =>
   fieldInfo.reduce((sortedField, block) => {
-    const currentField = sortedField;
+    let currentField = sortedField;
     const currentBlock = sortedField.find((a) => a.userId === block.userId);
     const currentIndex = sortedField.findIndex((a) => a.userId === block.userId);
     if (block.exploded) {
-      currentField.splice(currentIndex, 1, { userId: block.userId, points: 0 });
+      sortedField.unshift({ userId: block.userId, points: 0 });
+      currentField = sortedField.filter(
+        (v1, i1, a1) => a1.findIndex((v2) => v1.userId === v2.userId) === i1,
+      );
     } else {
-      /* eslint no-unused-expressions: 0 */
-      currentField.findIndex((a) => a.userId === block.userId) !== -1
-        ? currentField.splice(currentIndex, 1, {
-            userId: block.userId,
-            points: currentBlock.points + 1,
-          })
-        : currentField.push({ userId: block.userId, points: 1 });
+      /* eslint no-lonely-if: 0, no-unused-vars: 0 */
+      if (currentField.findIndex((a) => a.userId === block.userId) !== -1) {
+        sortedField.unshift({ userId: block.userId, points: currentBlock.points + 1 });
+        currentField = sortedField.filter(
+          (v1, i1, a1) => a1.findIndex((v2) => v1.userId === v2.userId) === i1,
+        );
+      } else {
+        currentField.push({ userId: block.userId, points: 1 });
+      }
     }
     return currentField;
   }, []);
