@@ -1,20 +1,18 @@
 const router = require('express').Router();
 const fieldStore = require('../../../models/v1/fieldStore.js');
-const bomStore = require('../../../models/v1/bomStore.js');
 const userStore = require('../../../models/v1/userStore.js');
-const { createNewfieldWithBomMap, generateRanking } = require('../../../models/v1/pointStore.js');
+const { generateRanking } = require('../../../models/v1/pointStore.js');
 
 router.post('/', async (req, res) => {
   // fieldの取得
   const field = fieldStore.getData();
-  // bomMapの取得
-  const bomMap = bomStore.getBom();
+  // console.log(field, 'y');
   // userの取得
   const user = userStore.getUser();
-  // new Field with bomMap の作成
-  const fieldWithBoms = createNewfieldWithBomMap(field, bomMap);
+  // console.log(user, 'u');
   // rankingの作成
-  const ranking = generateRanking(fieldWithBoms);
+  const ranking = generateRanking(field);
+  // console.log(ranking, 'ranking');
   const rankingWithUserNames = [];
   for (let i = 0; i < user.length; i += 1) {
     for (let m = 0; m < ranking.length; m += 1) {
@@ -27,6 +25,7 @@ router.post('/', async (req, res) => {
         rankingWithUserNames.push(userPointsWithName);
       }
     }
+    // console.log(rankingWithUserNames);
     res.json(rankingWithUserNames);
   }
 });
