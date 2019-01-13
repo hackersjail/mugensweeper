@@ -1,21 +1,14 @@
 const eachPoints = (fieldInfo) =>
   fieldInfo.reduce((sortedField, block) => {
-    const currentBlock = sortedField.find((a) => a.userId === block.userId);
-    const currentIndex = sortedField.findIndex((a) => a.userId === block.userId);
-    if (block.exploded === true) {
-      sortedField.splice(currentIndex, 1, {
-        userId: block.userId,
-        points: 0,
-      });
-    } else if (sortedField.findIndex((a) => a.userId === block.userId) !== -1) {
-      sortedField.splice(currentIndex, 1, {
-        userId: block.userId,
-        points: currentBlock.points + 1,
-      });
-    } else {
-      sortedField.push({ userId: block.userId, points: 1 });
+    if (block.exploded || sortedField.findIndex((a) => a.userId === block.userId) !== -1) {
+      const currentBlock = sortedField.find((a) => a.userId === block.userId);
+      const tempField = [
+        { userId: block.userId, points: block.exploded ? 0 : currentBlock.points + 1 },
+        ...sortedField,
+      ];
+      return tempField.filter((v1, i1, a1) => a1.findIndex((v2) => v1.userId === v2.userId) === i1);
     }
-    return sortedField;
+    return [{ userId: block.userId, points: 1 }, ...sortedField];
   }, []);
 
 module.exports = {
@@ -28,9 +21,7 @@ module.exports = {
           field[i].y === bomMap[m].y &&
           field[i].actionId > bomMap[m].actionId;
         field[i] = { ...field[i], exploded };
-        if (exploded) {
-          break;
-        }
+        if (exploded) break;
       }
     }
     return field;
@@ -42,7 +33,6 @@ module.exports = {
   },
   generateRanking(fieldInfo) {
     const eachPoint = eachPoints(fieldInfo);
-    const result = eachPoint.sort((a, b) => b.points - a.points);
-    return result;
+    return eachPoint.sort((a, b) => b.points - a.points || a.userId - b.userId);
   },
 };
