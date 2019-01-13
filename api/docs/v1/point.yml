@@ -12,7 +12,7 @@ tags:
         in: "formData"
         description: "User ID"
         required: true
-        type: "integer"
+        type: "string"
       - name: "points"
         in: "formData"
         description: "points"
