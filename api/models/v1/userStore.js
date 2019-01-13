@@ -3,9 +3,10 @@ const UserModel = require('./UserModel.js');
 
 const propFilter = '-_id -__v';
 const users = [];
+// charsetについては、random-hashの性質上、文言数を2乗の数分準備しなければならないため、aを多めに指定
 const option = {
   length: 8,
-  charset: 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-_',
+  charset: 'aaabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
 };
 
 module.exports = {
