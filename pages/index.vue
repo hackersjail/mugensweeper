@@ -105,7 +105,7 @@ export default {
     objPos() {
       return (object) => ({
         x: this.centerPos.x + this.gridWidth * object.x - this.gridWidth / 2 - this.moveDist.x, // 原点移動量調整
-        y: this.centerPos.y + this.gridWidth * object.y - this.gridWidth / 2 - this.moveDist.y, // 原点移動量調整
+        y: this.centerPos.y + this.gridWidth * object.y - this.gridWidth / 2 + this.moveDist.y, // 原点移動量調整
       });
     },
     borderPos() {
@@ -165,7 +165,7 @@ export default {
       return {
         top: `${this.centerPos.y +
           this.gridWidth * block.y -
-          this.gridWidth / 2 -
+          this.gridWidth / 2 +
           this.moveDist.y}px`,
         left: `${this.centerPos.x +
           this.gridWidth * block.x -
