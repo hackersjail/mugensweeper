@@ -10,7 +10,6 @@ module.exports = (rate, field, positions) => {
     aroundFields.push(...aroundField);
   }
 
-  // console.log(a)
   // Bomが置ける余剰
   const leftBlock = directions
     .map((d) => ({ x: d[0] + positions.x, y: d[1] + positions.y }))
