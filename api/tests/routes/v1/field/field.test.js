@@ -18,19 +18,19 @@ describe('field情報を返せるかどうか', () => {
     // Given
     // prettier-ignore
     const fieldHistory = array2fieldHistory([
-      0, 0, 0, { t, u: 2, f: 5 }, { t, u: 1, f: 4 },
-      0, 0, 0, { t, u: 3, f: 3 }, 0,
-      0, 0, { t, u: 0, f: 0 }, 0, 0,
-      0, 0, { t, u: 2, f: 1 }, 0, 0,
-      0, { t, u: 1, f: 2 }, 0, 0, 0,
+      0, 0, 0, { t, u: '2', f: 5 }, { t, u: 1, f: 4 },
+      0, 0, 0, { t, u: '3', f: 3 }, 0,
+      0, 0, { t, u: '0', f: 0 }, 0, 0,
+      0, 0, { t, u: '2', f: 1 }, 0, 0,
+      0, { t, u: '1', f: 2 }, 0, 0, 0,
     ]);
 
     const fieldHistory2 = [
-      { recordtime: t, userId: 'a2', x: 0, y: -1, action: 'opened', actionId: 1 },
-      { recordtime: t, userId: 'b1', x: -1, y: -2, action: 'opened', actionId: 2 },
-      { recordtime: t, userId: 'c3', x: 1, y: 1, action: 'opened', actionId: 3 },
-      { recordtime: t, userId: 'b1', x: 2, y: 2, action: 'opened', actionId: 4 },
-      { recordtime: t, userId: 'a2', x: 1, y: 2, action: 'opened', actionId: 5 },
+      { recordtime: t, userId: '2', x: 0, y: -1, action: 'opened', actionId: 1 },
+      { recordtime: t, userId: '1', x: -1, y: -2, action: 'opened', actionId: 2 },
+      { recordtime: t, userId: '3', x: 1, y: 1, action: 'opened', actionId: 3 },
+      { recordtime: t, userId: '1', x: 2, y: 2, action: 'opened', actionId: 4 },
+      { recordtime: t, userId: '2', x: 1, y: 2, action: 'opened', actionId: 5 },
     ];
     // Then
     expect(fieldHistory).toEqual(expect.arrayContaining(fieldHistory2));
@@ -40,15 +40,15 @@ describe('field情報を返せるかどうか', () => {
     // Given
     // prettier-ignore
     const fieldHistory = array2fieldHistory([
-      0, 0, 0, { t, u: 2, f: 5 }, { t, u: 1, f: 4 },
-      0, 0, 0, { t, u: 3, f: 3 }, 0,
-      0, 0, { t, u: 0, f: 0 }, 0, 0,
-      0, 0, { t, u: 2, f: 1 }, 0, 0,
-      0, { t, u: 1, f: 2 }, 0, 0, 0,
+      0, 0, 0, { t, u: '2', f: 5 }, { t, u: 1, f: 4 },
+      0, 0, 0, { t, u: '3', f: 3 }, 0,
+      0, 0, { t, u: '0', f: 0 }, 0, 0,
+      0, 0, { t, u: '2', f: 1 }, 0, 0,
+      0, { t, u: '1', f: 2 }, 0, 0, 0,
     ]);
     // prettier-ignore
     const add = array2fieldHistory([
-      0, { t, u: 4, f: 8 }, 0, 0, 0, 0, { t, u: 1, f: 7 },
+      0, { t, u: '4', f: 8 }, 0, 0, 0, 0, { t, u: '1', f: 7 },
       0, 0, 0, 0, 0, 0, { t, u: 2, f: 6 },
       0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0,
@@ -57,7 +57,7 @@ describe('field情報を返せるかどうか', () => {
       0, 0, 0, 0, 0, 0, 0,
     ]);
     // prettier-ignore
-    const dupli = { x: 2, y: 2, userId: 4, actionId: 9, recordtime: t, action: 'opened', status: false, };
+    const dupli = { x: 2, y: 2, userId: '4', actionId: 9, recordtime: t, action: 'opened', status: false, };
 
     // When
     const beforePostField = await FieldHistoryModel.insertMany(fieldHistory);
@@ -81,16 +81,16 @@ describe('field情報を返せるかどうか', () => {
     // Then
 
     const dbMatchers = [
-      { x: 0, y: 0, userId: '0a', actionId: 0, recordtime: t, action: 'opened' },
-      { x: 0, y: -1, userId: 'a2', actionId: 1, recordtime: t, action: 'opened' },
-      { x: -1, y: -2, userId: 'b1', actionId: 2, recordtime: t, action: 'opened' },
-      { x: 1, y: 1, userId: 'c3', actionId: 3, recordtime: t, action: 'opened' },
-      { x: 2, y: 2, userId: 'd1', actionId: 4, recordtime: t, action: 'opened' },
-      { x: 1, y: 2, userId: 'a2', actionId: 5, recordtime: t, action: 'opened' },
-      { x: 3, y: 2, userId: 'a2', actionId: 6, recordtime: t, action: 'opened', status: true },
-      { x: 3, y: 3, userId: 'b1', actionId: 7, recordtime: t, action: 'opened', status: true },
-      { x: -2, y: 3, userId: 'e4', actionId: 8, recordtime: t, action: 'opened', status: false },
-      { x: 2, y: 2, userId: 'e4', actionId: 9, recordtime: t, action: 'opened', status: false },
+      { x: 0, y: 0, userId: '0', actionId: 0, recordtime: t, action: 'opened' },
+      { x: 0, y: -1, userId: '2', actionId: 1, recordtime: t, action: 'opened' },
+      { x: -1, y: -2, userId: '1', actionId: 2, recordtime: t, action: 'opened' },
+      { x: 1, y: 1, userId: '3', actionId: 3, recordtime: t, action: 'opened' },
+      { x: 2, y: 2, userId: '1', actionId: 4, recordtime: t, action: 'opened' },
+      { x: 1, y: 2, userId: '2', actionId: 5, recordtime: t, action: 'opened' },
+      { x: 3, y: 2, userId: '2', actionId: 6, recordtime: t, action: 'opened', status: true },
+      { x: 3, y: 3, userId: '1', actionId: 7, recordtime: t, action: 'opened', status: true },
+      { x: -2, y: 3, userId: '4', actionId: 8, recordtime: t, action: 'opened', status: false },
+      { x: 2, y: 2, userId: '4', actionId: 9, recordtime: t, action: 'opened', status: false },
     ];
 
     const rsMatchers = [
@@ -123,14 +123,14 @@ describe('field情報を返せるかどうか', () => {
     const fieldHistory = array2fieldHistory([
       0, 0, 0, 0, 0,
       0, 0, 0, 0, 0,
-      0, 0, { t, u: 0  }, 0, 0,
-      0, 0, { t, u: 2  }, 0, 0,
-      0, { t, u: 1  }, 0, 0, 0,
+      0, 0, { t, u: '0'  }, 0, 0,
+      0, 0, { t, u: '2'  }, 0, 0,
+      0, { t, u: '1'  }, 0, 0, 0,
     ]);
     // prettier-ignore
     const add = array2fieldHistory([
-      0, 0, 0, { t, u: 2 }, { t, u: 1 },
-      0, 0, 0, { t, u: 3 }, 0,
+      0, 0, 0, { t, u: '2' }, { t, u: 1 },
+      0, 0, 0, { t, u: '3' }, 0,
       0, 0, 0, 0, 0,
       0, 0, 0, 0, 0,
       0, 0, 0, 0, 0,
