@@ -1,8 +1,6 @@
 const router = require('express').Router();
+const directions = require('../../../util/directions.js')(); // 周囲８ブロックチェック用情報
 const { initField, getField, addBlock } = require('../../../models/dev/miyamoto/fieldStore.js');
-
-// 周囲８ブロックチェック用情報
-const directions = [[-1, -1], [0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0]];
 
 router
   .route('/')
