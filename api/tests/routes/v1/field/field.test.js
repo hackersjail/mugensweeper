@@ -18,7 +18,7 @@ describe('field情報を返せるかどうか', () => {
     // Given
     // prettier-ignore
     const fieldHistory = array2fieldHistory([
-      0, 0, 0, { t, u: '2', f: 5 }, { t, u: 1, f: 4 },
+      0, 0, 0, { t, u: '2', f: 5 }, { t, u: '1', f: 4 },
       0, 0, 0, { t, u: '3', f: 3 }, 0,
       0, 0, { t, u: '0', f: 0 }, 0, 0,
       0, 0, { t, u: '2', f: 1 }, 0, 0,
@@ -40,7 +40,7 @@ describe('field情報を返せるかどうか', () => {
     // Given
     // prettier-ignore
     const fieldHistory = array2fieldHistory([
-      0, 0, 0, { t, u: '2', f: 5 }, { t, u: 1, f: 4 },
+      0, 0, 0, { t, u: '2', f: 5 }, { t, u: '1', f: 4 },
       0, 0, 0, { t, u: '3', f: 3 }, 0,
       0, 0, { t, u: '0', f: 0 }, 0, 0,
       0, 0, { t, u: '2', f: 1 }, 0, 0,
