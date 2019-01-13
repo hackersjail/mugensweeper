@@ -5,8 +5,6 @@ tags:
   post:
     tags:
       - User
-    produces:
-      - "text/html; charset=utf-8"
     parameters:
       - name: "userName"
         in: "formData"

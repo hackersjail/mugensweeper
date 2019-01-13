@@ -5,8 +5,6 @@ tags:
   post:
     tags:
       - Field
-    produces:
-      - "text/html; charset=utf-8"
     parameters:
       - name: "x"
         in: "formData"
@@ -35,8 +33,6 @@ tags:
   get:
     tags:
       - Field
-    produces:
-      - "text/html; charset=utf-8"
     responses:
       200:
         description: "success"
