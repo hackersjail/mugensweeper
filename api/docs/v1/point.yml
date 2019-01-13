@@ -18,6 +18,11 @@ tags:
         description: "points"
         required: true
         type: number
+      - name: "userName"
+        in: "formData"
+        description: "User name"
+        required: true
+        type: "string"
     responses:
       200:
         description: "success"
