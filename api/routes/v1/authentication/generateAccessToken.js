@@ -22,15 +22,12 @@ function generateAccessToken() {
   const issuer = config.get('authentication.token.issuer');
   const secret = config.get('authentication.token.secret');
 
-  const userId = genHash();
-  const token = jwt.sign({ userId }, secret, {
+  return jwt.sign({ userId: genHash() }, secret, {
     expiresIn,
     audience,
     issuer,
     noTimestamp: true,
   });
-
-  return token;
 }
 
 module.exports = generateAccessToken;
