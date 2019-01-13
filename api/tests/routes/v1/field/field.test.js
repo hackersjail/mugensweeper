@@ -144,11 +144,7 @@ describe('field情報を返せるかどうか', () => {
     const afterPostField = await FieldHistoryModel.find({}, propFilter).lean();
 
     // Then
-    const result = [];
-    for (let i = 0; i < afterPostField.length; i += 1) {
-      result.push(afterPostField[i]);
-    }
-    result.sort((a, b) => a.actionId - b.actionId);
-    expect(result[result.length - 1].actionId === 6);
+    const result = [...afterPostField].sort((a, b) => a.actionId - b.actionId);
+    expect(result[result.length - 1].actionId === 5);
   });
 });
