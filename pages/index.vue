@@ -13,7 +13,7 @@
       @touchend.prevent="onTouchEnd"
       @touchcancel.prevent="onTouchEnd"
       @mouseup.prevent="onTouchEnd"
-      @click.left="getRelativeCoordinates"
+      @click.left="leftClickBlock"
     >
       <svg viewbox="0 0 100% 100%" width="100%" height="100%">
         <line
@@ -146,7 +146,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['getAccessToken', 'getField']),
+    ...mapActions(['getAccessToken', 'getField', 'postField']),
     ...mapMutations(['setInitPos', 'gridMove', 'resetInitPos']),
     registerName(inputName) {
       this.getAccessToken(inputName);
@@ -174,12 +174,13 @@ export default {
         backgroundPosition: `${block.bomCount !== 0 ? (block.bomCount - 1) * -30 : -301}px 0px`,
       };
     },
-    getRelativeCoordinates(e) {
-      return {
+    leftClickBlock(e) {
+      const block = {
         // 原点移動量の調整は今時点では行わない
         x: Math.round((e.pageX - this.centerPos.x) / this.gridWidth),
         y: -Math.round((e.pageY - this.centerPos.y) / this.gridWidth),
       };
+      this.postField(block);
     },
     onTouchStart(e) {
       // ダブルタップ無効化

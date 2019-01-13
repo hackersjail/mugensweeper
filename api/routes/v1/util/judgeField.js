@@ -1,28 +1,14 @@
 module.exports = (add, field) => {
-  const posi = {
-    x: +add.x,
-    y: +add.y,
-  };
-
   // prettier-ignore
   const directions =[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
-  const around = directions.map((val) => [val[0] + posi.x, val[1] + posi.y]);
 
-  for (let i = 0; i < field.length; i += 1) {
-    const { x, y } = field[i];
-    if (posi.x === x && posi.y === y) {
-      return false;
-    }
+  const JudgeDupli = field.find((d) => d.x === +add.x && d.y === +add.y);
+  const JudgeAroundadjacent = field.find((d) =>
+    directions.find((data) => d.x === data[0] + +add.x && d.y === data[1] + +add.y),
+  );
+
+  if (!JudgeDupli && JudgeAroundadjacent) {
+    return true;
   }
-
-  for (let i = 0; i < field.length; i += 1) {
-    const { x, y } = field[i];
-    for (let k = 0; k < around.length; k += 1) {
-      if (x === around[k][0] && y === around[k][1]) {
-        return true;
-      }
-    }
-  }
-
   return false;
 };
