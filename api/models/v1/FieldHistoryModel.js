@@ -8,6 +8,7 @@ const schema = new Schema({
   y: Number,
   action: String,
   actionId: Number,
+  status: Boolean,
 });
 
 module.exports = mongoose.model('FieldHistoryModel', schema);
