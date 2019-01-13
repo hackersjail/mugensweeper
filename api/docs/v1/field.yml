@@ -18,6 +18,11 @@ tags:
         description: "y position"
         type: number
         required: true
+      - name: "userId"
+        in: "formData"
+        description: "userId"
+        type: string
+        required: true
     responses:
       200:
         description: "success"

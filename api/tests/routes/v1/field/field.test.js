@@ -89,16 +89,16 @@ describe('field情報を返せるかどうか', () => {
 
     // Then
     const dbMatchers = [
-      { x: 0, y: 0, userId: 0, actionId: 0, recordtime: time, action: 'opened' },
-      { x: 0, y: -1, userId: 2, actionId: 1, recordtime: time, action: 'opened' },
-      { x: -1, y: -2, userId: 1, actionId: 2, recordtime: time, action: 'opened' },
-      { x: 1, y: 1, userId: 3, actionId: 3, recordtime: time, action: 'opened' },
-      { x: 2, y: 2, userId: 1, actionId: 4, recordtime: time, action: 'opened' },
-      { x: 1, y: 2, userId: 2, actionId: 5, recordtime: time, action: 'opened' },
-      { x: 3, y: 2, userId: 2, actionId: 6, recordtime: time, action: 'opened', status: true },
-      { x: 3, y: 3, userId: 1, actionId: 7, recordtime: time, action: 'opened', status: true },
-      { x: -2, y: 3, userId: 4, actionId: 8, recordtime: time, action: 'opened', status: false },
-      { x: 2, y: 2, userId: 4, actionId: 9, recordtime: time, action: 'opened', status: false },
+      { x: 0, y: 0, userId: '0', actionId: 0, recordtime: time, action: 'opened' },
+      { x: 0, y: -1, userId: '2', actionId: 1, recordtime: time, action: 'opened' },
+      { x: -1, y: -2, userId: '1', actionId: 2, recordtime: time, action: 'opened' },
+      { x: 1, y: 1, userId: '3', actionId: 3, recordtime: time, action: 'opened' },
+      { x: 2, y: 2, userId: '1', actionId: 4, recordtime: time, action: 'opened' },
+      { x: 1, y: 2, userId: '2', actionId: 5, recordtime: time, action: 'opened' },
+      { x: 3, y: 2, userId: '2', actionId: 6, recordtime: time, action: 'opened', status: true },
+      { x: 3, y: 3, userId: '1', actionId: 7, recordtime: time, action: 'opened', status: true },
+      { x: -2, y: 3, userId: '4', actionId: 8, recordtime: time, action: 'opened', status: false },
+      { x: 2, y: 2, userId: '4', actionId: 9, recordtime: time, action: 'opened', status: false },
     ];
 
     const rsMatchers = [
