@@ -129,7 +129,7 @@ describe('field情報を返せるかどうか', () => {
     ]);
     // prettier-ignore
     const add = array2fieldHistory([
-      0, 0, 0, { t, u: '2' }, { t, u: 1 },
+      0, 0, 0, { t, u: '2' }, { t, u: '1' },
       0, 0, 0, { t, u: '3' }, 0,
       0, 0, 0, 0, 0,
       0, 0, 0, 0, 0,
