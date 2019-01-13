@@ -13,7 +13,6 @@
       @touchend.prevent="onTouchEnd"
       @touchcancel.prevent="onTouchEnd"
       @mouseup.prevent="onTouchEnd"
-      @click.left="leftClickBlock"
     >
       <svg viewbox="0 0 100% 100%" width="100%" height="100%">
         <line
@@ -85,7 +84,7 @@ export default {
     UserNameInput,
   },
   computed: {
-    ...mapState(['userName', 'token', 'rankedUsers', 'blocks', 'gridX', 'moveDist']),
+    ...mapState(['userName', 'token', 'rankedUsers', 'blocks', 'gridX', 'moveDist', 'dragFlg']),
     gridWidth() {
       return this.$window.width / this.gridX;
     },
@@ -174,14 +173,6 @@ export default {
         backgroundPosition: `${block.bomCount !== 0 ? (block.bomCount - 1) * -30 : -301}px 0px`,
       };
     },
-    leftClickBlock(e) {
-      const block = {
-        // 原点移動量の調整は今時点では行わない
-        x: Math.round((e.pageX - this.centerPos.x) / this.gridWidth),
-        y: -Math.round((e.pageY - this.centerPos.y) / this.gridWidth),
-      };
-      this.postField(block);
-    },
     onTouchStart(e) {
       // ダブルタップ無効化
       if (Date.now() - this.touchTime < 350) {
@@ -204,7 +195,15 @@ export default {
       };
       this.gridMove(movePos);
     },
-    onTouchEnd() {
+    onTouchEnd(e) {
+      if (!this.dragFlg) {
+        const block = {
+          // 原点移動量の調整は今時点では行わない
+          x: Math.round((e.pageX - this.centerPos.x) / this.gridWidth),
+          y: -Math.round((e.pageY - this.centerPos.y) / this.gridWidth),
+        };
+        this.postField(block);
+      }
       this.touchTime = Date.now();
       this.resetInitPos();
     },
