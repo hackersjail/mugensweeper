@@ -29,10 +29,10 @@ module.exports = {
     if (judgeField(add, field)) {
       field.push(post2res(add, field));
       record.status = true;
+      unsavedField.push(record);
     } else {
       record.status = false;
     }
-    unsavedField.push(record);
     return record.status;
   },
 
