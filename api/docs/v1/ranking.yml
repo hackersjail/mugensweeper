@@ -1,0 +1,29 @@
+tags:
+  - name: ranking
+    description: ranking API
+/ranking:
+  post:
+    tags:
+      - ranking
+    produces:
+      - "text/html; charset=utf-8"
+    parameters:
+      - name: "userId"
+        in: "formData"
+        description: "User ID"
+        required: true
+        type: "string"
+      - name: "points"
+        in: "formData"
+        description: "point"
+        required: true
+        type: number
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+      401:
+        description: "error"
+        schema:
+          type: "string"

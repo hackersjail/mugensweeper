@@ -1,0 +1,29 @@
+tags:
+  - name: Point
+    description: point API
+/point:
+  post:
+    tags:
+      - Point
+    produces:
+      - "text/html; charset=utf-8"
+    parameters:
+      - name: "userId"
+        in: "formData"
+        description: "User ID"
+        required: true
+        type: "integer"
+      - name: "points"
+        in: "formData"
+        description: "points"
+        required: true
+        type: number
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+      401:
+        description: "error"
+        schema:
+          type: "string"
