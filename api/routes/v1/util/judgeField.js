@@ -7,8 +7,5 @@ module.exports = (add, field) => {
     directions.find((data) => d.x === data[0] + +add.x && d.y === data[1] + +add.y),
   );
 
-  if (!JudgeDupli && JudgeAroundadjacent) {
-    return true;
-  }
-  return false;
+  return !JudgeDupli && JudgeAroundadjacent;
 };
