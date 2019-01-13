@@ -149,6 +149,6 @@ describe('field情報を返せるかどうか', () => {
       result.push(afterPostField[i]);
     }
     result.sort((a, b) => a.actionId - b.actionId);
-    expect(result[result.length - 1].actionId === 5);
+    expect(result[result.length - 1].actionId === 6);
   });
 });

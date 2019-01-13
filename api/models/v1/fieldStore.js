@@ -5,7 +5,7 @@ const post2res = require('../../routes/v1/field/post2res.js');
 const propFilter = '-_id -__v';
 const field = [];
 const unsavedField = [];
-let actionId = 0;
+let actionId = 1;
 
 module.exports = {
   async initData() {
