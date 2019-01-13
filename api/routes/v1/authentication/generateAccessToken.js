@@ -21,9 +21,8 @@ function generateAccessToken() {
   const audience = config.get('authentication.token.audience');
   const issuer = config.get('authentication.token.issuer');
   const secret = config.get('authentication.token.secret');
-  const userId = genHash();
 
-  return jwt.sign({ userId }, secret, {
+  return jwt.sign({ genHash }, secret, {
     expiresIn,
     audience,
     issuer,
