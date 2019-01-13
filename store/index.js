@@ -81,7 +81,7 @@ export const actions = {
     const isAdded = await this.$axios.$post('/field', {
       x: block.x,
       y: block.y,
-      username: state.userName,
+      userId: state.userId,
     });
     if (isAdded) {
       await dispatch('getField');
