@@ -1,3 +1,4 @@
+const getHash = require('random-hash');
 const UserModel = require('./UserModel.js');
 
 const propFilter = '-_id -__v';
@@ -15,21 +16,14 @@ module.exports = {
 
   async addUser(userName) {
     // ユニークな8桁のIDを生成
-    const letters = 'abcdefghijklmnopqrstuvwxyz0123456789'; // 生成する文字列に含める文字
-    let userId = null;
-    while (!userId) {
-      let r = '';
-      for (let i = 0; i < 8; i += 1) {
-        r += letters[Math.floor(Math.random() * letters.length)];
-      }
-
-      if (users.length < 1) {
-        userId = r;
-      } else {
-        const find = users.find((v) => v.userId === r);
-        if (!find) {
-          userId = r;
-        }
+    let userId = '';
+    let flag = 0;
+    while (flag === 0) {
+      userId = getHash.generateHash({ length: 8 });
+      if (userId.indexOf('-') === -1 && userId.indexOf('_') === -1) {
+        /* eslint no-loop-func: 0 */
+        const find = users.find((v) => v.userId === userId);
+        if (!find) flag = 1;
       }
     }
     const userData = { userName, userId };
