@@ -3,6 +3,10 @@ const UserModel = require('./UserModel.js');
 
 const propFilter = '-_id -__v';
 const users = [];
+const option = {
+  length: 8,
+  charset: 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-_',
+};
 
 module.exports = {
   async initUser() {
@@ -19,7 +23,7 @@ module.exports = {
     let userId = '';
     let flag = 0;
     while (flag === 0) {
-      userId = getHash.generateHash({ length: 8 });
+      userId = getHash.generateHash(option);
       if (userId.indexOf('-') === -1 && userId.indexOf('_') === -1) {
         /* eslint no-loop-func: 0 */
         const find = users.find((v) => v.userId === userId);
