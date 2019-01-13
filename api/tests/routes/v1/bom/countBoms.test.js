@@ -25,7 +25,6 @@ describe('Bomの数を数える', () => {
     }
 
     // 3: Then
-
     const machers = [5, 2, 3];
 
     for (let t = 0; t < positions.length; t += 1) {
