@@ -24,13 +24,13 @@ module.exports = {
 
   addData(add) {
     const status = judgeField(add, field);
-    const record = { ...add, actionId, status: typeof status === 'object' };
+    const record = { ...add, actionId, status: !!status };
 
     if (record.status) field.push(post2res(add, field));
 
     actionId += 1;
     unsavedField.push(record);
-    return status;
+    return record.status;
   },
 
   async saveData() {
