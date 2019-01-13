@@ -2,18 +2,16 @@ const eachPoints = (fieldInfo) =>
   fieldInfo.reduce((sortedField, block) => {
     const currentBlock = sortedField.find((a) => a.userId === block.userId);
     const currentIndex = sortedField.findIndex((a) => a.userId === block.userId);
-    if (block.exploded === true) {
-      sortedField.splice(currentIndex, 1, {
-        userId: block.userId,
-        points: 0,
-      });
-    } else if (sortedField.findIndex((a) => a.userId === block.userId) !== -1) {
-      sortedField.splice(currentIndex, 1, {
-        userId: block.userId,
-        points: currentBlock.points + 1,
-      });
+    if (block.exploded) {
+      sortedField.splice(currentIndex, 1, { userId: block.userId, points: 0 });
     } else {
-      sortedField.push({ userId: block.userId, points: 1 });
+      /* eslint no-unused-expressions: 0 */
+      sortedField.findIndex((a) => a.userId === block.userId) !== -1
+        ? sortedField.splice(currentIndex, 1, {
+            userId: block.userId,
+            points: currentBlock.points + 1,
+          })
+        : sortedField.push({ userId: block.userId, points: 1 });
     }
     return sortedField;
   }, []);
@@ -28,9 +26,7 @@ module.exports = {
           field[i].y === bomMap[m].y &&
           field[i].actionId > bomMap[m].actionId;
         field[i] = { ...field[i], exploded };
-        if (exploded) {
-          break;
-        }
+        if (exploded) break;
       }
     }
     return field;
