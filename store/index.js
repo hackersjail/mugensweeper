@@ -19,6 +19,7 @@ export const state = () => ({
   moveDist: { x: 0, y: 0 }, // 原点の移動量
   swipeInit: { x: 0, y: 0 }, // swipe基準点
   dragInit: { x: 0, y: 0 }, // drag基準点
+  downFlg: false, // mousedownもしくはtouchdownされたか
   dragFlg: false,
 });
 
@@ -48,12 +49,14 @@ export const mutations = {
   },
   setInitPos(state, position) {
     // 基準地点設定
-    state.dragFlg = true;
+    state.downFlg = true;
+    // state.dragFlg = true;
     state.dragInit = position;
     state.swipeInit = state.moveDist;
   },
   gridMove(state, position) {
-    if (!state.dragFlg) return;
+    if (!state.downFlg) return;
+    state.dragFlg = true;
     const requestHalf = {
       x: state.swipeInit.x - (position.x - state.dragInit.x),
       y: state.swipeInit.y + (position.y - state.dragInit.y),
@@ -63,6 +66,7 @@ export const mutations = {
   resetInitPos(state) {
     // touchend
     state.dragFlg = false;
+    state.downFlg = false;
   },
 };
 
