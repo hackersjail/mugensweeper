@@ -26,13 +26,12 @@ module.exports = {
     }
     return field;
   },
+
   calculatePointsForPlayer(fieldInfo, user) {
-    const eachPoint = eachPoints(fieldInfo);
-    const result = eachPoint.find((block) => block.userId === user);
-    return result;
+    return eachPoints(fieldInfo).find((block) => block.userId === user);
   },
+
   generateRanking(fieldInfo) {
-    const eachPoint = eachPoints(fieldInfo);
-    return eachPoint.sort((a, b) => b.points - a.points || a.userId - b.userId);
+    return eachPoints(fieldInfo).sort((a, b) => b.points - a.points || a.userId - b.userId);
   },
 };
