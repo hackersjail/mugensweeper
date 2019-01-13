@@ -15,6 +15,7 @@ module.exports = (req, field) => {
     x: req.x,
     y: req.y,
     bomCount: countBoms(getBom(), req),
+    userId: req.userId,
     exploded: judgeExploded(req, getBom()).exploded,
   };
 };
