@@ -22,7 +22,7 @@ function generateAccessToken() {
   const issuer = config.get('authentication.token.issuer');
   const secret = config.get('authentication.token.secret');
 
-  return jwt.sign({ genHash }, secret, {
+  return jwt.sign({ userId: genHash() }, secret, {
     expiresIn,
     audience,
     issuer,
