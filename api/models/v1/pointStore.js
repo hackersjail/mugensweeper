@@ -27,11 +27,9 @@ module.exports = {
     return field;
   },
 
-  calculatePointsForPlayer(fieldInfo, user) {
-    return eachPoints(fieldInfo).find((block) => block.userId === user);
-  },
+  calculatePointsForPlayer: (fieldInfo, user) =>
+    eachPoints(fieldInfo).find((block) => block.userId === user),
 
-  generateRanking(fieldInfo) {
-    return eachPoints(fieldInfo).sort((a, b) => b.points - a.points || a.userId - b.userId);
-  },
+  generateRanking: (fieldInfo) =>
+    eachPoints(fieldInfo).sort((a, b) => b.points - a.points || a.userId - b.userId),
 };
