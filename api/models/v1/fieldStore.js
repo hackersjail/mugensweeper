@@ -33,6 +33,7 @@ module.exports = {
       record.status = false;
     }
     unsavedField.push(record);
+    return record.status;
   },
 
   async saveData() {
