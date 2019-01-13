@@ -1,26 +1,15 @@
 const eachPoints = (fieldInfo) =>
   fieldInfo.reduce((sortedField, block) => {
-    let currentField = [];
     const currentBlock = sortedField.find((a) => a.userId === block.userId);
     if (block.exploded) {
-      const tempField = [{ userId: block.userId, points: 0 }].concat(sortedField);
-      currentField = tempField.filter(
-        (v1, i1, a1) => a1.findIndex((v2) => v1.userId === v2.userId) === i1,
-      );
-    } else {
-      /* eslint no-lonely-if: 0, no-unused-vars: 0 */
-      if (sortedField.findIndex((a) => a.userId === block.userId) !== -1) {
-        const tempField = [{ userId: block.userId, points: currentBlock.points + 1 }].concat(
-          sortedField,
-        );
-        currentField = tempField.filter(
-          (v1, i1, a1) => a1.findIndex((v2) => v1.userId === v2.userId) === i1,
-        );
-      } else {
-        currentField = sortedField.concat({ userId: block.userId, points: 1 });
-      }
+      const tempField = [{ userId: block.userId, points: 0 }, ...sortedField];
+      return tempField.filter((v1, i1, a1) => a1.findIndex((v2) => v1.userId === v2.userId) === i1);
     }
-    return currentField;
+    if (sortedField.findIndex((a) => a.userId === block.userId) !== -1) {
+      const tempField = [{ userId: block.userId, points: currentBlock.points + 1 }, ...sortedField];
+      return tempField.filter((v1, i1, a1) => a1.findIndex((v2) => v1.userId === v2.userId) === i1);
+    }
+    return [...sortedField, { userId: block.userId, points: 1 }];
   }, []);
 
 module.exports = {
@@ -45,7 +34,13 @@ module.exports = {
   },
   generateRanking(fieldInfo) {
     const eachPoint = eachPoints(fieldInfo);
-    const result = eachPoint.sort((a, b) => b.points - a.points);
+    const result = eachPoint.sort((a, b) => {
+      if (a.points > b.points) return -1;
+      if (a.points < b.points) return 1;
+      if (a.userId < b.userId) return -1;
+      if (a.userId > b.userId) return 1;
+      return 0;
+    });
     return result;
   },
 };

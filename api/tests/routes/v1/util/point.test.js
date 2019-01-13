@@ -59,6 +59,6 @@ describe('ブロックを開くとき', () => {
     // When
     const ranking = generateRanking(field2);
     // Then
-    expect(ranking).toEqual(expect.arrayContaining(rankingMatcher));
+    expect(ranking).toEqual(rankingMatcher);
   });
 });
