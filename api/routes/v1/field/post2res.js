@@ -9,9 +9,7 @@ module.exports = (req, field) => {
   const rate = +0.7;
 
   // 周囲へボムを配置
-  const result = createPartOfBoms(rate, field, req);
-  const add = result.map((n) => ({ x: n.x, y: n.y, actionId }));
-  addBom(add);
+  createPartOfBoms(rate, field, req).forEach((n) => addBom({ x: n.x, y: n.y, actionId }));
 
   // 周囲のボム数を計算
   fieldInfo.bomCount = countBoms(getBom(), req);
