@@ -50,7 +50,6 @@ export const mutations = {
   setInitPos(state, position) {
     // 基準地点設定
     state.downFlg = true;
-    // state.dragFlg = true;
     state.dragInit = position;
     state.swipeInit = state.moveDist;
   },
