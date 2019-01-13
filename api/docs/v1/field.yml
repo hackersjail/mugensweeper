@@ -22,11 +22,11 @@ tags:
       200:
         description: "success"
         schema:
-          type: "string"
+          type: "boolean"
       401:
         description: "error"
         schema:
-          type: "string"
+          type: "boolean"
   get:
     tags:
       - Field
