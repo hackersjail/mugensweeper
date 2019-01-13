@@ -1,6 +1,5 @@
 const bomMap = require('../../../../models/dev/miyamoto/bomMap.js');
-
-const directions = [[0, 1], [0, -1], [-1, 0], [1, 0], [1, 1], [1, -1], [-1, -1], [-1, 1]];
+const directions = require('../../../../util/directions.js')();
 
 describe('爆弾マップのテスト', () => {
   it('原点の周囲の爆弾マップが返ってくる', () => {

@@ -1,4 +1,4 @@
-const directions = [[-1, -1], [0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0]];
+const directions = require('../../../util/directions.js')();
 
 module.exports = (bomMap, positions) =>
   directions.filter((data) =>

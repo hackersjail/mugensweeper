@@ -13,7 +13,6 @@
       @touchend.prevent="onTouchEnd"
       @touchcancel.prevent="onTouchEnd"
       @mouseup.prevent="onTouchEnd"
-      @click.left="getRelativeCoordinates"
     >
       <svg viewbox="0 0 100% 100%" width="100%" height="100%">
         <line
@@ -58,7 +57,7 @@
     <div class="target">
       <div
         v-for="(block, i) in blocks"
-        :class="{ 'splite-bomb': block.exploded }"
+        :class="blockJudge(block)"
         :style="styles(block)"
         :key="i"
       />
@@ -85,7 +84,7 @@ export default {
     UserNameInput,
   },
   computed: {
-    ...mapState(['userName', 'token', 'rankedUsers', 'blocks', 'gridX', 'moveDist']),
+    ...mapState(['userName', 'token', 'rankedUsers', 'blocks', 'gridX', 'moveDist', 'dragFlg']),
     gridWidth() {
       return this.$window.width / this.gridX;
     },
@@ -105,7 +104,7 @@ export default {
     objPos() {
       return (object) => ({
         x: this.centerPos.x + this.gridWidth * object.x - this.gridWidth / 2 - this.moveDist.x, // 原点移動量調整
-        y: this.centerPos.y + this.gridWidth * object.y - this.gridWidth / 2 - this.moveDist.y, // 原点移動量調整
+        y: this.centerPos.y + this.gridWidth * object.y - this.gridWidth / 2 + this.moveDist.y, // 原点移動量調整
       });
     },
     borderPos() {
@@ -139,9 +138,14 @@ export default {
     visibleRanking() {
       return this.token && !this.overlay;
     },
+    blockJudge() {
+      return (block) => ({
+        'splite-bomb': block.exploded || block.bomCount !== 0,
+      });
+    },
   },
   methods: {
-    ...mapActions(['getAccessToken', 'getField']),
+    ...mapActions(['getAccessToken', 'getField', 'postField']),
     ...mapMutations(['setInitPos', 'gridMove', 'resetInitPos']),
     registerName(inputName) {
       this.getAccessToken(inputName);
@@ -156,23 +160,17 @@ export default {
       }, 1000);
     },
     styles(block) {
-      if (!block.exploded) return false;
+      if (!block.exploded && block.bomCount === 0) return false;
       return {
         top: `${this.centerPos.y +
           this.gridWidth * block.y -
-          this.gridWidth / 2 -
+          this.gridWidth / 2 +
           this.moveDist.y}px`,
         left: `${this.centerPos.x +
           this.gridWidth * block.x -
           this.gridWidth / 2 -
           this.moveDist.x}px`,
-      };
-    },
-    getRelativeCoordinates(e) {
-      return {
-        // 原点移動量の調整は今時点では行わない
-        x: Math.round((e.pageX - this.centerPos.x) / this.gridWidth),
-        y: -Math.round((e.pageY - this.centerPos.y) / this.gridWidth),
+        backgroundPosition: `${block.bomCount !== 0 ? (block.bomCount - 1) * -30 : -301}px 0px`,
       };
     },
     onTouchStart(e) {
@@ -197,7 +195,14 @@ export default {
       };
       this.gridMove(movePos);
     },
-    onTouchEnd() {
+    onTouchEnd(e) {
+      if (!this.dragFlg) {
+        const block = {
+          x: Math.round((e.pageX - this.centerPos.x + this.moveDist.x) / this.gridWidth),
+          y: -Math.round((e.pageY - this.centerPos.y - this.moveDist.y) / this.gridWidth),
+        };
+        this.postField(block);
+      }
       this.touchTime = Date.now();
       this.resetInitPos();
     },
@@ -239,10 +244,9 @@ export default {
   overflow: hidden;
   background-image: url('../assets/img.png');
   background-repeat: no-repeat;
-  background-position: -301px 0px;
   width: 30px;
   height: 30px;
-  position: relative;
+  position: fixed;
 }
 /* 原点がわかりやすいように識別 */
 .rect2 {
