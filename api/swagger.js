@@ -1,4 +1,5 @@
 const swaggerJSDoc = require('swagger-jsdoc');
+const { HOST } = require('./config.js');
 
 const customSiteTitle = 'MugenSweeper API';
 const versions = {
@@ -19,6 +20,7 @@ module.exports = Object.keys(versions).map((version) => ({
     swaggerDefinition: {
       swagger: '2.0',
       info: versions[version],
+      host: HOST,
       basePath: `/${version}`,
       consumes: ['application/x-www-form-urlencoded'],
       produces: ['application/json'],
