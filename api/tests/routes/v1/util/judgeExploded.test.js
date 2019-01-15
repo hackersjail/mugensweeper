@@ -1,4 +1,4 @@
-const array2bomMap = require('./array2bomMap.js');
+const array2bombMap = require('./array2bombMap.js');
 const judgeExploded = require('../../../../routes/v1/util/judgeExploded.js');
 
 describe('ブロックを開くとき', () => {
@@ -8,7 +8,7 @@ describe('ブロックを開くとき', () => {
     const clickedField = [{ x: 0, y: 1 }, { x: 0, y: 2 }];
 
     // prettier-ignore
-    const bomMap = array2bomMap([
+    const bombMap = array2bombMap([
         0, 0, 0, 0, 0,
         0, 0, 1, 2, 0,
         0, 0, 0, 0, 0,
@@ -22,7 +22,7 @@ describe('ブロックを開くとき', () => {
     // When
     const results = [];
     clickedField.forEach((c) => {
-      const exploded = judgeExploded(c, bomMap);
+      const exploded = judgeExploded(c, bombMap);
       results.push(exploded);
     });
 

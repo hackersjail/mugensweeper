@@ -9,7 +9,7 @@ module.exports = (rate, field, position) => {
     aroundFields.push(...aroundField);
   }
 
-  // Bomが置ける余剰をrateの確立で返す
+  // Bombが置ける余剰をrateの確立で返す
   return directions
     .map((around) => ({ x: around[0] + position.x, y: around[1] + position.y }))
     .filter((data) => !aroundFields.find((f) => f[0] === data.x && f[1] === data.y))
