@@ -13,14 +13,9 @@ const jwtOptions = {
 
 module.exports = () => {
   passport.use(
-    new passportJwt.Strategy(jwtOptions, async (payload, done) => {
-      const users = await getUser();
-      const user = users.find((u) => u.userId === payload.sub);
-      if (user) {
-        return done(null, user);
-      }
-      return done(null, false);
-    }),
+    new passportJwt.Strategy(jwtOptions, async (payload, done) =>
+      done(null, (await getUser().find((u) => u.userId === payload.sub)) || false),
+    ),
   );
   return {
     initialize: () => passport.initialize(),
