@@ -22,13 +22,11 @@ module.exports = {
   async addUser(userName) {
     // ユニークな8桁のIDを生成
     let userId = '';
-    let flag = 0;
-    while (flag === 0) {
+    const find = (v) => v.userId === userId;
+    while (users.find(find)) {
       userId = getHash.generateHash(option);
-      /* eslint no-loop-func: 0 */
-      const find = users.find((v) => v.userId === userId);
-      if (!find) flag = 1;
     }
+
     const userData = { userName, userId };
     users.push(userData);
     await new UserModel(userData).save();
