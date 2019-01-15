@@ -23,7 +23,6 @@ module.exports = {
     // ユニークな8桁のIDを生成
     let userId = '';
     const find = (v) => v.userId === userId;
-
     while (users.find(find)) {
       userId = getHash.generateHash(option);
     }
