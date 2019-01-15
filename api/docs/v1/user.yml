@@ -6,17 +6,11 @@ tags:
     tags:
       - User
     parameters:
-      - name: "userName"
-        in: "formData"
-        description: "User name"
-        required: true
-        type: "string"
+      - $ref: "#/parameters/userNameParam"
     responses:
       200:
-        description: "success"
+        description: success
         schema:
-          type: "object"
+          $ref: "#/definitions/User"
       401:
-        description: "error"
-        schema:
-          type: "string"
+        $ref: "#/responses/Unauthorized"
