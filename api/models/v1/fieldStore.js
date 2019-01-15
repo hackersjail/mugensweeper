@@ -23,12 +23,13 @@ module.exports = {
   },
 
   addData(add) {
-    const record = { ...add, actionId, status: judgeField(add, field) };
-    if (record.status) field.push(post2res(add, field));
+    const status = judgeField(add, field);
+    const record = { ...add, actionId, status };
+    if (status) field.push(post2res(add, field));
 
     actionId += 1;
     unsavedField.push(record);
-    return record.status;
+    return status;
   },
 
   async saveData() {
