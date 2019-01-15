@@ -1,27 +1,27 @@
-const BomHistoryModel = require('./BomHistoryModel.js');
-const createBomMap = require('../../routes/v1/bom/createBomMap.js');
+const BombHistoryModel = require('./BombHistoryModel.js');
+const createBombMap = require('../../routes/v1/bomb/createBombMap.js');
 
 const propFilter = '-_id -__v';
-const bomMap = [];
-const unsavedBom = [];
+const bombMap = [];
+const unsavedBomb = [];
 
 module.exports = {
-  async initBom() {
-    const boms = await BomHistoryModel.find({}, propFilter).lean();
-    bomMap.push(...createBomMap(boms));
+  async initBomb() {
+    const bombs = await BombHistoryModel.find({}, propFilter).lean();
+    bombMap.push(...createBombMap(bombs));
   },
 
-  getBom() {
-    return [...bomMap];
+  getBomb() {
+    return [...bombMap];
   },
 
-  addBom(add) {
-    bomMap.push(...createBomMap([add]));
-    unsavedBom.push(add);
+  addBomb(add) {
+    bombMap.push(...createBombMap([add]));
+    unsavedBomb.push(add);
   },
 
-  async saveBom() {
-    await BomHistoryModel.insertMany(unsavedBom);
-    unsavedBom.length = 0;
+  async saveBomb() {
+    await BombHistoryModel.insertMany(unsavedBomb);
+    unsavedBomb.length = 0;
   },
 };

@@ -16,12 +16,12 @@ const eachPoints = (fieldInfo) =>
   }, []);
 
 module.exports = {
-  createNewfieldWithBomMap: (fieldHistory, bomMap) =>
-    fieldHistory.map((field) => judgeExploded(field, bomMap)),
+  createNewfieldWithBombMap: (fieldHistory, bombMap) =>
+    fieldHistory.map((field) => judgeExploded(field, bombMap)),
 
-  calculatePointsForPlayer: (fieldWithBomMap, user) =>
-    eachPoints(fieldWithBomMap).find((block) => block.userId === user),
+  calculatePointsForPlayer: (fieldWithBombMap, user) =>
+    eachPoints(fieldWithBombMap).find((block) => block.userId === user),
 
-  generateRanking: (fieldWithBomMap) =>
-    eachPoints(fieldWithBomMap).sort((a, b) => b.points - a.points || a.userId - b.userId),
+  generateRanking: (fieldWithBombMap) =>
+    eachPoints(fieldWithBombMap).sort((a, b) => b.points - a.points || a.userId - b.userId),
 };

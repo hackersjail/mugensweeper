@@ -1,10 +1,10 @@
 const directions = require('../../../util/directions.js')();
 
-const initSet = (bomCount, position) => {
+const initSet = (bombCount, position) => {
   const positions = [];
   const tmp = [];
 
-  while (tmp.length < bomCount) {
+  while (tmp.length < bombCount) {
     const value = Math.floor(Math.random() * 8);
     if (!tmp.includes(value)) tmp.push(value);
   }
@@ -13,7 +13,7 @@ const initSet = (bomCount, position) => {
     positions.push({
       x: position.x - v[0],
       y: position.y - v[1],
-      bom: tmp.includes(i) ? 1 : 0,
+      bomb: tmp.includes(i) ? 1 : 0,
     });
   });
 
