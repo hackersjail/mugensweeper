@@ -1,4 +1,4 @@
-module.exports.initSet = (bomNo, pos) => {
+module.exports.initSet = (bombNo, pos) => {
   const directions = [[0, -1], [1, 0], [0, 1], [-1, 0], [-1, -1], [1, 1], [-1, 1], [1, -1]];
   const openedBlock = [];
   for (let i = 0; i < directions.length; i += 1) {
@@ -6,15 +6,15 @@ module.exports.initSet = (bomNo, pos) => {
     const d = directions[i][1];
     const { x } = pos;
     const { y } = pos;
-    openedBlock.push({ x: c + x, y: d + y, bom: false });
+    openedBlock.push({ x: c + x, y: d + y, bomb: false });
   }
 
-  const hasBom = [];
-  while (hasBom.length < bomNo) {
+  const hasBomb = [];
+  while (hasBomb.length < bombNo) {
     const p = Math.floor(Math.random() * openedBlock.length);
-    if (openedBlock[p].bom === false) {
-      openedBlock[p].bom = true;
-      hasBom.push(openedBlock[p]);
+    if (openedBlock[p].bomb === false) {
+      openedBlock[p].bomb = true;
+      hasBomb.push(openedBlock[p]);
     }
   }
   return openedBlock;

@@ -1,14 +1,14 @@
 module.exports = {
-  initSet(bomCount) {
+  initSet(bombCount) {
     const array = [];
-    const bomPosition = [];
+    const bombPosition = [];
     const directions = [[-1, -1], [0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0]];
 
-    while (bomPosition.length < bomCount) {
+    while (bombPosition.length < bombCount) {
       const num = Math.floor(Math.random() * directions.length);
 
-      if (bomPosition.indexOf(num) === -1) {
-        bomPosition.push(num);
+      if (bombPosition.indexOf(num) === -1) {
+        bombPosition.push(num);
       }
     }
 
@@ -19,7 +19,7 @@ module.exports = {
       array.push({
         x,
         y,
-        bom: bomPosition.includes(index) ? 1 : 0,
+        bomb: bombPosition.includes(index) ? 1 : 0,
       });
     });
 

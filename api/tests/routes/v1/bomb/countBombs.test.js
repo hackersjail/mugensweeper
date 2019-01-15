@@ -1,12 +1,12 @@
-const countBoms = require('../../../../routes/v1/bom/countBoms.js');
+const countBombs = require('../../../../routes/v1/bomb/countBombs.js');
 const array2Fields = require('../util/array2Fields.js');
 
-describe('Bomの数を数える', () => {
-  it('与えた座標の周囲のBomの数が返ってくる', () => {
+describe('Bombの数を数える', () => {
+  it('与えた座標の周囲のBombの数が返ってくる', () => {
     // 1: Given
 
     // prettier-ignore
-    const bomMap = array2Fields([
+    const bombMap = array2Fields([
       0, 1, 0, 0, 0,
       0, 0, 1, 0, 0,
       0, 0, 1, 0, 0,
@@ -20,7 +20,7 @@ describe('Bomの数を数える', () => {
 
     const results = [];
     for (let i = 0; i < positions.length; i += 1) {
-      const result = countBoms(bomMap, positions[i]);
+      const result = countBombs(bombMap, positions[i]);
       results.push(result);
     }
 

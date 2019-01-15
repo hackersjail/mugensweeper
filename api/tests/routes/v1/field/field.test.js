@@ -120,7 +120,7 @@ describe('field情報を返せるかどうか', () => {
     const result = [];
     for (let n = 0; n < body.length; n += 1) {
       result.push({ x: body[n].x, y: body[n].y });
-      expect(body[n]).toHaveProperty('bomCount');
+      expect(body[n]).toHaveProperty('bombCount');
     }
     expect(body).toHaveLength(beforePostField.length + 2);
     expect(result).toEqual(expect.arrayContaining(rsMatchers));
