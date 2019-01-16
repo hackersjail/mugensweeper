@@ -72,12 +72,12 @@ export const mutations = {
 export const actions = {
   async getAccessToken({ commit, state }, userName) {
     if (!state.token) {
-      const userData = await this.$axios.$post('/user_id_generate', { userName });
+      const userData = await this.$axios.$post('/user', { userName });
       commit('setAccessToken', userData);
     }
   },
   async getField({ commit }) {
-    const fieldData = await this.$axios.$get('/field/temp');
+    const fieldData = await this.$axios.$get('/field');
     commit('setField', fieldData);
   },
   async postField({ state, dispatch }, block) {

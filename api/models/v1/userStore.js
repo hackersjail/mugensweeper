@@ -1,5 +1,6 @@
 const getHash = require('random-hash');
 const UserModel = require('./UserModel.js');
+const generateAccessToken = require('../../routes/v1/authentication/generateAccessToken.js');
 
 const propFilter = '-_id -__v';
 const users = [];
@@ -27,7 +28,7 @@ module.exports = {
       userId = getHash.generateHash(option);
     }
 
-    const userData = { userName, userId };
+    const userData = { userName, userId, token: `bearer ${generateAccessToken(userId)}` };
     users.push(userData);
     await new UserModel(userData).save();
     return userData;

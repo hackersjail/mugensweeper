@@ -155,7 +155,8 @@ export default {
       this.init();
     },
     init() {
-      this.setIntervalObj = setInterval(() => {
+      this.setIntervalObj = setInterval(async () => {
+        this.$axios.$get('/secure');
         this.getField();
       }, 1000);
     },
