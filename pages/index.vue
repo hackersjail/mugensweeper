@@ -148,15 +148,18 @@ export default {
     ...mapActions(['getAccessToken', 'getField', 'postField']),
     ...mapMutations(['setInitPos', 'gridMove', 'resetInitPos']),
     registerName(inputName) {
-      this.getAccessToken(inputName);
+      this.getAccessToken(inputName); // 新規に当ゲームを利用した方向けのJWT認証処理は当メソッド内で実施
+      this.init();
     },
     closeOverlay() {
       this.overlay = false;
-      this.init();
+      if (this.token) {
+        this.$axios.$get('/secure'); // 過去に当ゲームを利用した方向けのJWT認証処理を実施
+        this.init();
+      }
     },
     init() {
-      this.setIntervalObj = setInterval(async () => {
-        this.$axios.$get('/secure');
+      this.setIntervalObj = setInterval(() => {
         this.getField();
       }, 1000);
     },
