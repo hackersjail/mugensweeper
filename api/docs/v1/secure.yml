@@ -1,0 +1,18 @@
+/secure:
+  get:
+    x-swagger-router-controller: test
+    operationId: test_post
+    securityDefinitions:
+      - $ref: "#/securityDefinitions/tokenAuth"
+    security:
+      - tokenAuth: []
+    tags:
+      - accessAuth
+    description: JSON web token auth
+    responses:
+      200:
+        description: success
+        schema:
+          $ref: "#/definitions/AuthResponse"
+      401:
+        $ref: "#/responses/Unauthorized"

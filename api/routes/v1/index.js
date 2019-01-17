@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const jwt = require('jsonwebtoken');
 const auth = require('../v1/authentication/auth.js')();
 const fieldMethod = require('./field/field.js');
 
@@ -15,6 +16,23 @@ router.use((req, res, next) => {
 router.options('*', (req, res) => {
   res.sendStatus(200);
 });
+
+// swagger用コード（フロントからのリクエストheaderのauthorizationに仕込んだJWT認証処理用のコード）
+const config = { appRoot: __dirname };
+config.swaggerSecurityHandlers = {
+  tokenAuth(req) {
+    try {
+      const decoded = jwt.decode(req.headers.authorization.split(' ')[1]);
+      req.requestContext = {
+        authorizer: {
+          userId: decoded,
+        },
+      };
+    } catch (error) {
+      // console.log(error);
+    }
+  },
+};
 
 router.use('/user', require('./user/user.js'));
 
