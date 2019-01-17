@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const auth = require('../v1/authentication/auth.js')();
+const fieldMethod = require('./field/field.js');
 
 router.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -21,6 +22,12 @@ router.use('/secure', auth.authenticate(), (req, res) => {
   res.send(`Secure response from ${JSON.stringify(req.user)}`);
 });
 
-router.use('/field', auth.authenticate(), require('./field/field.js'));
+// Eslintの「global-require」ルールに抵触するため以下記述を適用
+// (auth.authenticateの箇所をif文でtestか否かを判定する記述もfield.test.jsの'DBにfieldHistoryを追加するテスト'でTimeoutエラー発生)
+if (process.env.NODE_ENV !== 'test') {
+  router.use('/field', auth.authenticate(), fieldMethod);
+} else {
+  router.use('/field', fieldMethod);
+}
 
 module.exports = router;

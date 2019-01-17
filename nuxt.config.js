@@ -1,7 +1,7 @@
 const pkg = require('./package');
 require('dotenv').config();
 
-const { AXIOS_BASE } = process.env;
+const { AXIOS_BASE, NODE_ENV } = process.env;
 
 module.exports = {
   mode: 'spa',
@@ -18,7 +18,7 @@ module.exports = {
   css: [],
   plugins: ['@/plugins/axios', '@/plugins/window-state', '@/plugins/vue-touch'],
   modules: ['@nuxtjs/axios'],
-  axios: { baseURL: AXIOS_BASE || 'http://localhost:10000/v1' },
+  axios: { baseURL: NODE_ENV !== 'test' && AXIOS_BASE ? AXIOS_BASE : 'http://localhost:10000/v1' },
   build: {
     extend(config, ctx) {
       if (ctx.isDev && ctx.isClient) {
