@@ -1,0 +1,13 @@
+definitions:
+  User:
+    type: object
+    properties:
+      userName:
+        type: string
+        example: example
+      userId:
+        type: string
+        example: random00
+    required:
+      - userName
+      - userId

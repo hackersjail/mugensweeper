@@ -1,4 +1,4 @@
-module.exports = (block, bom) => {
-  const match = bom.find((bomBlock) => bomBlock.x === block.x && bomBlock.y === block.y);
+module.exports = (block, bomb) => {
+  const match = bomb.find((bombBlock) => bombBlock.x === block.x && bombBlock.y === block.y);
   return { ...block, exploded: match !== undefined };
 };

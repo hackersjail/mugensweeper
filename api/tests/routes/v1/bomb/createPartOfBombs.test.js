@@ -1,9 +1,9 @@
-const createPartOfBoms = require('../../../../routes/v1/bom/createPartOfBoms.js');
+const createPartOfBombs = require('../../../../routes/v1/bomb/createPartOfBombs.js');
 const array2Fields = require('../util/array2Fields.js');
 const array2Machers = require('../util/array2Machers.js');
 
-describe('BomMapを生成する', () => {
-  it('与えた座標の周囲の余剰にBomMapが返ってくる', () => {
+describe('BombMapを生成する', () => {
+  it('与えた座標の周囲の余剰にBombMapが返ってくる', () => {
     // 1: Given
 
     const rate = 0.7;
@@ -21,7 +21,7 @@ describe('BomMapを生成する', () => {
 
     const results = [];
     for (let i = 0; i < positions.length; i += 1) {
-      const result = createPartOfBoms(rate, field, positions[i]);
+      const result = createPartOfBombs(rate, field, positions[i]);
       results.push(result);
     }
 
