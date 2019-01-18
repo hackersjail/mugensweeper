@@ -7,15 +7,17 @@ module.exports = (req, field) => {
   const rate = 0.7;
 
   // 周囲へボムを配置
+
   createPartOfBoms(rate, field, req).forEach((n) =>
     addBom({ x: n.x, y: n.y, actionId: n.actionId }),
   );
   // 爆弾関連の情報を返却
+
   return {
     x: req.x,
     y: req.y,
     bomCount: countBoms(getBom(), req),
-    userId: req.userId,
     exploded: judgeExploded(req, getBom()).exploded,
+    userId: req.userId,
   };
 };
