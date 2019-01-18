@@ -10,6 +10,7 @@
       @mousedown="setInitPos"
       @touchmove.prevent="onTouchMove"
       @mousemove="gridMove"
+      @click.right.prevent="onRightClick"
       @touchend.prevent="onTouchEnd"
       @touchcancel.prevent="onTouchEnd"
       @mouseup.prevent="onTouchEnd"
@@ -76,6 +77,7 @@ export default {
     return {
       overlay: true,
       touchTime: null,
+      isRequestToOpen: false,
     };
   },
   components: {
@@ -197,14 +199,25 @@ export default {
     },
     onTouchEnd(e) {
       if (!this.dragFlg) {
-        const block = {
-          x: Math.round((e.pageX - this.centerPos.x + this.moveDist.x) / this.gridWidth),
-          y: -Math.round((e.pageY - this.centerPos.y - this.moveDist.y) / this.gridWidth),
-        };
+        const block = this.getRelativeCoordinates(e, true);
+        // console.log(block);
         this.postField(block);
+        // console.log(e.type, 'true');
       }
       this.touchTime = Date.now();
       this.resetInitPos();
+    },
+    onRightClick(e) {
+      const block = this.getRelativeCoordinates(e, false);
+      this.postField(block);
+    },
+    getRelativeCoordinates(e, isRequestToOpen) {
+      // console.log('test: ', e.type);
+      return {
+        x: Math.round((e.pageX - this.centerPos.x + this.moveDist.x) / this.gridWidth),
+        y: -Math.round((e.pageY - this.centerPos.y - this.moveDist.y) / this.gridWidth),
+        action: isRequestToOpen,
+      };
     },
   },
 };
