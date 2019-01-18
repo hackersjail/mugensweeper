@@ -85,7 +85,7 @@ export const actions = {
       x: block.x,
       y: block.y,
       userId: state.userId,
-      action: block.isRequestToOpen,
+      isRequestToOpen: block.isRequestToOpen,
     });
     if (isAdded) {
       await dispatch('getField');
