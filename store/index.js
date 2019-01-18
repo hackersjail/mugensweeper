@@ -77,7 +77,7 @@ export const actions = {
     }
   },
   async getField({ commit }) {
-    const fieldData = await this.$axios.$get('/field/temp');
+    const fieldData = await this.$axios.$get('/field');
     commit('setField', fieldData);
   },
   async postField({ state, dispatch }, block) {

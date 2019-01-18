@@ -198,11 +198,9 @@ export default {
       this.gridMove(movePos);
     },
     onTouchEnd(e) {
-      if (!this.dragFlg) {
+      if (!this.dragFlg && e.which === 1) {
         const block = this.getRelativeCoordinates(e, true);
-        // console.log(block);
         this.postField(block);
-        // console.log(e.type, 'true');
       }
       this.touchTime = Date.now();
       this.resetInitPos();
@@ -212,7 +210,6 @@ export default {
       this.postField(block);
     },
     getRelativeCoordinates(e, isRequestToOpen) {
-      // console.log('test: ', e.type);
       return {
         x: Math.round((e.pageX - this.centerPos.x + this.moveDist.x) / this.gridWidth),
         y: Math.round((e.pageY - this.centerPos.y - this.moveDist.y) / this.gridWidth),
