@@ -142,7 +142,7 @@ export default {
     },
     blockJudge() {
       return (block) => ({
-        'splite-bomb': block.exploded || block.bomCount !== 0,
+        'splite-bomb': block.exploded || block.bombCount !== 0,
       });
     },
   },
@@ -162,7 +162,7 @@ export default {
       }, 1000);
     },
     styles(block) {
-      if (!block.exploded && block.bomCount === 0) return false;
+      if (!block.exploded && block.bombCount === 0) return false;
       return {
         top: `${this.centerPos.y +
           this.gridWidth * block.y -
@@ -172,7 +172,7 @@ export default {
           this.gridWidth * block.x -
           this.gridWidth / 2 -
           this.moveDist.x}px`,
-        backgroundPosition: `${block.bomCount !== 0 ? (block.bomCount - 1) * -30 : -301}px 0px`,
+        backgroundPosition: `${block.bombCount !== 0 ? (block.bombCount - 1) * -30 : -301}px 0px`,
       };
     },
     onTouchStart(e) {

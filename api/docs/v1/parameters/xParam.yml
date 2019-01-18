@@ -1,0 +1,7 @@
+parameters:
+  xParam:
+    name: x
+    in: formData
+    description: x position
+    required: true
+    type: number
