@@ -215,7 +215,7 @@ export default {
       // console.log('test: ', e.type);
       return {
         x: Math.round((e.pageX - this.centerPos.x + this.moveDist.x) / this.gridWidth),
-        y: -Math.round((e.pageY - this.centerPos.y - this.moveDist.y) / this.gridWidth),
+        y: Math.round((e.pageY - this.centerPos.y - this.moveDist.y) / this.gridWidth),
         action: isRequestToOpen,
       };
     },
