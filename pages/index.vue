@@ -170,7 +170,7 @@ export default {
           this.gridWidth * block.x -
           this.gridWidth / 2 -
           this.moveDist.x}px`,
-        backgroundPosition: `${!block.exploded ? (block.bombCount - 1) * -30 : -301}px 0px`,
+        backgroundPosition: `${block.exploded ? -301 : (block.bombCount - 1) * -30}px 0px`,
       };
     },
     onTouchStart(e) {
