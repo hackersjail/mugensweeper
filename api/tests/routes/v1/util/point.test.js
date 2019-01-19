@@ -1,9 +1,9 @@
 // const chai = require('chai');
 const array2fieldHistory = require('./array2fieldHistory.js');
-const array2bomMap = require('./array2bomMap.js');
+const array2bombMap = require('./array2bombMap.js');
 
 const {
-  createNewfieldWithBomMap,
+  createNewfieldWithBombMap,
   calculatePointsForPlayer,
   generateRanking,
 } = require('../../../../models/v1/pointStore.js');
@@ -28,7 +28,7 @@ describe('ブロックを開くとき', () => {
     ], time);
 
     // prettier-ignore
-    const bomMap = array2bomMap([
+    const bombMap = array2bombMap([
         0, 0, 0, 0, 0, 7, 0, 8, 13,
         0, 0, 0, 0, 2, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 1, 0, 4, 12,
@@ -48,20 +48,20 @@ describe('ブロックを開くとき', () => {
       { userId: 3, points: 0 },
     ];
 
-    // fieldHistoryとbomHistoryを使って爆弾情報を含んだfieldの生成
-    const fieldWithBomMap = createNewfieldWithBomMap(fieldHistory, bomMap);
+    // fieldHistoryとbombHistoryを使って爆弾情報を含んだfieldの生成
+    const fieldWithBombMap = createNewfieldWithBombMap(fieldHistory, bombMap);
 
     // １人のuserのpointを計算のテスト
     // when
     rankingMatcher.forEach((rank) => {
-      const player = calculatePointsForPlayer(fieldWithBomMap, rank.userId);
+      const player = calculatePointsForPlayer(fieldWithBombMap, rank.userId);
       // Then
       expect(player).toEqual(rank);
     });
 
     // Rankingのテスト
     // When
-    const ranking = generateRanking(fieldWithBomMap);
+    const ranking = generateRanking(fieldWithBombMap);
     // Then
     expect(ranking).toEqual(rankingMatcher);
   });

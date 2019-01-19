@@ -13,8 +13,7 @@ module.exports = {
     actionId = fields.length;
     unsavedField.length = 0;
     for (let i = 0; i < fields.length; i += 1) {
-      const f = post2res(fields[i], field);
-      field.push(f);
+      field.push(post2res(fields[i], field));
     }
   },
 
@@ -23,17 +22,15 @@ module.exports = {
   },
 
   addData(add) {
-    const record = { ...add };
-    record.actionId = actionId;
+    const recordtime = Math.round(new Date().getTime() / 1000);
+    const record = { ...add, actionId, recordtime };
+    unsavedField.push(record);
     actionId += 1;
     if (judgeField(add, field)) {
       field.push(post2res(add, field));
-      record.status = true;
-    } else {
-      record.status = false;
+      return true;
     }
-    unsavedField.push(record);
-    return record.status;
+    return false;
   },
 
   async saveData() {

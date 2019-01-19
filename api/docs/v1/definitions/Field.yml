@@ -1,0 +1,25 @@
+definitions:
+  Field:
+    type: object
+    properties:
+      x:
+        type: number
+        example: 1
+      y:
+        type: number
+        example: 1
+      bombCount:
+        type: number
+        example: 7
+      exploded:
+        type: boolean
+        example: false
+      userId:
+        type: string
+        example: example
+    required:
+      - x
+      - y
+      - bombCount
+      - exploded
+      - userId

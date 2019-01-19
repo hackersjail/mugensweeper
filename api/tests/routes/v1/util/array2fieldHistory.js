@@ -1,4 +1,4 @@
-module.exports = (array, time) => {
+module.exports = (array) => {
   const size = Math.sqrt(array.length);
   return array
     .map((p, idx) =>
@@ -6,10 +6,9 @@ module.exports = (array, time) => {
         ? {
             x: Math.floor(idx % size) - Math.floor(size / 2),
             y: Math.floor(size / 2) - Math.floor(idx / size),
-            userId: Number(p.split(':')[0].replace('u', '')),
+            userId: +p.split(':')[0].replace('u', ''),
             action: p.split(':')[2] === 'op' ? 'opened' : 'none',
-            recordtime: time,
-            actionId: Number(p.split(':')[1]),
+            actionId: +p.split(':')[1],
           }
         : p,
     )
