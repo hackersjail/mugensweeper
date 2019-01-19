@@ -10,10 +10,10 @@
       @mousedown="setInitPos"
       @touchmove.prevent="onTouchMove"
       @mousemove="gridMove"
-      @click.right.prevent="onRightClick"
       @touchend.prevent="onTouchEnd"
       @touchcancel.prevent="onTouchEnd"
       @mouseup.prevent="onTouchEnd"
+      @contextmenu.prevent
     >
       <svg viewbox="0 0 100% 100%" width="100%" height="100%">
         <line
@@ -197,24 +197,18 @@ export default {
       };
       this.gridMove(movePos);
     },
-    onTouchEnd(e) {
-      if (!this.dragFlg && e.which === 1) {
-        const block = this.getRelativeCoordinates(e, true);
-        this.postField(block);
-      }
+    async onTouchEnd(e) {
       this.touchTime = Date.now();
       this.resetInitPos();
-    },
-    onRightClick(e) {
-      const block = this.getRelativeCoordinates(e, false);
-      this.postField(block);
-    },
-    getRelativeCoordinates(e, isRequestToOpen) {
-      return {
-        x: Math.round((e.pageX - this.centerPos.x + this.moveDist.x) / this.gridWidth),
-        y: Math.round((e.pageY - this.centerPos.y - this.moveDist.y) / this.gridWidth),
-        isRequestToOpen,
-      };
+
+      if (!this.dragFlg) {
+        const block = {
+          x: Math.round((e.pageX - this.centerPos.x + this.moveDist.x) / this.gridWidth),
+          y: Math.round((e.pageY - this.centerPos.y - this.moveDist.y) / this.gridWidth),
+          isRequestToOpen: e.which === 1,
+        };
+        await this.postField(block);
+      }
     },
   },
 };
