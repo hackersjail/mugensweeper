@@ -1,5 +1,6 @@
 const getHash = require('random-hash');
 const UserModel = require('./UserModel.js');
+const generateAccessToken = require('../../routes/v1/authentication/generateAccessToken.js');
 
 const propFilter = '-_id -__v';
 const users = [];
@@ -30,7 +31,7 @@ module.exports = {
     const userData = { userName, userId };
     users.push(userData);
     await new UserModel(userData).save();
-    return userData;
+    return { userName, userId, token: generateAccessToken(userId) };
   },
 
   // 検証への使用度高関数のため保存

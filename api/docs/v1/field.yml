@@ -5,6 +5,10 @@ tags:
   post:
     tags:
       - Field
+    securityDefinitions:
+      - $ref: "#/securityDefinitions/tokenAuth"
+    security:
+      - tokenAuth: []
     parameters:
       - $ref: "#/parameters/xParam"
       - $ref: "#/parameters/yParam"
@@ -17,6 +21,10 @@ tags:
   get:
     tags:
       - Field
+    securityDefinitions:
+      - $ref: "#/securityDefinitions/tokenAuth"
+    security:
+      - tokenAuth: []
     responses:
       200:
         description: success
