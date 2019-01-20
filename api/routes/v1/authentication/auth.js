@@ -14,7 +14,12 @@ const jwtOptions = {
 module.exports = () => {
   passport.use(
     new passportJwt.Strategy(jwtOptions, async (payload, done) =>
-      done(null, (await getUser().find((u) => u.userId === payload.userId)) || false),
+      done(
+        null,
+        process.env.NODE_ENV === 'test'
+          ? { userName: 'tester', userId: 'example0', recordtime: '2019-01-01T00:00:00.000Z' } // テスト用token認証ユーザー
+          : (await getUser().find((u) => u.userId === payload.userId)) || false,
+      ),
     ),
   );
   return {

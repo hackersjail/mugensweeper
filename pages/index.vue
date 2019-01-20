@@ -150,15 +150,12 @@ export default {
     ...mapActions(['getAccessToken', 'getField', 'postField']),
     ...mapMutations(['setInitPos', 'gridMove', 'resetInitPos']),
     registerName(inputName) {
-      this.getAccessToken(inputName); // 新規に当ゲームを利用した方向けのJWT認証処理は当メソッド内で実施
-      this.init();
+      this.getAccessToken(inputName);
+      this.init(); // 新規に当ゲームを利用する場合は初期モーダル画面=>ユーザー名新規登録後に盤面情報の取得を開始
     },
     closeOverlay() {
       this.overlay = false;
-      if (this.token) {
-        this.$axios.$get('/secure'); // 過去に当ゲームを利用した方向けのJWT認証処理を実施
-        this.init();
-      }
+      if (this.token) this.init(); // 過去に当ゲームを利用していた場合は初期モーダル画面close後に盤面情報の取得を開始
     },
     init() {
       this.setIntervalObj = setInterval(() => {
