@@ -28,10 +28,10 @@ module.exports = {
       userId = getHash.generateHash(option);
     }
 
-    const userData = { userName, userId, token: `bearer ${generateAccessToken(userId)}` };
+    const userData = { userName, userId };
     users.push(userData);
     await new UserModel(userData).save();
-    return userData;
+    return { userName, userId, token: generateAccessToken(userId) };
   },
 
   // 検証への使用度高関数のため保存

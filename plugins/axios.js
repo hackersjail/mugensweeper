@@ -9,6 +9,6 @@ export default ({ $axios, store }) => {
       config.data = params.toString();
       config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
     }
-    if (store.state.token) config.headers.Authorization = store.state.token;
+    if (store.state.token) config.headers.Authorization = `Bearer ${store.state.token}`;
   });
 };

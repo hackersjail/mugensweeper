@@ -81,10 +81,22 @@ describe('field情報を返せるかどうか', () => {
         .request(app)
         .post('/v1/field')
         .set('content-type', 'application/x-www-form-urlencoded')
+        // テスト用token
+        .set(
+          'Authorization',
+          'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJleGFtcGxlMCIsImV4cCI6MTcwNTc0MjM4OSwiYXVkIjoibXVnZW5zd2VlcGVycyIsImlzcyI6Im11Z2Vuc3dlZXBlcnMifQ.ISinmaTZDcOzHM4q4MALgmnSA7x6wN9pa1wkRGvlRWw',
+        )
         .send(add[i]);
     }
 
-    const { body } = await chai.request(app).get('/v1/field');
+    const { body } = await chai
+      .request(app)
+      .get('/v1/field')
+      // テスト用token
+      .set(
+        'Authorization',
+        'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJleGFtcGxlMCIsImV4cCI6MTcwNTc0MjM4OSwiYXVkIjoibXVnZW5zd2VlcGVycyIsImlzcyI6Im11Z2Vuc3dlZXBlcnMifQ.ISinmaTZDcOzHM4q4MALgmnSA7x6wN9pa1wkRGvlRWw',
+      );
 
     // Then
     const rsMatchers = [

@@ -74,7 +74,6 @@ export const actions = {
     if (!state.token) {
       const userData = await this.$axios.$post('/user', { userName });
       commit('setAccessToken', userData);
-      this.$axios.$get('/secure'); // 新規に当ゲームを利用した方向けのJWT認証処理
     }
   },
   async getField({ commit }) {
