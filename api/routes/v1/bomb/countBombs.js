@@ -1,6 +1,7 @@
-const directions = require('../../../util/directions.js')();
-
 module.exports = (bombMap, positions) =>
-  directions.filter((data) =>
-    bombMap.find((d) => d.x === data[0] + positions.x && d.y === data[1] + positions.y),
+  bombMap.filter(
+    (b) =>
+      Math.abs(b.x - positions.x) <= 1 &&
+      Math.abs(b.y - positions.y) <= 1 &&
+      !(b.x === positions.x && b.y === positions.y),
   ).length;
