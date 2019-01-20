@@ -3,10 +3,10 @@ const config = require('./config');
 
 // Access Token (JWT) の生成
 function generateAccessToken(userId) {
-  return jwt.sign({ userId }, config.get('authentication.token.secret'), {
+  return jwt.sign({ userId }, config.authentication.token.secret.key, {
     expiresIn: '5y',
-    audience: config.get('authentication.token.audience'),
-    issuer: config.get('authentication.token.issuer'),
+    audience: config.authentication.token.audience.default,
+    issuer: config.authentication.token.issuer.default,
     noTimestamp: true,
   });
 }

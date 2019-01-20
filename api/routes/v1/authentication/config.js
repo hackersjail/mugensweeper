@@ -1,20 +1,11 @@
-const convict = require('convict');
 require('dotenv').config();
 
-const config = convict({
-  http: {
-    port: {
-      doc: 'The port to listen on',
-      default: 3000,
-      env: 'PORT',
-    },
-  },
+module.exports = {
   authentication: {
     token: {
       secret: {
         doc: 'The signing key for the JWT',
-        default: 'mugensweepers',
-        env: 'JWT_SIGNING_KEY',
+        key: process.env.JWT_SIGNING_KEY || 'mugensweepers',
       },
       issuer: {
         doc: 'The issuer for the JWT',
@@ -26,8 +17,4 @@ const config = convict({
       },
     },
   },
-});
-
-config.validate();
-
-module.exports = config;
+};
