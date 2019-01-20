@@ -91,8 +91,6 @@ jobs:
   deploy_api:
     executor:
       name: default
-    environment:
-      DEPLOY_ENV: api
     steps:
       - restore_repo
       - setup_awscli
@@ -102,23 +100,6 @@ jobs:
             [ $CIRCLE_BRANCH = "master" ] && group=$AWS_PROD_GROUP || group=$AWS_STG_GROUP
             aws deploy create-deployment --application-name $AWS_APP_NAME --deployment-group-name $group \
             --github-location repository="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME",commitId="$CIRCLE_SHA1"
-      - notify_deployment_failed
-      - notify_deployment_succeeded
-  deploy_web:
-    executor:
-      name: default
-    environment:
-      DEPLOY_ENV: web
-    steps:
-      - restore_repo
-      - restore_npm
-      - run:
-          name: Generate static files
-          command: yarn generate
-      - setup_awscli
-      - run:
-          name: Deploy static files
-          command: aws s3 sync dist s3://$AWS_BUCKET --delete
       - notify_deployment_failed
       - notify_deployment_succeeded
 
@@ -134,10 +115,3 @@ workflows:
               only:
                 - master
                 - develop
-      - deploy_web:
-          requires:
-            - test
-          filters:
-            branches:
-              only:
-                - master

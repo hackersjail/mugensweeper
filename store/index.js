@@ -81,11 +81,12 @@ export const actions = {
     const fieldData = await this.$axios.$get('/field');
     commit('setField', fieldData);
   },
-  async postField({ state, dispatch }, block) {
+  async postField({ state, dispatch }, { x, y, isRequestToOpen }) {
     const isAdded = await this.$axios.$post('/field', {
-      x: block.x,
-      y: block.y,
+      x,
+      y,
       userId: state.userId,
+      isRequestToOpen,
     });
     if (isAdded) {
       await dispatch('getField');
