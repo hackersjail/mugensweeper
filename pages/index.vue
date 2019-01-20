@@ -13,6 +13,7 @@
       @touchend.prevent="onTouchEnd"
       @touchcancel.prevent="onTouchEnd"
       @mouseup.prevent="onTouchEnd"
+      @contextmenu.prevent
     >
       <svg viewbox="0 0 100% 100%" width="100%" height="100%">
         <line
@@ -76,6 +77,7 @@ export default {
     return {
       overlay: true,
       touchTime: null,
+      isRequestToOpen: false,
     };
   },
   components: {
@@ -170,7 +172,7 @@ export default {
           this.gridWidth * block.x -
           this.gridWidth / 2 -
           this.moveDist.x}px`,
-        backgroundPosition: `${block.bombCount !== 0 ? (block.bombCount - 1) * -30 : -301}px 0px`,
+        backgroundPosition: `${block.exploded ? -301 : (block.bombCount - 1) * -30}px 0px`,
       };
     },
     onTouchStart(e) {
@@ -195,16 +197,18 @@ export default {
       };
       this.gridMove(movePos);
     },
-    onTouchEnd(e) {
+    async onTouchEnd(e) {
+      this.touchTime = Date.now();
+      this.resetInitPos();
+
       if (!this.dragFlg) {
         const block = {
           x: Math.round((e.pageX - this.centerPos.x + this.moveDist.x) / this.gridWidth),
-          y: -Math.round((e.pageY - this.centerPos.y - this.moveDist.y) / this.gridWidth),
+          y: Math.round((e.pageY - this.centerPos.y - this.moveDist.y) / this.gridWidth),
+          isRequestToOpen: e.which === 1,
         };
-        this.postField(block);
+        await this.postField(block);
       }
-      this.touchTime = Date.now();
-      this.resetInitPos();
     },
   },
 };

@@ -2,22 +2,14 @@
 
 if [ $CIRCLE_BRANCH = "master" ]; then
   DEPLOY_DEST="Production"
-  if [ $DEPLOY_ENV = "web" ]; then
-    DEPLOY_URL=$DEPLOY_WEB_PROD_URL
-  elif [ $DEPLOY_ENV = "api" ]; then
-    DEPLOY_URL=$DEPLOY_API_PROD_URL
-  fi
+  DEPLOY_URL=$DEPLOY_API_PROD_URL
 else
   DEPLOY_DEST="Staging"
-  if [ $DEPLOY_ENV = "web" ]; then
-    DEPLOY_URL=$DEPLOY_WEB_STG_URL
-  elif [ $DEPLOY_ENV = "api" ]; then
-    DEPLOY_URL=$DEPLOY_API_STG_URL
-  fi
+  DEPLOY_URL=$DEPLOY_API_STG_URL
 fi
 
 if [ $DEPLOY_RESULT = "succeeded" ]; then
-  WEBHOOK_MESSAGE="Successful deploy of $DEPLOY_ENV server ($DEPLOY_DEST)\n$DEPLOY_URL"
+  WEBHOOK_MESSAGE="Successful deploy of $CIRCLE_PROJECT_REPONAME ($DEPLOY_DEST)\n$DEPLOY_URL"
 else
   WEBHOOK_MESSAGE="Something went wrong deploying $CIRCLE_PROJECT_REPONAME ($DEPLOY_DEST)\nFailed <$CIRCLE_BUILD_URL|$CIRCLE_JOB>"
 fi
