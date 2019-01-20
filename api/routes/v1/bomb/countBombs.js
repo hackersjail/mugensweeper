@@ -3,5 +3,5 @@ module.exports = (bombMap, positions) =>
     (b) =>
       Math.abs(b.x - positions.x) <= 1 &&
       Math.abs(b.y - positions.y) <= 1 &&
-      !(b.x === positions.x && b.y === positions.y),
+      (b.x !== positions.x || b.y !== positions.y),
   ).length;
