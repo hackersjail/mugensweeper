@@ -5,7 +5,7 @@ const array2bombMap = require('./array2bombMap.js');
 const {
   createNewfieldWithBombMap,
   calculatePointsForPlayer,
-  generateRanking,
+  generateEachPoint,
 } = require('../../../../models/v1/pointStore.js');
 
 const time = Math.round(new Date().getTime() / 1000);
@@ -53,16 +53,16 @@ describe('ブロックを開くとき', () => {
 
     // １人のuserのpointを計算のテスト
     // when
-    rankingMatcher.forEach((rank) => {
-      const player = calculatePointsForPlayer(fieldWithBombMap, rank.userId);
+    rankingMatcher.forEach((block) => {
+      const player = calculatePointsForPlayer(fieldWithBombMap, block.userId);
       // Then
-      expect(player).toEqual(rank);
+      expect(player).toEqual(block);
     });
 
-    // Rankingのテスト
+    // eachPointsのテスト
     // When
-    const ranking = generateRanking(fieldWithBombMap);
+    const points = generateEachPoint(fieldWithBombMap);
     // Then
-    expect(ranking).toEqual(rankingMatcher);
+    expect(points).toEqual(expect.arrayContaining(rankingMatcher));
   });
 });

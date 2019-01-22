@@ -11,6 +11,7 @@ module.exports = {
   async initData() {
     const fields = await FieldHistoryModel.find({}, propFilter).lean();
     actionId = fields.length;
+    field.length = 0;
     unsavedField.length = 0;
     for (let i = 0; i < fields.length; i += 1) {
       field.push(post2res(fields[i], field));

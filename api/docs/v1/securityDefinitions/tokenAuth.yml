@@ -1,0 +1,5 @@
+securityDefinitions:
+  tokenAuth:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
