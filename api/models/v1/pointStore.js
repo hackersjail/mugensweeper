@@ -14,6 +14,7 @@ const eachPoints = (fieldInfo) =>
     }
     return userInfo;
   }, []);
+
 module.exports = {
   createNewfieldWithBombMap: (fieldHistory, bombMap) =>
     fieldHistory.map((field) => judgeExploded(field, bombMap)),

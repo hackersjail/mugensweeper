@@ -15,6 +15,6 @@ module.exports = (fieldWithBombMap, user) => {
       }
     }
   }
-  rankingWithUserNames.sort((a, b) => b.points - a.points || a.userId - b.userId);
+  rankingWithUserNames.sort((a, b) => b.points - a.points || a.userName > b.userName);
   return rankingWithUserNames;
 };

@@ -4,7 +4,7 @@ const judgeExploded = require('../../../../routes/v1/util/judgeExploded.js');
 const generateRaningWithUserNames = require('../../../../routes/v1/util/generateRankingWithUserNames.js');
 
 const ZERO00000 = 0;
-const time = Math.round(new Date().getTime() / 1000);
+const time = Math.round(Date.now() / 1000);
 
 describe('ブロックを開くとき', () => {
   it('得点に関するテスト', () => {
@@ -38,8 +38,8 @@ describe('ブロックを開くとき', () => {
     ];
 
     const matcher = [
-      { points: 1, userId: 1, userName: 'Nanako' },
       { points: 1, userId: 3, userName: 'Ken' },
+      { points: 1, userId: 1, userName: 'Nanako' },
       { points: 0, userId: 2, userName: 'Taro' },
     ];
 
