@@ -6,9 +6,9 @@ require('dotenv').config();
 
 const jwtOptions = {
   jwtFromRequest: passportJwt.ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: config.get('authentication.token.secret'),
-  issuer: config.get('authentication.token.issuer'),
-  audience: config.get('authentication.token.audience'),
+  secretOrKey: config.SECRET_KEY,
+  issuer: config.ISSURE,
+  audience: config.AUDIENCE,
 };
 
 module.exports = () => {
