@@ -22,6 +22,5 @@ module.exports = {
   calculatePointsForPlayer: (fieldWithBombMap, user) =>
     eachPoints(fieldWithBombMap).find((block) => block.userId === user),
 
-  generateRanking: (fieldWithBombMap) =>
-    eachPoints(fieldWithBombMap).sort((a, b) => b.points - a.points || a.userId - b.userId),
+  generateEachPoint: (fieldWithBombMap) => eachPoints(fieldWithBombMap),
 };

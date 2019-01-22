@@ -1,8 +1,8 @@
-const { generateRanking } = require('../../../models/v1/pointStore.js');
+const { generateEachPoint } = require('../../../models/v1/pointStore.js');
 
 module.exports = (fieldWithBombMap, user) => {
   const rankingWithUserNames = [];
-  const ranking = generateRanking(fieldWithBombMap);
+  const ranking = generateEachPoint(fieldWithBombMap);
   for (let i = 0; i < user.length; i += 1) {
     for (let m = 0; m < ranking.length; m += 1) {
       if (user[i].userId === ranking[m].userId) {
@@ -15,6 +15,16 @@ module.exports = (fieldWithBombMap, user) => {
       }
     }
   }
-  rankingWithUserNames.sort((a, b) => b.points - a.points || a.userName > b.userName);
+  rankingWithUserNames.sort((a, b) => {
+    const nameA = a.userName;
+    const nameB = b.userName;
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
+  });
   return rankingWithUserNames;
 };
