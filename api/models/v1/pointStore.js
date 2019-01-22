@@ -1,6 +1,6 @@
 const judgeExploded = require('../../routes/v1/util/judgeExploded.js');
 
-const eachPoints = (fieldInfo) =>
+const generateEachPoint = (fieldInfo) =>
   fieldInfo.reduce((sortedField, block) => {
     let userInfo = [{ userId: block.userId, points: 1 }, ...sortedField];
 
@@ -20,7 +20,7 @@ module.exports = {
     fieldHistory.map((field) => judgeExploded(field, bombMap)),
 
   calculatePointsForPlayer: (fieldWithBombMap, user) =>
-    eachPoints(fieldWithBombMap).find((block) => block.userId === user),
+    generateEachPoint(fieldWithBombMap).find((block) => block.userId === user),
 
-  generateEachPoint: (fieldWithBombMap) => eachPoints(fieldWithBombMap),
+  generateEachPoint,
 };
