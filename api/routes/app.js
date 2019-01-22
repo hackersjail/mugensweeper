@@ -4,6 +4,7 @@ const auth = require('./v1/authentication/auth.js')();
 
 const app = express();
 
+app.disable('x-powered-by');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
