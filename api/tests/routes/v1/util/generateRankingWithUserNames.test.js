@@ -49,6 +49,6 @@ describe('ブロックを開くとき', () => {
     }
     const ranking = generateRaningWithUserNames(fieldWithExplodedData, userinfo);
 
-    expect(ranking).toEqual(expect.objectContaining(matcher));
+    expect(ranking).toEqual(expect.arrayContaining(matcher));
   });
 });
