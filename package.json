@@ -34,7 +34,6 @@
   "dependencies": {
     "@nuxtjs/axios": "5.3.6",
     "body-parser": "1.18.3",
-    "convict": "4.4.1",
     "dotenv": "6.2.0",
     "express": "4.16.4",
     "jsonwebtoken": "8.4.0",
