@@ -34,10 +34,11 @@ module.exports = {
     unsavedField.push(record);
     actionId += 1;
     if (judgeField(add, field)) {
-      field.push(post2res(add, field));
-      return { add, status: true };
+      const postResult = post2res(add, field);
+      field.push(postResult);
+      return { exploded: postResult.exploded, status: true };
     }
-    return { add, status: false };
+    return { status: false };
   },
 
   async saveData() {
