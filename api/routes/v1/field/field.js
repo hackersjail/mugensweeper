@@ -4,7 +4,14 @@ const { getData, addData } = require('../../../models/v1/fieldStore.js');
 router
   .route('/')
   .post((req, res) => {
-    res.json(addData(req.body));
+    const data = {
+      x: +req.body.x,
+      y: +req.body.y,
+      userId: req.user.userId,
+      // TODO:isRequestToOpenがテストに無いため要追加
+      isRequestToOpen: JSON.parse(req.body.isRequestToOpen || true),
+    };
+    res.json(addData(data));
   })
   .get((req, res) => {
     res.json(getData());
