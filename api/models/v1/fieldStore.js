@@ -14,7 +14,13 @@ module.exports = {
     field.length = 0;
     unsavedField.length = 0;
     for (let i = 0; i < fields.length; i += 1) {
-      field.push(post2res(fields[i], field));
+      if (field.length > 0) {
+        if (judgeField(fields[i], field)) {
+          field.push(post2res(fields[i], field));
+        }
+      } else {
+        field.push(post2res(fields[i], field));
+      }
     }
   },
 
@@ -28,10 +34,11 @@ module.exports = {
     unsavedField.push(record);
     actionId += 1;
     if (judgeField(add, field)) {
-      field.push(post2res(add, field));
-      return true;
+      const postResult = post2res(add, field);
+      field.push(postResult);
+      return { exploded: postResult.exploded, status: true };
     }
-    return false;
+    return { status: false };
   },
 
   async saveData() {
