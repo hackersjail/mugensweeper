@@ -26,4 +26,9 @@ module.exports = {
     await BombHistoryModel.insertMany(unsavedBomb);
     unsavedBomb.length = 0;
   },
+
+  async deleteBomb() {
+    await BombHistoryModel.deleteMany();
+    unsavedBomb.length = 0;
+  },
 };

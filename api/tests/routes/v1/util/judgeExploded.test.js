@@ -16,7 +16,7 @@ describe('ブロックを開くとき', () => {
         0, 0, 0, 0, 0,
       ]);
 
-    const matcher = [{ x: 0, y: 1, exploded: true }, { x: 0, y: 2, exploded: false }];
+    const matcher = [true, false];
 
     // Explodedのテスト
     // When

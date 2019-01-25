@@ -1,5 +1,6 @@
 const FieldHistoryModel = require('./FieldHistoryModel.js');
 const judgeField = require('../../routes/v1/util/judgeField.js');
+const post2res2 = require('../../routes/v1/field/post2res2.js');
 const post2res = require('../../routes/v1/field/post2res.js');
 
 const propFilter = '-_id -__v';
@@ -14,7 +15,13 @@ module.exports = {
     field.length = 0;
     unsavedField.length = 0;
     for (let i = 0; i < fields.length; i += 1) {
-      field.push(post2res(fields[i], field));
+      if (field.length > 0) {
+        if (judgeField(fields[i], field)) {
+          field.push(post2res2(fields[i], field));
+        }
+      } else {
+        field.push(post2res2(fields[i], field));
+      }
     }
   },
 
@@ -42,8 +49,8 @@ module.exports = {
   },
 
   // 検証への使用度高関数のため保存
-  // async deleteData() {
-  //   await FieldHistoryModel.deleteMany();
-  //   prefield.length = 0;
-  // },
+  async deleteData() {
+    await FieldHistoryModel.deleteMany();
+    unsavedField.length = 0;
+  },
 };

@@ -4,18 +4,19 @@ const createPartOfBombs = require('../bomb/createPartOfBombs.js');
 const judgeExploded = require('../util/judgeExploded.js');
 
 module.exports = (req, field) => {
-  const rate = 0.7;
+  const rate = 0.3;
 
   // 周囲へボムを配置
   createPartOfBombs(rate, field, req).forEach((n) =>
-    addBomb({ x: n.x, y: n.y, actionId: n.actionId }),
+    addBomb({ x: n.x, y: n.y, actionId: req.actionId }),
   );
+
   // 爆弾関連の情報を返却
   return {
     x: +req.x,
     y: +req.y,
     bombCount: countBombs(getBomb(), req),
-    exploded: judgeExploded(req, getBomb()).exploded,
+    exploded: judgeExploded(req, getBomb()),
     userId: req.userId,
   };
 };
