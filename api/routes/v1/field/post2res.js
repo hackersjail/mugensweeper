@@ -3,13 +3,11 @@ const countBombs = require('../bomb/countBombs.js');
 const createPartOfBombs = require('../bomb/createPartOfBombs.js');
 const judgeExploded = require('../util/judgeExploded.js');
 
-module.exports = (req, field) => {
+module.exports = (req, field, actionId) => {
   const rate = 0.3;
 
   // 周囲へボムを配置
-  createPartOfBombs(rate, field, req).forEach((n) =>
-    addBomb({ x: n.x, y: n.y, actionId: req.actionId }),
-  );
+  createPartOfBombs(rate, field, req).forEach((n) => addBomb({ x: n.x, y: n.y, actionId }));
 
   // 爆弾関連の情報を返却
   return {

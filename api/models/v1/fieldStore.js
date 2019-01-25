@@ -35,7 +35,7 @@ module.exports = {
     unsavedField.push(record);
     actionId += 1;
     if (judgeField(add, field)) {
-      const postResult = post2res(add, field);
+      const postResult = post2res(add, field, actionId);
       field.push(postResult);
       return { exploded: postResult.exploded, status: true };
     }
