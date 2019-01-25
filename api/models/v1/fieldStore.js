@@ -1,7 +1,7 @@
 const FieldHistoryModel = require('./FieldHistoryModel.js');
 const judgeField = require('../../routes/v1/util/judgeField.js');
-const post2res2 = require('../../routes/v1/field/post2res2.js');
 const post2res = require('../../routes/v1/field/post2res.js');
+const createRes = require('../../routes/v1/field/createRes.js');
 
 const propFilter = '-_id -__v';
 const field = [];
@@ -17,10 +17,10 @@ module.exports = {
     for (let i = 0; i < fields.length; i += 1) {
       if (field.length > 0) {
         if (judgeField(fields[i], field)) {
-          field.push(post2res2(fields[i], field));
+          field.push(createRes(fields[i], field));
         }
       } else {
-        field.push(post2res2(fields[i], field));
+        field.push(createRes(fields[i], field));
       }
     }
   },
@@ -31,14 +31,15 @@ module.exports = {
 
   addData(add) {
     const recordtime = Math.round(new Date().getTime() / 1000);
-    const record = { ...add, actionId, recordtime };
-    unsavedField.push(record);
-    actionId += 1;
+    unsavedField.push({ ...add, actionId, recordtime });
+
     if (judgeField(add, field)) {
       const postResult = post2res(add, field, actionId);
       field.push(postResult);
+      actionId += 1;
       return { exploded: postResult.exploded, status: true };
     }
+    actionId += 1;
     return { status: false };
   },
 

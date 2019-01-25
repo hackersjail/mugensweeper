@@ -1,7 +1,6 @@
-const { getBomb, addBomb } = require('../../../models/v1/bombStore.js');
-const countBombs = require('../bomb/countBombs.js');
+const { addBomb } = require('../../../models/v1/bombStore.js');
 const createPartOfBombs = require('../bomb/createPartOfBombs.js');
-const judgeExploded = require('../util/judgeExploded.js');
+const createRes = require('./createRes');
 
 module.exports = (req, field, actionId) => {
   const rate = 0.3;
@@ -10,11 +9,5 @@ module.exports = (req, field, actionId) => {
   createPartOfBombs(rate, field, req).forEach((n) => addBomb({ x: n.x, y: n.y, actionId }));
 
   // 爆弾関連の情報を返却
-  return {
-    x: req.x,
-    y: req.y,
-    bombCount: countBombs(getBomb(), req),
-    exploded: judgeExploded(req, getBomb()),
-    userId: req.userId,
-  };
+  return createRes(req);
 };
