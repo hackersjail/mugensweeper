@@ -8,7 +8,7 @@ router
       x: +req.body.x,
       y: +req.body.y,
       userId: req.user.userId,
-      // テストにないため追って追加
+      // 下記はreq.bodyに現状なし、要追加
       isRequestToOpen: JSON.parse(req.body.isRequestToOpen || true),
     };
     res.json(addData(data));
