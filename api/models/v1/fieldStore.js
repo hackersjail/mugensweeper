@@ -1,6 +1,7 @@
 const FieldHistoryModel = require('./FieldHistoryModel.js');
 const judgeField = require('../../routes/v1/util/judgeField.js');
 const post2res = require('../../routes/v1/field/post2res.js');
+const createRes = require('../../routes/v1/field/createRes.js');
 
 const propFilter = '-_id -__v';
 const field = [];
@@ -13,10 +14,15 @@ module.exports = {
     actionId = fields.length;
     field.length = 0;
     unsavedField.length = 0;
-    // for (let i = 0; i < fields.length; i += 1) {
-    //   field.push(post2res(fields[i], field));
-    // }
-    field.push(fields);
+    for (let i = 0; i < fields.length; i += 1) {
+      if (field.length > 0) {
+        if (judgeField(fields[i], field)) {
+          field.push(createRes(fields[i], field));
+        }
+      } else {
+        field.push(createRes(fields[i], field));
+      }
+    }
   },
 
   getData() {
@@ -25,14 +31,16 @@ module.exports = {
 
   addData(add) {
     const recordtime = Math.round(new Date().getTime() / 1000);
-    const record = { ...add, actionId, recordtime };
-    unsavedField.push(record);
-    actionId += 1;
+    unsavedField.push({ ...add, actionId, recordtime });
+
     if (judgeField(add, field)) {
-      field.push(post2res(add, field));
-      return true;
+      const postResult = post2res(add, field, actionId);
+      field.push(postResult);
+      actionId += 1;
+      return { exploded: postResult.exploded, status: true };
     }
-    return false;
+    actionId += 1;
+    return { status: false };
   },
 
   async saveData() {
@@ -43,8 +51,8 @@ module.exports = {
   },
 
   // 検証への使用度高関数のため保存
-  // async deleteData() {
-  //   await FieldHistoryModel.deleteMany();
-  //   prefield.length = 0;
-  // },
+  async deleteData() {
+    await FieldHistoryModel.deleteMany();
+    unsavedField.length = 0;
+  },
 };

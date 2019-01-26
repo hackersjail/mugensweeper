@@ -7,6 +7,8 @@ const unsavedBomb = [];
 
 module.exports = {
   async initBomb() {
+    bombMap.length = 0;
+    unsavedBomb.length = 0;
     const bombs = await BombHistoryModel.find({}, propFilter).lean();
     bombMap.push(...createBombMap(bombs));
   },
@@ -22,6 +24,11 @@ module.exports = {
 
   async saveBomb() {
     await BombHistoryModel.insertMany(unsavedBomb);
+    unsavedBomb.length = 0;
+  },
+
+  async deleteBomb() {
+    await BombHistoryModel.deleteMany();
     unsavedBomb.length = 0;
   },
 };
