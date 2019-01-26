@@ -13,9 +13,10 @@ module.exports = {
     actionId = fields.length;
     field.length = 0;
     unsavedField.length = 0;
-    for (let i = 0; i < fields.length; i += 1) {
-      field.push(post2res(fields[i], field));
-    }
+    // for (let i = 0; i < fields.length; i += 1) {
+    //   field.push(post2res(fields[i], field));
+    // }
+    field.push(fields);
   },
 
   getData() {

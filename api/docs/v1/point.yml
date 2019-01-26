@@ -5,6 +5,10 @@ tags:
   post:
     tags:
       - Point
+    securityDefinitions:
+      - $ref: "#/securityDefinitions/tokenAuth"
+    security:
+      - tokenAuth: []
     produces:
       - "text/html; charset=utf-8"
     parameters:
