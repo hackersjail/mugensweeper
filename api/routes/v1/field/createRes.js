@@ -1,13 +1,16 @@
+// createRes.js
+
 const { getBomb } = require('../../../models/v1/bombStore.js');
 const countBombs = require('../bomb/countBombs.js');
 const judgeExploded = require('../util/judgeExploded.js');
 
-module.exports = (req) =>
-  // 爆弾関連の情報を返却
-  ({
+module.exports = (req) => {
+  const judgeExp = judgeExploded(req, getBomb());
+  return {
     x: req.x,
     y: req.y,
-    bombCount: countBombs(getBomb(), req),
-    exploded: judgeExploded(req, getBomb()),
     userId: req.userId,
-  });
+    exploded: judgeExp,
+    bombCount: judgeExp ? null : countBombs(getBomb(), req),
+  };
+};
