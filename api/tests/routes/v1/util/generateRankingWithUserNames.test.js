@@ -45,7 +45,10 @@ describe('ブロックを開くとき', () => {
 
     const fieldWithExplodedData = [];
     for (let i = 0; i < fieldHistory.length; i += 1) {
-      fieldWithExplodedData.push(judgeExploded(fieldHistory[i], bombHistory));
+      fieldWithExplodedData.push({
+        ...fieldHistory[i],
+        exploded: judgeExploded(fieldHistory[i], bombHistory),
+      });
     }
     const ranking = generateRaningWithUserNames(fieldWithExplodedData, userinfo);
 

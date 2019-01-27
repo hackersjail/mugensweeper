@@ -17,7 +17,7 @@ const generateEachPoint = (fieldInfo) =>
 
 module.exports = {
   createNewfieldWithBombMap: (fieldHistory, bombMap) =>
-    fieldHistory.map((field) => judgeExploded(field, bombMap)),
+    fieldHistory.map((field) => ({ ...field, exploded: judgeExploded(field, bombMap) })),
 
   calculatePointsForPlayer: (fieldWithBombMap, user) =>
     generateEachPoint(fieldWithBombMap).find((block) => block.userId === user),

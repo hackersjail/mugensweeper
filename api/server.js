@@ -32,18 +32,19 @@ async function start() {
     }
   });
 
-  await Promise.all([initUser(), initData(), initBomb()]);
+  await Promise.all([initUser(), initBomb()]);
+  await initData();
 
   if (getData().length === 0) {
     await new UserModel({ userName: 'master', userId: '00000000' }).save();
     await new FieldHistoryModel({ x: 0, y: 0, userId: '00000000' }).save();
-    await Promise.all([initUser(), initData(), initBomb()]);
+
+    await Promise.all([initUser(), initBomb()]);
+    await initData();
   }
 
   // 検証への使用度高関数のため保存
-  // await deleteData();
-  // await deleteUser();
-  // await deleteBomb();
+  // await Promise.all([deleteBomb(), deleteData()]);
 
   while (true) {
     const startTime = Date.now(); // 開始時間
