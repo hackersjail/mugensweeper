@@ -10,6 +10,9 @@ const FieldHistoryModel = require('../../../../models/v1/FieldHistoryModel.js');
 const BombHistoryModel = require('../../../../models/v1/BombHistoryModel.js');
 const UserModel = require('../../../../models/v1/UserModel.js');
 
+const token =
+  'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJleGFtcGxlMCIsImV4cCI6MTcwNTc0MjM4OSwiYXVkIjoibXVnZW5zd2VlcGVycyIsImlzcyI6Im11Z2Vuc3dlZXBlcnMifQ.ISinmaTZDcOzHM4q4MALgmnSA7x6wN9pa1wkRGvlRWw';
+
 const ZERO00000 = 0;
 const FIRST_ONE = 'u0:0:op';
 const propFilter = '-_id -__v';
@@ -45,22 +48,22 @@ describe('ブロックを開くとき', () => {
       0, 14, 0, 0, 0, 0, 0,
     ], time);
     const userinfo = [
-      { userName: 'Nanako', userId: 1 },
-      { userName: 'Taro', userId: 2 },
-      { userName: 'Ken', userId: 3 },
-      { userName: 'Jiro', userId: 4 },
-      { userName: 'Momoko', userId: 5 },
-      { userName: 'Sayaka', userId: 6 },
-      { userName: 'Yuki', userId: 7 },
+      { userName: 'Nanako', userId: 'example0' },
+      { userName: 'Taro', userId: 'example1' },
+      { userName: 'Ken', userId: 'example2' },
+      { userName: 'Jiro', userId: 'example3' },
+      { userName: 'Momoko', userId: 'example4' },
+      { userName: 'Sayaka', userId: 'example5' },
+      { userName: 'Yuki', userId: 'example6' },
     ];
-    // const currentUser = { userName: 'Nanako', userId: 1 };
+
     const matcher = [
-      { points: 3, userId: '5', userName: 'Momoko' },
-      { points: 2, userId: '3', userName: 'Ken' },
-      { points: 2, userId: '2', userName: 'Taro' },
-      { points: 1, userId: '1', userName: 'Nanako' },
-      { points: 1, userId: '6', userName: 'Sayaka' },
-      { points: 1, userId: '7', userName: 'Yuki' },
+      { points: 3, userId: 'example5', userName: 'Sayaka' },
+      { points: 2, userId: 'example3', userName: 'Jiro' },
+      { points: 2, userId: 'example2', userName: 'Ken' },
+      { points: 1, userId: 'example0', userName: 'Nanako' },
+      { points: 1, userId: 'example1', userName: 'Taro' },
+      { points: 1, userId: 'example6', userName: 'Yuki' },
     ];
 
     await BombHistoryModel.insertMany(bombHistory);
@@ -72,21 +75,11 @@ describe('ブロックを開くとき', () => {
     await initData();
     await initUser();
 
-    // const data = getData();
-    // console.log(data);
-
-    const { body } = await chai
+    const withTokenGet = (await chai
       .request(app)
       .get('/v1/point')
-      .set('content-type', 'application/x-www-form-urlencoded');
+      .set('Authorization', token)).body; // headerにテスト用tokenセット
 
-    // const { currentUserInfo } = await chai
-    //   .request(app)
-    //   .get('/v1/point')
-    //   .set('content-type', 'application/x-www-form-urlencoded')
-    //   // .set('Authorization', token) // headerにテスト用tokenセット
-    //   .send(currentUser);
-
-    expect(body).toEqual(matcher);
+    expect(withTokenGet).toEqual(matcher);
   });
 });

@@ -6,7 +6,8 @@ const generateRankingWithUserNames = require('../util/generateRankingWithUserNam
 const bestfive = [];
 
 router.get('/', async (req, res) => {
-  // console.log('YYYYY');
+  // const userId = req.user.userId;
+
   // const { userId } = jwt.decode(accessToken);
   // console.log(userId);
   // const user1 = req.currentUser;
@@ -18,7 +19,6 @@ router.get('/', async (req, res) => {
   const ranking = generateRankingWithUserNames(field, user);
 
   await ranking.sort((a, b) => b.points - a.points);
-  // console.log(ranking);
   for (let i = 0; i < ranking.length; i += 1) {
     if (bestfive.length < 5) {
       bestfive.push(ranking[i]);

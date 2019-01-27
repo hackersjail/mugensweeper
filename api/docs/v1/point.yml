@@ -2,7 +2,7 @@ tags:
   - name: Point
     description: point API
 /point:
-  post:
+  get:
     tags:
       - Point
     securityDefinitions:
