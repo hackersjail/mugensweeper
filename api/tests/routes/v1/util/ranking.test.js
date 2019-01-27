@@ -58,12 +58,17 @@ describe('ブロックを開くとき', () => {
     ];
 
     const matcher = [
-      { points: 3, userId: 'example5', userName: 'Sayaka' },
-      { points: 2, userId: 'example3', userName: 'Jiro' },
-      { points: 2, userId: 'example2', userName: 'Ken' },
-      { points: 1, userId: 'example0', userName: 'Nanako' },
-      { points: 1, userId: 'example1', userName: 'Taro' },
-      { points: 1, userId: 'example6', userName: 'Yuki' },
+      { myData: { points: 1, userId: 'example0', userName: 'Nanako' } },
+      {
+        bestfive: [
+          { points: 3, userId: 'example5', userName: 'Sayaka' },
+          { points: 2, userId: 'example3', userName: 'Jiro' },
+          { points: 2, userId: 'example2', userName: 'Ken' },
+          { points: 1, userId: 'example0', userName: 'Nanako' },
+          { points: 1, userId: 'example1', userName: 'Taro' },
+          { points: 1, userId: 'example6', userName: 'Yuki' },
+        ],
+      },
     ];
 
     await BombHistoryModel.insertMany(bombHistory);

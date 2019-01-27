@@ -6,11 +6,7 @@ const generateRankingWithUserNames = require('../util/generateRankingWithUserNam
 const bestfive = [];
 
 router.get('/', async (req, res) => {
-  // const userId = req.user.userId;
-
-  // const { userId } = jwt.decode(accessToken);
-  // console.log(userId);
-  // const user1 = req.currentUser;
+  const currentUser = req.user.userId;
   // fieldの取得
   const field = await fieldStore.getData();
   // userの取得
@@ -30,6 +26,11 @@ router.get('/', async (req, res) => {
       }
     }
   }
-  res.json(bestfive);
+
+  const myData1 = ranking.filter((i) => i.userId === currentUser);
+  const myData = myData1[0];
+  const data = [{ myData }, { bestfive }];
+
+  res.json(data);
 });
 module.exports = router;
