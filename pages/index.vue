@@ -247,7 +247,7 @@ export default {
 .border-x,
 .border-y {
   stroke: black;
-  stroke: 4px;
+  stroke-width: 1px;
 }
 .rect {
   fill: lightgray;
