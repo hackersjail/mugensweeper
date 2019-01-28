@@ -16,6 +16,7 @@ export const state = () => ({
     { userId: 6, userName: 'etoh', userScore: 128 },
     { userId: 7, userName: 'matsuda', userScore: 129 },
   ],
+  you: { userId: 1, userName: 'mishima', userScore: 123 },
   moveDist: { x: 0, y: 0 }, // 原点の移動量
   swipeInit: { x: 0, y: 0 }, // swipe基準点
   dragInit: { x: 0, y: 0 }, // drag基準点

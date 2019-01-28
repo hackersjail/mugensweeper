@@ -2,7 +2,7 @@
   <section class="container">
     <modal v-if="overlay" @closeOverlay="closeOverlay" />
     <user-name-input v-if="visibleName" @register-name="registerName" />
-    <ranking v-if="visibleRanking" :ranked-users="rankedUsers" />
+    <ranking v-if="visibleRanking" :ranked-users="rankedUsers" :you="you" />
 
     <div
       class="field"
@@ -86,7 +86,16 @@ export default {
     UserNameInput,
   },
   computed: {
-    ...mapState(['userName', 'token', 'rankedUsers', 'blocks', 'gridX', 'moveDist', 'dragFlg']),
+    ...mapState([
+      'userName',
+      'token',
+      'rankedUsers',
+      'you',
+      'blocks',
+      'gridX',
+      'moveDist',
+      'dragFlg',
+    ]),
     gridWidth() {
       return this.$window.width / this.gridX;
     },
@@ -238,7 +247,7 @@ export default {
 .border-x,
 .border-y {
   stroke: black;
-  stroke-width: 1px;
+  stroke: 4px;
 }
 .rect {
   fill: lightgray;
