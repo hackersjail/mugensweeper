@@ -15,7 +15,6 @@ const token =
 
 const ZERO00000 = 0;
 const FIRST_ONE = 'u0:0:op';
-const propFilter = '-_id -__v';
 const time = Math.round(new Date().getTime() / 1000);
 
 describe('ブロックを開くとき', () => {
@@ -58,33 +57,27 @@ describe('ブロックを開くとき', () => {
     ];
 
     const matcher = [
-      { myData: { points: 1, userId: 'example0', userName: 'Nanako' } },
-      {
-        bestfive: [
-          { points: 3, userId: 'example5', userName: 'Sayaka' },
-          { points: 2, userId: 'example3', userName: 'Jiro' },
-          { points: 2, userId: 'example2', userName: 'Ken' },
-          { points: 1, userId: 'example0', userName: 'Nanako' },
-          { points: 1, userId: 'example1', userName: 'Taro' },
-          { points: 1, userId: 'example6', userName: 'Yuki' },
-        ],
-      },
+      { points: 1, userName: 'Nanako' },
+      { points: 3, userName: 'Sayaka' },
+      { points: 2, userName: 'Jiro' },
+      { points: 2, userName: 'Ken' },
+      { points: 1, userName: 'Nanako' },
+      { points: 1, userName: 'Taro' },
+      { points: 1, userName: 'Yuki' },
     ];
 
     await BombHistoryModel.insertMany(bombHistory);
     await FieldHistoryModel.insertMany(fieldHistory);
     await UserModel.insertMany(userinfo);
-    await BombHistoryModel.find({}, propFilter).lean();
-    await FieldHistoryModel.find({}, propFilter).lean();
     await initBomb();
     await initData();
     await initUser();
 
-    const withTokenGet = (await chai
+    const ranking = (await chai
       .request(app)
       .get('/v1/point')
       .set('Authorization', token)).body; // headerにテスト用tokenセット
 
-    expect(withTokenGet).toEqual(matcher);
+    expect(ranking).toEqual(matcher);
   });
 });

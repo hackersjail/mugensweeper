@@ -1,4 +1,3 @@
-// const chai = require('chai');
 const array2fieldHistory = require('./array2fieldHistory.js');
 const array2bombMap = require('./array2bombMap.js');
 
@@ -12,7 +11,7 @@ const time = Math.round(new Date().getTime() / 1000);
 const ZERO00000 = 0;
 
 describe('ブロックを開くとき', () => {
-  it('得点に関するテスト', async () => {
+  it('得点に関するテスト', () => {
     // Given
     // prettier-ignore
     const fieldHistory = array2fieldHistory([

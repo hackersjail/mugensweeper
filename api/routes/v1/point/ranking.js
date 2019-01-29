@@ -10,9 +10,9 @@ router.get('/', async (req, res) => {
   // fieldの取得
   const field = await fieldStore.getData();
   // userの取得
-  const user = await userStore.getUser();
+  const users = await userStore.getUser();
   // rankingの作成
-  const ranking = generateRankingWithUserNames(field, user);
+  const ranking = generateRankingWithUserNames(field, users);
 
   await ranking.sort((a, b) => b.points - a.points);
   for (let i = 0; i < ranking.length; i += 1) {
@@ -29,8 +29,8 @@ router.get('/', async (req, res) => {
 
   const myData1 = ranking.filter((i) => i.userId === currentUser);
   const myData = myData1[0];
-  const data = [{ myData }, { bestfive }];
-
+  bestfive.unshift(myData);
+  const data = bestfive.map(({ points, userName }) => ({ points, userName }));
   res.json(data);
 });
 module.exports = router;
