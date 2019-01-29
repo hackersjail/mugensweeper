@@ -1,0 +1,7 @@
+parameters:
+  userNameParam:
+    name: userName
+    in: formData
+    description: User name
+    required: true
+    type: string

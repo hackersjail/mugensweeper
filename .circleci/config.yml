@@ -1,0 +1,117 @@
+version: 2.1
+
+executors:
+  default:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:10.15
+        environment:
+          TZ: Asia/Tokyo
+
+commands:
+  restore_repo:
+    steps:
+      - restore_cache:
+          name: Restore repository
+          key: repo-v1-{{ .Environment.CIRCLE_SHA1 }}
+  save_repo:
+    steps:
+      - checkout
+      - run:
+          name: Make Shell Script executable
+          command: chmod a+x ./.circleci/webhook.sh
+      - save_cache:
+          name: Cache repository
+          key: repo-v1-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/repo
+  restore_npm:
+    steps:
+      - restore_cache:
+          name: Restore npm dependencies
+          key: yarn-packages-v1-{{ checksum "yarn.lock" }}
+  save_npm:
+    steps:
+      - save_cache:
+          name: Cache npm dependencies
+          key: yarn-packages-v1-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+  setup_awscli:
+    steps:
+      - run:
+          name: Install AWS CLI
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y awscli
+  notify_deployment_failed:
+    steps:
+      - run:
+          name: Notify deployment failed
+          command: ./.circleci/webhook.sh
+          environment:
+            DEPLOY_RESULT: failed
+            WEBHOOK_COLOR: "#d10c20"
+          when: on_fail
+  notify_deployment_succeeded:
+    steps:
+      - run:
+          name: Notify deployment succeeded
+          command: ./.circleci/webhook.sh
+          environment:
+            DEPLOY_RESULT: succeeded
+            WEBHOOK_COLOR: "#41aa58"
+
+jobs:
+  test:
+    executor:
+      name: default
+    steps:
+      - save_repo
+      - restore_npm
+      - run:
+          name: Install npm dependencies
+          command: yarn
+      - save_npm
+      - run:
+          name: Run lint
+          command: yarn lint
+      - run:
+          name: Run test
+          command: yarn test:coverage --runInBand
+      - run:
+          name: Run test with current Node.js version
+          command: npx --package node@^11 node ./node_modules/.bin/jest --config api/jest.config.js --runInBand
+      - run:
+          name: Run a security audit
+          command: yarn audit
+      - run:
+          name: Report coverage results
+          command: yarn coverage
+  deploy_api:
+    executor:
+      name: default
+    steps:
+      - restore_repo
+      - setup_awscli
+      - run:
+          name: Deploy API server
+          command: |
+            [ $CIRCLE_BRANCH = "master" ] && group=$AWS_PROD_GROUP || group=$AWS_STG_GROUP
+            aws deploy create-deployment --application-name $AWS_APP_NAME --deployment-group-name $group \
+            --github-location repository="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME",commitId="$CIRCLE_SHA1"
+      - notify_deployment_failed
+      - notify_deployment_succeeded
+
+workflows:
+  test_and_deploy:
+    jobs:
+      - test
+      - deploy_api:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - master
+                - develop

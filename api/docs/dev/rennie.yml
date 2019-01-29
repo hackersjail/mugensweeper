@@ -1,0 +1,128 @@
+tags:
+  - name: rennie
+    description: Example API
+/rennie/field:
+  get:
+    tags:
+      - rennie
+    produces:
+      - "text/html; charset=utf-8"
+
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+          example: "text"
+
+# //ブロックのところ
+/rennie/block:
+  post:
+    x-swagger-router-controller: test
+    operationId: test_post
+    security:
+      - tokenAuth: []
+    tags:
+      - block
+    summary: "clicked blocks"
+    description: |
+      - status
+      - クリックした場所のxとyの情報
+    parameters:
+      - $ref: "#/definitions/Block/properties/x"
+      - $ref: "#/definitions/Block/properties/y"
+    responses:
+      200:
+        description: "show clicked x & y"
+        schema:
+          type: "object"
+          properties:
+            # status:
+            #   $ref: "#/definitions/Status"
+            block:
+              $ref: "#/definitions/block"
+      401:
+        description: "Unauthorized"
+  delete:
+    x-swagger-router-controller: test
+    operationId: test_post
+    security:
+      - tokenAuth: []
+    tags:
+      - block
+    summary: "delete blocks"
+    parameters:
+      - name: "pieces"
+        description: "Add items to be deleted"
+        in: "body"
+        schema:
+          $ref: "#/definitions/Positions"
+    responses:
+      200:
+        description: "return delete status and board condition"
+        schema:
+          type: "object"
+          properties:
+            status:
+              $ref: "#/definitions/Status"
+    #   # - name: "keyword"
+    #   #   in: "query"
+    #   #   description: "Please enter keyword if you want to delete all pieces."
+    #   #   required: false
+    #   #   type: "string"
+    # responses:
+    #   200:
+    #     description: "return delete status and board condition"
+    #     schema:
+    #       type: "object"
+    #       properties:
+    #         status:
+    #           $ref: "#/definitions/Status"
+
+definitions:
+  Block:
+    type: object
+    description: "block condition"
+    properties:
+      x:
+        name: "x"
+        type: number
+        description: "x position"
+        example: 1
+        in: "formData"
+        required: true
+      y:
+        name: "y"
+        type: number
+        description: "y position"
+        example: 1
+        in: "formData"
+        required: true
+      # userId:
+      #   name: userId
+      #   in: "query"
+      #   description: "userId"
+      #   type: number
+      #   example: 1
+      #   required: true
+  Positions:
+    type: array
+    description: "just show piece locations (not include userId information)"
+    items:
+      $ref: "#/definitions/Position"
+  Position:
+    type: "object"
+    description: "just show piece location (not include userId information)"
+    properties:
+      x:
+        name: "x"
+        type: "number"
+        example: 1
+        in: "formData"
+      y:
+        name: "y"
+        type: "number"
+        example: 1
+        in: "formData"
+# //ここまでコピー
+

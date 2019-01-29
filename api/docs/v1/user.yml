@@ -1,0 +1,16 @@
+tags:
+  - name: User
+    description: User API
+/user:
+  post:
+    tags:
+      - User
+    parameters:
+      - $ref: "#/parameters/userNameParam"
+    responses:
+      200:
+        description: success
+        schema:
+          $ref: "#/definitions/User"
+      401:
+        $ref: "#/responses/Unauthorized"

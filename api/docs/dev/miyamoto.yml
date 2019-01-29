@@ -1,0 +1,149 @@
+tags:
+  - name: Miyamoto
+    description: Miyamoto API
+/miyamoto/field:
+  get:
+    tags:
+      - Miyamoto
+    produces:
+      - "text/html; charset=utf-8"
+    security:
+      - tokenAuth: []
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+          example: "text"
+/miyamoto/block:
+  post:
+    x-swagger-router-controller: test
+    operationId: test_post
+    security:
+      - tokenAuth: []
+    tags:
+      - block
+    summary: "open a block on board"
+    description: |
+      - status
+        - 開いたblockの情報を返す
+    parameters:
+      - $ref: "#/definitions/Block/properties/x"
+      - $ref: "#/definitions/Block/properties/y"
+    responses:
+      200:
+        description: "show block info"
+        schema:
+          type: "object"
+          properties:
+            status:
+              $ref: "#/definitions/Status"
+            block:
+              $ref: "#/definitions/Block"
+      401:
+        description: "Unauthorized"
+  delete:
+    x-swagger-router-controller: test
+    operationId: test_post
+    security:
+      - tokenAuth: []
+    tags:
+      - block
+    summary: "reset all block state"
+    responses:
+      200:
+        description: "return delete status and board condition"
+        schema:
+          type: "object"
+          properties:
+            status:
+              $ref: "#/definitions/Status"
+definitions:
+  Status:
+    type: "boolean"
+    description: "return success or fail of your order"
+    example: true
+  Block:
+    type: object
+    description: "piece condition"
+    properties:
+      x:
+        name: "x"
+        type: number
+        description: "x position"
+        example: 1
+        in: "formData"
+        required: true
+      y:
+        name: "y"
+        type: number
+        description: "y position"
+        example: 1
+        in: "formData"
+        required: true
+  userId:
+    type: "string"
+    description: "generate new userId"
+    properties:
+      userId:
+        name: "userId"
+        type: "string"
+        description: "userId"
+        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+        in: "formData"
+        required: true
+  accessToken:
+    type: "string"
+    description: "post accessToken"
+    properties:
+      accessToken:
+        name: "accessToken"
+        type: "string"
+        description: "post accessToken"
+        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+        in: "formData"
+        required: true
+/user_id_generate:
+  post:
+    tags:
+      - "userId"
+    summary: "generate new userId by JWT"
+    description: "userIdの新規生成"
+    parameters:
+      - name: userName
+        in: "formData"
+        description: "input user name"
+        type: string
+        example: "testname"
+        required:
+    responses:
+      200:
+        description: "return a new userId"
+        schema:
+          type: "object"
+          properties:
+            userId:
+              $ref: "#/definitions/userId"
+securityDefinitions:
+  tokenAuth:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+/access_auth:
+  post:
+    x-swagger-router-controller: test
+    operationId: test_post
+    security:
+      - tokenAuth: []
+    tags:
+      - accessAuth
+    description: Post message to test
+    responses:
+      "200":
+        description: Success
+        schema:
+          $ref: "#/definitions/SimpleResponse"
+      default:
+        description: Error
+        schema:
+          $ref: "#/definitions/ErrorResponse"

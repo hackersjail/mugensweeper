@@ -1,0 +1,36 @@
+tags:
+  - name: Field
+    description: field API
+/field:
+  post:
+    tags:
+      - Field
+    securityDefinitions:
+      - $ref: "#/securityDefinitions/tokenAuth"
+    security:
+      - tokenAuth: []
+    parameters:
+      - $ref: "#/parameters/xParam"
+      - $ref: "#/parameters/yParam"
+      - $ref: "#/parameters/userIdParam"
+    responses:
+      200:
+        description: success
+      401:
+        $ref: "#/responses/Unauthorized"
+  get:
+    tags:
+      - Field
+    securityDefinitions:
+      - $ref: "#/securityDefinitions/tokenAuth"
+    security:
+      - tokenAuth: []
+    responses:
+      200:
+        description: success
+        schema:
+          type: array
+          items:
+            $ref: "#/definitions/Field"
+      401:
+        $ref: "#/responses/Unauthorized"
