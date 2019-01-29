@@ -34,7 +34,7 @@ describe('ブロックを開くとき', () => {
       ZERO00000,'u6:11:op', 'u5:10:op', FIRST_ONE, 'u4:6:op', 'u5:9:op',ZERO00000,
       ZERO00000,'u3:13:op', ZERO00000, 'u2:1:op', 'u4:8:op', ZERO00000,ZERO00000,
       ZERO00000,ZERO00000, 'u1:2:op', ZERO00000, ZERO00000, ZERO00000,ZERO00000,
-      ZERO00000,ZERO00000,'u7:14:op',ZERO00000,ZERO00000,ZERO00000,ZERO00000,
+      'u8:19:op',ZERO00000,'u7:14:op','u8:15:op','u1:16:op','u7:17:op','u6:18:op',
     ], time);
     // prettier-ignore
     const bombHistory = array2bomMap([
@@ -43,7 +43,7 @@ describe('ブロックを開くとき', () => {
       12, 0, 0, 0, 3, 0, 0,
       11, 0, 0, 0, 6, 0, 0,
       13, 0, 10, 0, 8, 9, 0,
-      0, 1, 2, 0, 0, 0, 0,
+      0, 1, 2, 16, 15, 7, 0,
       0, 14, 0, 0, 0, 0, 0,
     ], time);
     const userinfo = [
@@ -54,6 +54,8 @@ describe('ブロックを開くとき', () => {
       { userName: 'Momoko', userId: 'example4' },
       { userName: 'Sayaka', userId: 'example5' },
       { userName: 'Yuki', userId: 'example6' },
+      { userName: 'Yuka', userId: 'example7' },
+      { userName: 'Taka', userId: 'example8' },
     ];
 
     const matcher = [
@@ -63,9 +65,9 @@ describe('ブロックを開くとき', () => {
           { points: 3, userName: 'Sayaka' },
           { points: 2, userName: 'Jiro' },
           { points: 2, userName: 'Ken' },
-          { points: 1, userName: 'Nanako' },
-          { points: 1, userName: 'Taro' },
-          { points: 1, userName: 'Yuki' },
+          { points: 2, userName: 'Taro' },
+          { points: 2, userName: 'Yuka' },
+          { points: 2, userName: 'Yuki' },
         ],
       },
     ];
