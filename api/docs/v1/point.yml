@@ -9,24 +9,6 @@ tags:
       - $ref: "#/securityDefinitions/tokenAuth"
     security:
       - tokenAuth: []
-    produces:
-      - "text/html; charset=utf-8"
-    parameters:
-      - name: "userId"
-        in: "formData"
-        description: "User ID"
-        required: true
-        type: "string"
-      - name: "points"
-        in: "formData"
-        description: "points"
-        required: true
-        type: number
-      - name: "userName"
-        in: "formData"
-        description: "User name"
-        required: true
-        type: "string"
     responses:
       200:
         description: "success"
