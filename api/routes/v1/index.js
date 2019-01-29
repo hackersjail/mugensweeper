@@ -35,5 +35,6 @@ config.swaggerSecurityHandlers = {
 
 router.use('/user', require('./user/user.js'));
 router.use('/field', auth.authenticate(), require('./field/field.js'));
+router.use('/point', auth.authenticate(), require('./point/ranking.js'));
 
 module.exports = router;
