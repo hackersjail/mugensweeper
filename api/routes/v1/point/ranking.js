@@ -28,9 +28,10 @@ router.get('/', async (req, res) => {
   }
 
   const myData1 = ranking.filter((i) => i.userId === currentUser);
-  const myData = myData1[0];
-  bestfive.unshift(myData);
-  const data = bestfive.map(({ points, userName }) => ({ points, userName }));
+  const preMyData1 = myData1.map(({ points, userName }) => ({ points, userName }));
+  const top5 = bestfive.map(({ points, userName }) => ({ points, userName }));
+  const myData = preMyData1[0];
+  const data = [{ myData, top5 }];
   res.json(data);
 });
 module.exports = router;
