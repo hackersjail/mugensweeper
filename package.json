@@ -1,7 +1,7 @@
 {
   "name": "mugensweeper",
   "version": "0.0.0",
-  "description": "",
+  "description": "MugenSweeper is unlimited Minesweeper.",
   "author": "m-mitsuhide",
   "private": true,
   "engines": {
@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node api/server.js",
-    "deploy": "npm run ps:start -- --only ms-api --env production",
+    "deploy": "pm2 start api/server.js --name mugensweeper-api",
     "dev": "npm-run-all --parallel dev:*",
     "dev:api": "nodemon --exec \"npm start\" --config api/nodemon.json",
     "dev:client": "nuxt",
@@ -22,10 +22,9 @@
     "coverage": "codecov",
     "docker:dev": "npm-run-all --parallel \"dev:api -- --legacy-watch\" dev:client",
     "docker:test": "nodemon --config api/nodemon-docker.json --legacy-watch",
-    "ps:start": "pm2 start process.json",
-    "ps:restart": "pm2 restart process.json",
-    "ps:stop": "pm2 stop process.json",
-    "ps:delete": "pm2 delete process.json",
+    "ps:restart": "pm2 restart mugensweeper-api",
+    "ps:stop": "pm2 stop mugensweeper-api",
+    "ps:delete": "pm2 delete mugensweeper-api",
     "ps:list": "pm2 list",
     "ps:log": "pm2 logs",
     "ps:monit": "pm2 monit",
