@@ -32,12 +32,12 @@ describe('field情報を返せるかどうか', () => {
 
     // prettier-ignore
     const fieldHistory2 = [
-      { x: 0, y: 0, userId: 0, actionId: 0,  action: 'opened' },
-      { x: 0, y: -1, userId: 2, actionId: 1,  action: 'opened',  },
-      { x: -1, y: -2, userId: 1, actionId: 2,  action: 'opened', },
-      { x: 1, y: 1, userId: 3, actionId: 3,  action: 'opened' },
-      { x: 2, y: 2,  userId: 1, actionId: 4, action: 'opened' },
-      { x: 1, y: 2, userId: 2, actionId: 5, action: 'opened' },
+      { x: 0, y: 0, userId: 'example0', actionId: 0,  action: 'opened' },
+      { x: 0, y: -1, userId: 'example2', actionId: 1,  action: 'opened',  },
+      { x: -1, y: -2, userId: 'example1', actionId: 2,  action: 'opened', },
+      { x: 1, y: 1, userId: 'example3', actionId: 3,  action: 'opened' },
+      { x: 2, y: 2,  userId: 'example1', actionId: 4, action: 'opened' },
+      { x: 1, y: 2, userId: 'example2', actionId: 5, action: 'opened' },
     ];
     // Then
     expect(fieldHistory).toEqual(expect.arrayContaining(fieldHistory2));

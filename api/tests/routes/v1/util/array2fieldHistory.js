@@ -6,7 +6,7 @@ module.exports = (array) => {
         ? {
             x: Math.floor(idx % size) - Math.floor(size / 2),
             y: Math.floor(size / 2) - Math.floor(idx / size),
-            userId: +p.split(':')[0].replace('u', ''),
+            userId: p.split(':')[0].replace('u', 'example'),
             action: p.split(':')[2] === 'op' ? 'opened' : 'none',
             actionId: +p.split(':')[1],
           }

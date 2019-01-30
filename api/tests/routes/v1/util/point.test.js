@@ -40,11 +40,11 @@ describe('ブロックを開くとき', () => {
       ]);
 
     const rankingMatcher = [
-      { userId: 1, points: 3 },
-      { userId: 4, points: 2 },
-      { userId: 5, points: 1 },
-      { userId: 2, points: 0 },
-      { userId: 3, points: 0 },
+      { userId: 'example1', points: 3 },
+      { userId: 'example4', points: 2 },
+      { userId: 'example5', points: 1 },
+      { userId: 'example2', points: 0 },
+      { userId: 'example3', points: 0 },
     ];
 
     // fieldHistoryとbombHistoryを使って爆弾情報を含んだfieldの生成
