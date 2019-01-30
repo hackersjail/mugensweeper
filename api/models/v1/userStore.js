@@ -22,7 +22,7 @@ module.exports = {
 
   async addUser(userName) {
     // ユニークな8桁のIDを生成
-    let userId = '';
+    let userId = users.length === 0 ? getHash.generateHash(option) : '';
     const find = (v) => v.userId === userId;
     while (users.find(find)) {
       userId = getHash.generateHash(option);
