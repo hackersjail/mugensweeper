@@ -1,5 +1,4 @@
 const chai = require('chai');
-const getHash = require('random-hash');
 const app = require('../../../../routes/app.js');
 const { initUser, getUser, addUser } = require('../../../../models/v1/userStore.js');
 const { connectDB, disconnectDB, dropDB } = require('../../../../database.js');
@@ -74,29 +73,20 @@ describe('ユーザー情報を返せるかどうか', () => {
   });
 
   it('新規に生成したuserIdが、既存のuserIdと重複していないか確認', async () => {
-    // Given
-    const option = {
-      length: 7,
-      charset: 'abcdefghijklmnopqrstuvw123456789',
-    };
-
-    // When
-    const users = [];
+    const userIds = [];
     for (let i = 0; i < 100; i += 1) {
-      const userName = getHash.generateHash(option);
-      const { body } = await chai
+      // When
+      const {
+        body: { userId },
+      } = await chai
         .request(app)
         .post('/v1/user')
         .set('content-type', 'application/x-www-form-urlencoded')
-        .send({ userName });
-      users.push(body);
-    }
+        .send({ userName: 'test' });
 
-    // Then
-    for (let s = 0; s < 100; s += 1) {
-      for (let t = s + 1; t < 100; t += 1) {
-        expect(users[s].userId).not.toBe(users[t].userId);
-      }
+      // Then
+      expect(userIds).not.toContain(userId);
+      userIds.push(userId);
     }
   });
 });
