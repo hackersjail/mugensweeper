@@ -1,4 +1,5 @@
 const chai = require('chai');
+const getHash = require('random-hash');
 const app = require('../../../../routes/app.js');
 const { initUser, getUser, addUser } = require('../../../../models/v1/userStore.js');
 const { connectDB, disconnectDB, dropDB } = require('../../../../database.js');
@@ -28,6 +29,7 @@ describe('ユーザー情報を返せるかどうか', () => {
 
       // then
       expect(lastBody).toHaveProperty('userId');
+      expect(lastBody.userId.length).toBe(8); // userIdは必ず8桁の値である事を確認
       expect(lastBody.userName).toBe(userName);
     }
 
@@ -40,6 +42,7 @@ describe('ユーザー情報を返せるかどうか', () => {
 
     // then
     expect(afteraddUser[0]).toHaveProperty('userId');
+    expect(afteraddUser[0].userId.length).toBe(8); // userIdは必ず8桁の値である事を確認
     expect(afteraddUser[0].userName).toBe(nameList[0].userName);
   });
 
@@ -68,5 +71,32 @@ describe('ユーザー情報を返せるかどうか', () => {
     results.forEach((r, i) => {
       expect(r).toBe(nameList[i].judge ? 200 : 401);
     });
+  });
+
+  it('新規に生成したuserIdが、既存のuserIdと重複していないか確認', async () => {
+    // Given
+    const option = {
+      length: 7,
+      charset: 'abcdefghijklmnopqrstuvw123456789',
+    };
+
+    // When
+    const users = [];
+    for (let i = 0; i < 100; i += 1) {
+      const userName = getHash.generateHash(option);
+      const { body } = await chai
+        .request(app)
+        .post('/v1/user')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send({ userName });
+      users.push(body);
+    }
+
+    // Then
+    for (let s = 0; s < 100; s += 1) {
+      for (let t = s + 1; t < 100; t += 1) {
+        expect(users[s].userId).not.toBe(users[t].userId);
+      }
+    }
   });
 });
