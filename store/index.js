@@ -7,16 +7,7 @@ export const state = () => ({
   token: null,
   blocks: null,
   gridX: DEFAULT_GRID_X,
-  rankedUsers: [
-    { userId: 1, userName: 'mishima', userScore: 123 },
-    { userId: 2, userName: 'shiratsuchi', userScore: 124 },
-    { userId: 3, userName: 'miyamoto', userScore: 125 },
-    { userId: 4, userName: 'ryoko', userScore: 126 },
-    { userId: 5, userName: 'hiroshima', userScore: 127 },
-    { userId: 6, userName: 'etoh', userScore: 128 },
-    { userId: 7, userName: 'matsuda', userScore: 129 },
-  ],
-  you: { userId: 1, userName: 'mishima', userScore: 123 },
+  pointData: null,
   moveDist: { x: 0, y: 0 }, // 原点の移動量
   swipeInit: { x: 0, y: 0 }, // swipe基準点
   dragInit: { x: 0, y: 0 }, // drag基準点
@@ -44,6 +35,9 @@ export const mutations = {
     state.token = token;
     state.userId = userId;
     state.userName = userName;
+  },
+  setPoint(state, pointData) {
+    state.pointData = pointData;
   },
   setField(state, blocks) {
     state.blocks = blocks;
@@ -76,6 +70,10 @@ export const actions = {
       const userData = await this.$axios.$post('/user', { userName });
       commit('setAccessToken', userData);
     }
+  },
+  async getPoint({ commit }) {
+    const pointData = await this.$axios.$get('/point');
+    commit('setPoint', pointData);
   },
   async getField({ commit }) {
     const fieldData = await this.$axios.$get('/field');

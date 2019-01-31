@@ -14,7 +14,7 @@ module.exports = {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
-  loading: { color: '#fff' },
+  loading: false,
   css: [],
   plugins: ['@/plugins/axios', '@/plugins/window-state', '@/plugins/vue-touch'],
   modules: ['@nuxtjs/axios'],

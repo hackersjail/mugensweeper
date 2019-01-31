@@ -2,7 +2,7 @@
   <section class="container">
     <modal v-if="overlay" @closeOverlay="closeOverlay" />
     <user-name-input v-if="visibleName" @register-name="registerName" />
-    <ranking v-if="visibleRanking" :ranked-users="rankedUsers" :you="you" />
+    <ranking v-if="visibleRanking" :pointData="pointData" />
 
     <div
       class="field"
@@ -24,7 +24,6 @@
           :y1="borderPos(i).y"
           :y2="borderPos(i).y"
         />
-
         <line
           class="border-y"
           v-for="i in gridX + infinitLine"
@@ -33,7 +32,6 @@
           :x2="borderPos(i).x"
           :y2="$window.height"
         />
-
         <rect
           class="rect"
           v-for="(block, i) in blocks"
@@ -43,7 +41,6 @@
           :width="gridWidth"
           :height="gridWidth"
         />
-
         <!-- 原点がわかりやすいように識別 -->
         <rect
           class="rect2"
@@ -86,16 +83,7 @@ export default {
     UserNameInput,
   },
   computed: {
-    ...mapState([
-      'userName',
-      'token',
-      'rankedUsers',
-      'you',
-      'blocks',
-      'gridX',
-      'moveDist',
-      'dragFlg',
-    ]),
+    ...mapState(['userName', 'token', 'blocks', 'pointData', 'gridX', 'moveDist', 'dragFlg']),
     gridWidth() {
       return this.$window.width / this.gridX;
     },
@@ -156,7 +144,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['getAccessToken', 'getField', 'postField']),
+    ...mapActions(['getAccessToken', 'getPoint', 'getField', 'postField']),
     ...mapMutations(['setInitPos', 'gridMove', 'resetInitPos']),
     registerName(inputName) {
       this.getAccessToken(inputName);
@@ -168,6 +156,7 @@ export default {
     },
     init() {
       this.setIntervalObj = setInterval(() => {
+        this.getPoint();
         this.getField();
       }, 1000);
     },
