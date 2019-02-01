@@ -24,7 +24,6 @@
           :y1="borderPos(i).y"
           :y2="borderPos(i).y"
         />
-
         <line
           class="border-y"
           v-for="i in gridX + infinitLine"
@@ -33,17 +32,16 @@
           :x2="borderPos(i).x"
           :y2="$window.height"
         />
-
         <rect
           class="rect"
           v-for="(block, i) in blocks"
+          :class="explodeJudge(block)"
           :key="'block' + i"
           :x="objPos(block).x"
           :y="objPos(block).y"
           :width="gridWidth"
           :height="gridWidth"
         />
-
         <!-- 原点がわかりやすいように識別 -->
         <rect
           class="rect2"
@@ -54,7 +52,6 @@
         />
       </svg>
     </div>
-
     <div class="target">
       <div
         v-for="(block, i) in blocks"
@@ -154,6 +151,11 @@ export default {
         'splite-bomb': block.exploded || block.bombCount !== 0,
       });
     },
+    explodeJudge() {
+      return (block) => ({
+        exploded: block.exploded,
+      });
+    },
   },
   methods: {
     ...mapActions(['getAccessToken', 'getField', 'postField']),
@@ -190,13 +192,11 @@ export default {
       if (Date.now() - this.touchTime < 350) {
         e.preventDefault();
       }
-
       // drag基準地点
       const position = {
         x: e.pageX || e.changedTouches[0].clientX,
         y: e.pageY || e.changedTouches[0].clientY,
       };
-
       this.setInitPos(position);
     },
     onTouchMove(e) {
@@ -246,13 +246,24 @@ export default {
 }
 .border-x,
 .border-y {
-  stroke: black;
+  stroke: rgb(194, 194, 194);
   stroke-width: 1px;
 }
 .rect {
   fill: lightgray;
-  stroke: black;
+  stroke: rgb(126, 126, 126);
   stroke-width: 0.5px;
+}
+.exploded {
+  animation: blink 150ms linear 2;
+}
+@keyframes blink {
+  0% {
+    fill: lightgray;
+  }
+  100% {
+    fill: rgb(235, 12, 12);
+  }
 }
 .splite-bomb {
   overflow: hidden;
