@@ -2,8 +2,8 @@
   <div class="ranking">
     <div v-for="(user, i) in highScores" :key="i">
       <div class="rank">
-        <span :style="`background:${rankingColor(i + 1)}`">
-          <span class="num">{{ i + 1 }}</span>
+        <span :style="`background:${rankingColor(user.ranking)}`">
+          <span class="num">{{ user.ranking }}</span>
         </span>
       </div>
       <div class="userName">{{ user.userName }}</div>
