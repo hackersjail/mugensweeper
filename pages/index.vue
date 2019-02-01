@@ -24,7 +24,6 @@
           :y1="borderPos(i).y"
           :y2="borderPos(i).y"
         />
-
         <line
           class="border-y"
           v-for="i in gridX + infinitLine"
@@ -33,7 +32,6 @@
           :x2="borderPos(i).x"
           :y2="$window.height"
         />
-
         <rect
           class="rect"
           v-for="(block, i) in blocks"
@@ -44,7 +42,6 @@
           :width="gridWidth"
           :height="gridWidth"
         />
-
         <!-- 原点がわかりやすいように識別 -->
         <rect
           class="rect2"
@@ -55,7 +52,6 @@
         />
       </svg>
     </div>
-
     <div class="target">
       <div
         v-for="(block, i) in blocks"
@@ -196,13 +192,11 @@ export default {
       if (Date.now() - this.touchTime < 350) {
         e.preventDefault();
       }
-
       // drag基準地点
       const position = {
         x: e.pageX || e.changedTouches[0].clientX,
         y: e.pageY || e.changedTouches[0].clientY,
       };
-
       this.setInitPos(position);
     },
     onTouchMove(e) {
