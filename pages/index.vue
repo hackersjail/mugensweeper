@@ -161,8 +161,8 @@ export default {
     },
     init() {
       this.setIntervalObj = setInterval(() => {
-        this.getPoint();
         this.getField();
+        this.getPoint();
       }, 1000);
     },
     styles(block) {
