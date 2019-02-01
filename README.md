@@ -1,7 +1,8 @@
-<h2 align="center">MugenSweeper</h2>
+<h2 align="center"><img src="static/logo.png" alt="MugenSweeper" width="403"></h2>
 
 <p align="center">
-  <a href="https://circleci.com/gh/hackersjail/mugensweeper"><img src="https://badgen.net/circleci/github/hackersjail/mugensweeper/develop?icon=circleci&label=build" alt="Build Status"></a>
+  <a href="https://app.netlify.com/sites/mugensweeper/deploys"><img src="https://api.netlify.com/api/v1/badges/7dfe5b91-df5e-49e8-9948-6db6e228d6f4/deploy-status" alt="Netlify Status"></a>
+  <a href="https://circleci.com/gh/hackersjail/mugensweeper"><img src="https://badgen.net/circleci/github/hackersjail/mugensweeper/master?icon=circleci&label=build" alt="Build Status"></a>
   <a href="https://codecov.io/gh/hackersjail/mugensweeper"><img src="https://badgen.net/codecov/c/github/hackersjail/mugensweeper?icon=codecov&label=coverage" alt="Coverage Status"></a>
   <a href="https://nodejs.org/dist/latest-v10.x/docs/api/"><img src="https://badgen.net/badge/node/>%3D10.13.0/green" alt="Node.js Version"></a>
   <a href="https://github.com/hackersjail/mugensweeper/blob/master/LICENSE"><img src="https://badgen.net/badge/license/MIT/blue" alt="License"></a>
@@ -16,13 +17,19 @@
   <!-- <a href="https://discordapp.com/"><img src="https://badgen.net/badge//Discord/7289DA?icon=discord" alt="Discord"></a> -->
 </p>
 
+### Play MugenSweeper
+
+<https://mugensweeper.netlify.com>
+
 ### Development
+
+Node.js version 10.13.0 or higher is required.
 
 #### Installation
 
 Install dependencies.
 
-```sh
+```bash
 $ npm install # Or yarn
 ```
 
@@ -30,7 +37,7 @@ $ npm install # Or yarn
 
 Develop MugenSweeper.
 
-```sh
+```bash
 # all
 $ npm run dev # Or yarn dev
 
@@ -43,7 +50,7 @@ $ npm run dev:client # Or yarn dev:client
 
 Testing scripts.
 
-```sh
+```bash
 # Manual
 $ npm test # Or yarn test
 
@@ -63,6 +70,12 @@ Please prepare MongoDB for development.
   [MongoDB Download Center](https://www.mongodb.com/download-center/community)
 - Cloud  
   [MongoDB Cloud Database Solutions](https://www.mongodb.com/cloud)
+- Docker Compose
+
+  ```bash
+  # Start with MongoDB container only
+  $ docker-compose up --detach mongo
+  ```
 
 ### Environment Variables
 
@@ -73,7 +86,34 @@ To set environment variables, create an `.env` file.
 
 Default: `mongodb://localhost:27017/mugensweeper`
 
-```sh
+```bash
 # Example (Using MongoDB Atlas)
 MONGO_URI=mongodb://<username>:<password>@cluster0-shard-00-00-iuxvg.mongodb.net:27017...
+```
+
+### Docker Compose
+
+Build a development environment using Docker Compose.
+
+```
+# Starts the containers in the background and leaves them running.
+$ docker-compose up --detach
+
+# Get an interactive prompt.
+$ docker-compose exec dev sh
+
+# Develop MugenSweeper.
+/usr/src/app # yarn dev
+```
+
+#### For Windows
+
+Windows uses polling for hot reloading.
+
+```
+# Develop MugenSweeper.
+/usr/src/app # yarn docker:dev
+
+# Testing scripts.
+/usr/src/app # yarn docker:test
 ```
