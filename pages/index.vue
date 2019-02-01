@@ -145,6 +145,7 @@ export default {
     explodeJudge() {
       return (block) => ({
         exploded: block.exploded,
+        opened: !block.exploded,
       });
     },
   },
@@ -259,6 +260,19 @@ export default {
   }
   100% {
     fill: rgb(235, 12, 12);
+  }
+}
+.opened {
+  animation: right 100ms ease-in-out;
+  animation-iteration-count: 1;
+}
+@keyframes right {
+  0% {
+    stroke: rgb(126, 126, 126);
+  }
+  100% {
+    stroke: rgba(12, 127, 235, 0.548);
+    stroke-width: 6px;
   }
 }
 .splite-bomb {
