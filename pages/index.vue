@@ -171,12 +171,16 @@ export default {
         top: `${this.centerPos.y +
           this.gridWidth * block.y -
           this.gridWidth / 2 +
-          this.moveDist.y}px`,
+          this.moveDist.y +
+          this.gridWidth * 0.1}px`,
         left: `${this.centerPos.x +
           this.gridWidth * block.x -
           this.gridWidth / 2 -
-          this.moveDist.x}px`,
-        backgroundPosition: `${block.exploded ? -301 : (block.bombCount - 1) * -30}px 0px`,
+          this.moveDist.x +
+          this.gridWidth * 0.1}px`,
+        backgroundPosition: `${block.exploded ? 77 : (block.bombCount - 1) * 7.5}% 50%`,
+        width: `${this.gridWidth * 0.8}px`,
+        height: `${this.gridWidth * 0.8}px`,
       };
     },
     onTouchStart(e) {
@@ -261,8 +265,7 @@ export default {
   overflow: hidden;
   background-image: url('../assets/img.png');
   background-repeat: no-repeat;
-  width: 30px;
-  height: 30px;
+  background-size: 1400% 100%;
   position: fixed;
 }
 /* 原点がわかりやすいように識別 */
