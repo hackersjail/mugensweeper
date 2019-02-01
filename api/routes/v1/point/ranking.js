@@ -39,7 +39,11 @@ router.get('/', async (req, res) => {
           userName: currentUserName,
           myRanking: calculateRanking(preMyData.points),
         };
-  const highScores = bestfive.map(({ points, userName }) => ({ points, userName }));
+  const highScores = bestfive.map(({ points, userName }) => ({
+    points,
+    userName,
+    ranking: calculateRanking(points),
+  }));
   res.json({ highScores, myData });
 });
 module.exports = router;
