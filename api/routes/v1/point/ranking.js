@@ -33,13 +33,17 @@ router.get('/', async (req, res) => {
   const worstRanking = calculateRanking(worstPoint);
   const myData =
     preMyData === undefined
-      ? { points: 0, userName: currentUserName, myRanking: worstRanking }
+      ? { points: 0, userName: currentUserName, ranking: worstRanking }
       : {
           points: preMyData.points,
           userName: currentUserName,
-          myRanking: calculateRanking(preMyData.points),
+          ranking: calculateRanking(preMyData.points),
         };
-  const highScores = bestfive.map(({ points, userName }) => ({ points, userName }));
+  const highScores = bestfive.map(({ points, userName }) => ({
+    points,
+    userName,
+    ranking: calculateRanking(points),
+  }));
   res.json({ highScores, myData });
 });
 module.exports = router;
