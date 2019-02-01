@@ -31,11 +31,14 @@ router.get('/', async (req, res) => {
   const calculateRanking = (points) => ranking.findIndex((v) => v.points === points) + 1;
   const worstPoint = ranking[ranking.length - 1].points;
   const worstRanking = calculateRanking(worstPoint);
-  const preMyRanking = preMyData !== undefined ? calculateRanking(preMyData.points) : worstRanking;
   const myData =
     preMyData === undefined
       ? { points: 0, userName: currentUserName, myRanking: worstRanking }
-      : { points: preMyData.points, userName: currentUserName, myRanking: preMyRanking };
+      : {
+          points: preMyData.points,
+          userName: currentUserName,
+          myRanking: calculateRanking(preMyData.points),
+        };
   const highScores = bestfive.map(({ points, userName }) => ({ points, userName }));
   res.json({ highScores, myData });
 });
