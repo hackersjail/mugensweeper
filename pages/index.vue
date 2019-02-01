@@ -135,7 +135,7 @@ export default {
       return !this.token && !this.overlay;
     },
     visibleRanking() {
-      return this.token && !this.overlay;
+      return this.pointData && !this.overlay;
     },
     blockJudge() {
       return (block) => ({
@@ -163,7 +163,7 @@ export default {
       this.setIntervalObj = setInterval(() => {
         this.getField();
         this.getPoint();
-      }, 1000);
+      }, 300);
     },
     styles(block) {
       if (!block.exploded && block.bombCount === 0) return false;

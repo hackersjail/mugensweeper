@@ -44,7 +44,7 @@ async function start() {
   }
 
   // 検証への使用度高関数のため保存
-  // await Promise.all([deleteBomb(), deleteData()]);
+  // await Promise.all([deleteBomb(), deleteData(), deleteUser()]);
 
   while (true) {
     const startTime = Date.now(); // 開始時間
