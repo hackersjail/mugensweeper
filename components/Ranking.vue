@@ -26,7 +26,7 @@ export default {
     ...mapState(['userName', 'token', 'pointData', 'blocks', 'gridX', 'moveDist', 'dragFlg']),
     top5() {
       const { top5 } = [...this.pointData][0];
-      return top5.slice(1, 6);
+      return top5.slice(0, 5);
     },
     myData() {
       const { myData } = [...this.pointData][0];
