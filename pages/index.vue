@@ -263,15 +263,14 @@ export default {
   }
 }
 .opened {
-  animation: right 100ms ease-in-out;
-  animation-iteration-count: 1;
+  animation: right 100ms ease-in-out 1;
 }
 @keyframes right {
   0% {
     stroke: rgb(126, 126, 126);
   }
   100% {
-    stroke: rgba(12, 127, 235, 0.548);
+    stroke: rgba(12, 127, 235, 0.5);
     stroke-width: 6px;
   }
 }
