@@ -58,19 +58,17 @@ describe('ブロックを開くとき', () => {
       { userName: 'Taka', userId: 'example8' },
     ];
 
-    const matcher = [
-      {
-        myData: { points: 0, userName: 'tester' },
-        top5: [
-          { points: 3, userName: 'Sayaka' },
-          { points: 2, userName: 'Jiro' },
-          { points: 2, userName: 'Ken' },
-          { points: 2, userName: 'Taro' },
-          { points: 2, userName: 'Yuka' },
-          { points: 2, userName: 'Yuki' },
-        ],
-      },
-    ];
+    const matcher = {
+      myData: { points: 1, userName: 'Nanako' },
+      highScores: [
+        { points: 3, userName: 'Sayaka' },
+        { points: 2, userName: 'Jiro' },
+        { points: 2, userName: 'Ken' },
+        { points: 2, userName: 'Taro' },
+        { points: 2, userName: 'Yuka' },
+        { points: 2, userName: 'Yuki' },
+      ],
+    };
 
     await BombHistoryModel.insertMany(bombHistory);
     await FieldHistoryModel.insertMany(fieldHistory);

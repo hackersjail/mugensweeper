@@ -5,9 +5,8 @@ const generateRankingWithUserNames = require('../util/generateRankingWithUserNam
 
 router.get('/', async (req, res) => {
   const bestfive = [];
-  const currentUserId = req.user.userId;
   const currentUserName = req.user.userName;
-  const currentUserPoints = req.user.points;
+  const currentUserId = req.user.userId;
   // fieldの取得
   const field = await fieldStore.getData();
   // userの取得
@@ -27,14 +26,13 @@ router.get('/', async (req, res) => {
       }
     }
   }
-
   const myData1 = ranking.find((v) => v.userId === currentUserId);
   const myData =
-    currentUserPoints === undefined
+    myData1 === undefined
       ? { points: 0, userName: currentUserName }
       : { points: myData1.points, userName: myData1.userName };
-  const top5 = bestfive.map(({ points, userName }) => ({ points, userName }));
-  const data = [{ myData, top5 }];
+  const highScores = bestfive.map(({ points, userName }) => ({ points, userName }));
+  const data = { highScores, myData };
   res.json(data);
 });
 module.exports = router;
