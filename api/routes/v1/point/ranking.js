@@ -36,7 +36,6 @@ router.get('/', async (req, res) => {
     myData1.points === undefined
       ? { points: 0, userName: currentUserName, myRanking: worstRanking }
       : { points: myData1.points, userName: myData1.userName, myRanking: preMyRanking };
-
   const highScores = bestfive.map(({ points, userName }) => ({ points, userName }));
   res.json({ highScores, myData });
 });
