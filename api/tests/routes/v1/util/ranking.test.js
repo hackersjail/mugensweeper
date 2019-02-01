@@ -29,11 +29,11 @@ describe('ブロックを開くとき', () => {
     // action pattern → op:opened, **unset(sf:setFlag, df deleteFlag)
     const fieldHistory = array2fieldHistory([
       ZERO00000,ZERO00000,ZERO00000,ZERO00000,ZERO00000,ZERO00000,ZERO00000,
-      ZERO00000,ZERO00000, ZERO00000, ZERO00000, 'u2:5:op', 'u1:4:op',ZERO00000,
+      'u3:19:op',ZERO00000, ZERO00000, ZERO00000, 'u2:5:op', 'u1:4:op',ZERO00000,
       ZERO00000,'u3:12:op', 'u5:7:op', ZERO00000, 'u3:3:op', ZERO00000,ZERO00000,
       ZERO00000,'u6:11:op', 'u5:10:op', FIRST_ONE, 'u4:6:op', 'u5:9:op',ZERO00000,
       ZERO00000,'u3:13:op', ZERO00000, 'u2:1:op', 'u4:8:op', ZERO00000,ZERO00000,
-      ZERO00000,ZERO00000, 'u1:2:op', ZERO00000, ZERO00000, ZERO00000,ZERO00000,
+      ZERO00000,ZERO00000, 'u1:2:op', ZERO00000, ZERO00000, ZERO00000,'u0:19:op',
       'u8:19:op',ZERO00000,'u7:14:op','u8:15:op','u1:16:op','u7:17:op','u6:18:op',
     ], time);
     // prettier-ignore
@@ -58,19 +58,18 @@ describe('ブロックを開くとき', () => {
       { userName: 'Taka', userId: 'example8' },
     ];
 
-    const matcher = [
-      {
-        myData: { points: 1, userName: 'Nanako' },
-        top5: [
-          { points: 3, userName: 'Sayaka' },
-          { points: 2, userName: 'Jiro' },
-          { points: 2, userName: 'Ken' },
-          { points: 2, userName: 'Taro' },
-          { points: 2, userName: 'Yuka' },
-          { points: 2, userName: 'Yuki' },
-        ],
-      },
-    ];
+    const matcher = {
+      myData: { points: 2, userName: 'Nanako', myRanking: 3 },
+      highScores: [
+        { points: 3, userName: 'Jiro' },
+        { points: 3, userName: 'Sayaka' },
+        { points: 2, userName: 'Ken' },
+        { points: 2, userName: 'Nanako' },
+        { points: 2, userName: 'Taro' },
+        { points: 2, userName: 'Yuka' },
+        { points: 2, userName: 'Yuki' },
+      ],
+    };
 
     await BombHistoryModel.insertMany(bombHistory);
     await FieldHistoryModel.insertMany(fieldHistory);
