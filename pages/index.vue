@@ -2,7 +2,7 @@
   <section class="container">
     <modal v-if="overlay" @closeOverlay="closeOverlay" />
     <user-name-input v-if="visibleName" @register-name="registerName" />
-    <ranking v-if="visibleRanking" :ranked-users="rankedUsers" :you="you" />
+    <ranking v-if="visibleRanking" :pointData="pointData" />
 
     <div
       class="field"
@@ -83,16 +83,7 @@ export default {
     UserNameInput,
   },
   computed: {
-    ...mapState([
-      'userName',
-      'token',
-      'rankedUsers',
-      'you',
-      'blocks',
-      'gridX',
-      'moveDist',
-      'dragFlg',
-    ]),
+    ...mapState(['userName', 'token', 'blocks', 'pointData', 'gridX', 'moveDist', 'dragFlg']),
     gridWidth() {
       return this.$window.width / this.gridX;
     },
@@ -144,7 +135,7 @@ export default {
       return !this.token && !this.overlay;
     },
     visibleRanking() {
-      return this.token && !this.overlay;
+      return this.pointData && !this.overlay;
     },
     blockJudge() {
       return (block) => ({
@@ -158,7 +149,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['getAccessToken', 'getField', 'postField']),
+    ...mapActions(['getAccessToken', 'getPoint', 'getField', 'postField']),
     ...mapMutations(['setInitPos', 'gridMove', 'resetInitPos']),
     registerName(inputName) {
       this.getAccessToken(inputName);
@@ -171,7 +162,8 @@ export default {
     init() {
       this.setIntervalObj = setInterval(() => {
         this.getField();
-      }, 1000);
+        this.getPoint();
+      }, 300);
     },
     styles(block) {
       if (!block.exploded && block.bombCount === 0) return false;

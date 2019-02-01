@@ -1,39 +1,35 @@
 <template>
   <div class="ranking">
-    <div class="title">
-      <div>Players: {{ rankedUsers.length }}</div>
-    </div>
-    <div v-for="(user, i) in orderedUsers" :key="i">
+    <div v-for="(user, i) in highScores" :key="i">
       <div class="rank">
         <span :style="`background:${rankingColor(i + 1)}`">
           <span class="num">{{ i + 1 }}</span>
         </span>
       </div>
       <div class="userName">{{ user.userName }}</div>
-      <div class="score">{{ user.userScore }}</div>
+      <div class="score">{{ user.points }}</div>
     </div>
     <div class="your-score">
-      <div class="rank">-</div>
-      <div class="userName">You</div>
-      <div class="score">{{ yourScore }}</div>
+      <div class="rank">{{ myData.myRanking }}</div>
+      <div class="userName">{{ myData.userName }}</div>
+      <div class="score">{{ myData.points }}</div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
-  props: {
-    rankedUsers: Array,
-    you: Object,
-  },
   computed: {
-    orderedUsers() {
-      const top5 = [...this.rankedUsers].sort((user1, user2) => user2.userScore - user1.userScore);
-      top5.length = 5;
-      return top5;
+    ...mapState(['userName', 'pointData']),
+    highScores() {
+      const { highScores } = this.pointData;
+      return highScores.slice(0, 5);
     },
-    yourScore() {
-      return this.you.userScore;
+    myData() {
+      const { myData } = this.pointData;
+      return myData;
     },
     rankingColor() {
       return (i) => {
@@ -63,12 +59,13 @@ export default {
 }
 
 .ranking {
-  background: rgba(0, 40, 20, 0.8);
+  background: rgba(0, 21, 40, 0.8);
   width: 300px;
   position: fixed;
   top: 0;
   right: 0;
   color: #fff;
+  z-index: 100;
 }
 
 .ranking > div {

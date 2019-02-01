@@ -2,7 +2,7 @@
   <transition name="modal">
     <div class="modalLayer">
       <div class="initMsg">
-        <div class="title">mugenSweeper</div>
+        <div class="title">Mugen Sweeper</div>
         <div class="startBtn" @click="$emit('closeOverlay')">START</div>
       </div>
     </div>
@@ -14,13 +14,12 @@
   width: 100%;
   height: 100%;
   position: absolute;
-  background: rgba(0, 30, 10, 0.7);
+  background: rgba(0, 5, 30, 0.76);
   z-index: 100;
 }
 .initMsg {
   width: 80%;
   height: 30%;
-  /* background: #fff; */
   position: absolute;
   top: 50%;
   left: 50%;
@@ -36,7 +35,7 @@
 .startBtn {
   margin: 30px auto 0;
   color: #fff;
-  background: rgba(0, 30, 10, 0.8);
+  background: rgba(0, 13, 30, 0.8);
   border: 3px solid #fff;
   border-radius: 5px;
   font-size: 30px;
@@ -52,12 +51,6 @@
   color: #020;
   background: #fff;
 }
-/* .modal-leave-to {
-  opacity: 0;
-}
-.modal-leave-active {
-  transition: opacity 1s;
-} */
 @media screen and (max-width: 800px) {
   .startBtn {
     width: 40%;

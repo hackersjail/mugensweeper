@@ -39,8 +39,8 @@ module.exports = {
   },
 
   // 検証への使用度高関数のため保存
-  // async deleteUser() {
-  //   await UserModel.deleteMany();
-  //   users.length = 0;
-  // },
+  async deleteUser() {
+    await UserModel.deleteMany();
+    users.length = 0;
+  },
 };
