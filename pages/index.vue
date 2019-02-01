@@ -189,8 +189,6 @@ export default {
           this.gridWidth / 2 -
           this.moveDist.x}px`,
         backgroundPosition: `${block.exploded ? -301 : (block.bombCount - 1) * -30}px 0px`,
-        // class: 'rect explode',
-        // backgroundImage: `url('../assets/flame.png')`,
       };
     },
     onTouchStart(e) {
