@@ -26,11 +26,17 @@ router.get('/', async (req, res) => {
       }
     }
   }
+
   const myData1 = ranking.find((v) => v.userId === currentUserId);
+  const preMyRanking = ranking.findIndex((v) => v.points === myData1.points) + 1;
+  const worstPoint = ranking[ranking.length - 1].points;
+  const worst = ranking.findIndex((v) => v.points === worstPoint) + 1;
+  const myRanking = myData1.points === undefined ? worst : preMyRanking;
   const myData =
-    myData1 === undefined
-      ? { points: 0, userName: currentUserName }
-      : { points: myData1.points, userName: myData1.userName };
+    myData1.points === undefined
+      ? { points: 0, userName: currentUserName, myRanking }
+      : { points: myData1.points, userName: myData1.userName, myRanking };
+
   const highScores = bestfive.map(({ points, userName }) => ({ points, userName }));
   const data = { highScores, myData };
   res.json(data);
