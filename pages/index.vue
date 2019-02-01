@@ -35,6 +35,7 @@
         />
 
         <rect
+          class="rect"
           v-for="(block, i) in blocks"
           :class="explodeJudge(block)"
           :key="'block' + i"
@@ -156,7 +157,6 @@ export default {
     },
     explodeJudge() {
       return (block) => ({
-        rect: !block.exploded,
         exploded: block.exploded,
       });
     },
@@ -261,9 +261,6 @@ export default {
   stroke-width: 0.5px;
 }
 .exploded {
-  fill: lightgray;
-  stroke: rgb(126, 126, 126);
-  stroke-width: 0.5px;
   animation: blink 150ms linear 2;
 }
 @keyframes blink {
