@@ -36,6 +36,9 @@ export const mutations = {
     state.userId = userId;
     state.userName = userName;
   },
+  clearAccessToken() {
+    localStorage.removeItem(USER_KEY_NAME);
+  },
   setPoint(state, pointData) {
     state.pointData = pointData;
   },

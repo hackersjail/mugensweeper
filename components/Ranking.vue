@@ -10,7 +10,7 @@
       <div class="score">{{ user.points }}</div>
     </div>
     <div class="your-score">
-      <div class="rank">{{ myData.myRanking }}</div>
+      <div class="rank">{{ myData.ranking }}</div>
       <div class="userName">{{ myData.userName }}</div>
       <div class="score">{{ myData.points }}</div>
     </div>

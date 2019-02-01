@@ -7,9 +7,9 @@
         <!-- <div class="title">ユーザー名登録</div> -->
         <h2 class="explain">ユーザー名登録</h2>
         <h5 class="explain">3文字以上、7文字以下でご登録ください。</h5>
-        <form class="form" @submit.prevent="registerName">
+        <form class="form" @submit.prevent="inputName">
           <input type="text" class="input" v-model="name" minlength="3" maxlength="7" required />
-          <div class="registBtn" @click="inputName">登録</div>
+          <button type="submit" class="registerBtn">登録</button>
         </form>
       </div>
       <!-- モーダルウィンドウのコンテンツ終了 -->
@@ -60,10 +60,11 @@ export default {
   transition: 0.4s;
 }
 
-.registBtn {
+.registerBtn {
   margin-left: 5px;
   color: #fff;
   border: 3px solid #fff;
+  background: transparent;
   border-radius: 5px;
   font-size: 30px;
   height: 56px;
