@@ -35,8 +35,8 @@
         />
 
         <rect
-          class="rect"
           v-for="(block, i) in blocks"
+          :class="explodeJudge(block)"
           :key="'block' + i"
           :x="objPos(block).x"
           :y="objPos(block).y"
@@ -154,6 +154,12 @@ export default {
         'splite-bomb': block.exploded || block.bombCount !== 0,
       });
     },
+    explodeJudge() {
+      return (block) => ({
+        rect: !block.exploded,
+        exploded: block.exploded,
+      });
+    },
   },
   methods: {
     ...mapActions(['getAccessToken', 'getField', 'postField']),
@@ -183,6 +189,8 @@ export default {
           this.gridWidth / 2 -
           this.moveDist.x}px`,
         backgroundPosition: `${block.exploded ? -301 : (block.bombCount - 1) * -30}px 0px`,
+        // class: 'rect explode',
+        // backgroundImage: `url('../assets/flame.png')`,
       };
     },
     onTouchStart(e) {
@@ -246,13 +254,27 @@ export default {
 }
 .border-x,
 .border-y {
-  stroke: black;
+  stroke: rgb(194, 194, 194);
   stroke-width: 1px;
 }
 .rect {
   fill: lightgray;
-  stroke: black;
+  stroke: rgb(126, 126, 126);
   stroke-width: 0.5px;
+}
+.exploded {
+  fill: lightgray;
+  stroke: rgb(126, 126, 126);
+  stroke-width: 0.5px;
+  animation: blink 150ms linear 2;
+}
+@keyframes blink {
+  0% {
+    fill: lightgray;
+  }
+  100% {
+    fill: rgb(235, 12, 12);
+  }
 }
 .splite-bomb {
   overflow: hidden;
