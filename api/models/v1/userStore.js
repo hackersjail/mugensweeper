@@ -22,10 +22,14 @@ module.exports = {
 
   async addUser(userName) {
     // ユニークな8桁のIDを生成
-    let userId = '';
-    const find = (v) => v.userId === userId;
-    while (users.find(find)) {
-      userId = getHash.generateHash(option);
+    let userId = getHash.generateHash(option);
+
+    for (let i = 0; i < users.length; i += 1) {
+      // 既存のuserIdと重複しているかチェック
+      if (users[i].userId === userId) {
+        userId = getHash.generateHash(option); // 既存と重複しているためuserIdを再生成
+        i = 0; // 新しいuserIdを使って、再びループ処理を実行できるようカウンタ変数を初期化
+      }
     }
 
     const userData = { userName, userId };
