@@ -9,7 +9,7 @@ describe('ユーザー情報を返せるかどうか', () => {
   afterEach(dropDB);
   afterAll(disconnectDB);
 
-  it('任意で複数ユーザー名をpostして、ユーザーIDつきでリーターンできるか', async () => {
+  it('任意で複数ユーザー名をpostして、ユーザーIDつきでリターンできるか', async () => {
     // Given
     const nameList = [{ userName: 'yuika' }, { userName: 'taro' }];
 
