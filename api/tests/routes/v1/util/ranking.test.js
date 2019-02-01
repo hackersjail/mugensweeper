@@ -60,7 +60,7 @@ describe('ブロックを開くとき', () => {
 
     const matcher = [
       {
-        myData: { points: 1, userName: 'Nanako' },
+        myData: { points: 0, userName: 'tester' },
         top5: [
           { points: 3, userName: 'Sayaka' },
           { points: 2, userName: 'Jiro' },
