@@ -14,7 +14,6 @@ const token =
   'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJleGFtcGxlMCIsImV4cCI6MTcwNTc0MjM4OSwiYXVkIjoibXVnZW5zd2VlcGVycyIsImlzcyI6Im11Z2Vuc3dlZXBlcnMifQ.ISinmaTZDcOzHM4q4MALgmnSA7x6wN9pa1wkRGvlRWw';
 
 const ZERO00000 = 0;
-const FIRST_ONE = 'u0:0:op';
 const time = Math.round(new Date().getTime() / 1000);
 
 describe('ブロックを開くとき', () => {
@@ -28,13 +27,13 @@ describe('ブロックを開くとき', () => {
     // param means 'u2:5:op' → userid:2, order:5, action:opened
     // action pattern → op:opened, **unset(sf:setFlag, df deleteFlag)
     const fieldHistory = array2fieldHistory([
-      ZERO00000,ZERO00000,ZERO00000,ZERO00000,ZERO00000,ZERO00000,ZERO00000,
-      ZERO00000,ZERO00000, ZERO00000, ZERO00000, 'u2:5:op', 'u1:4:op',ZERO00000,
-      ZERO00000,'u3:12:op', 'u5:7:op', ZERO00000, 'u3:3:op', ZERO00000,ZERO00000,
-      ZERO00000,'u6:11:op', 'u5:10:op', FIRST_ONE, 'u4:6:op', 'u5:9:op',ZERO00000,
-      ZERO00000,'u3:13:op', ZERO00000, 'u2:1:op', 'u4:8:op', ZERO00000,ZERO00000,
-      ZERO00000,ZERO00000, 'u1:2:op', ZERO00000, ZERO00000, ZERO00000,ZERO00000,
-      'u8:19:op',ZERO00000,'u7:14:op','u8:15:op','u1:16:op','u7:17:op','u6:18:op',
+      ZERO00000,  ZERO00000,  ZERO00000,  ZERO00000,  ZERO00000,  ZERO00000,  ZERO00000,
+      'u3:19:op', ZERO00000,  ZERO00000,  ZERO00000,  'u2:5:op',  'u1:4:op',  ZERO00000,
+      ZERO00000,  'u3:12:op', 'u5:7:op',  ZERO00000,  'u3:3:op',  ZERO00000,  ZERO00000,
+      ZERO00000,  'u6:11:op', 'u5:10:op', ZERO00000,  'u4:6:op',  'u5:9:op',  ZERO00000,
+      ZERO00000,  'u3:13:op', ZERO00000,  'u2:1:op',  'u4:8:op',  ZERO00000,  ZERO00000,
+      ZERO00000,  ZERO00000,  'u1:2:op',  ZERO00000,  ZERO00000,  ZERO00000,  ZERO00000,
+      'u8:19:op', ZERO00000,  'u7:14:op', 'u8:15:op', 'u1:16:op', 'u7:17:op', 'u6:18:op',
     ], time);
     // prettier-ignore
     const bombHistory = array2bomMap([
@@ -58,19 +57,18 @@ describe('ブロックを開くとき', () => {
       { userName: 'Taka', userId: 'example8' },
     ];
 
-    const matcher = [
-      {
-        myData: { points: 1, userName: 'Nanako' },
-        top5: [
-          { points: 3, userName: 'Sayaka' },
-          { points: 2, userName: 'Jiro' },
-          { points: 2, userName: 'Ken' },
-          { points: 2, userName: 'Taro' },
-          { points: 2, userName: 'Yuka' },
-          { points: 2, userName: 'Yuki' },
-        ],
-      },
-    ];
+    const matcher = {
+      myData: { points: 0, userName: 'tester', ranking: 8 },
+      highScores: [
+        { points: 3, userName: 'Jiro', ranking: 1 },
+        { points: 2, userName: 'Sayaka', ranking: 2 },
+        { points: 2, userName: 'Yuka', ranking: 2 },
+        { points: 2, userName: 'Yuki', ranking: 2 },
+        { points: 1, userName: 'Ken', ranking: 5 },
+        { points: 1, userName: 'Taka', ranking: 5 },
+        { points: 1, userName: 'Taro', ranking: 5 },
+      ],
+    };
 
     await BombHistoryModel.insertMany(bombHistory);
     await FieldHistoryModel.insertMany(fieldHistory);

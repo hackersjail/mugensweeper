@@ -2,6 +2,7 @@
   <section class="container">
     <modal v-if="overlay" @closeOverlay="closeOverlay" />
     <user-name-input v-if="visibleName" @register-name="registerName" />
+    <ranking v-if="visibleRanking" :pointData="pointData" />
 
     <div
       class="field"
@@ -24,7 +25,6 @@
           :y1="borderPos(i).y"
           :y2="borderPos(i).y"
         />
-
         <line
           class="border-y"
           v-for="i in gridX + infinitLine"
@@ -33,17 +33,16 @@
           :x2="borderPos(i).x"
           :y2="$window.height"
         />
-
         <rect
           class="rect"
           v-for="(block, i) in blocks"
+          :class="explodeJudge(block)"
           :key="'block' + i"
           :x="objPos(block).x"
           :y="objPos(block).y"
           :width="gridWidth"
           :height="gridWidth"
         />
-
         <!-- 原点がわかりやすいように識別 -->
         <rect
           class="rect2"
@@ -53,9 +52,7 @@
           :height="gridWidth"
         />
       </svg>
-      <ranking v-if="visibleRanking" :ranked-users="rankedUsers" :you="you" />
     </div>
-
     <div class="target">
       <div
         v-for="(block, i) in blocks"
@@ -87,16 +84,7 @@ export default {
     UserNameInput,
   },
   computed: {
-    ...mapState([
-      'userName',
-      'token',
-      'rankedUsers',
-      'you',
-      'blocks',
-      'gridX',
-      'moveDist',
-      'dragFlg',
-    ]),
+    ...mapState(['userName', 'token', 'blocks', 'pointData', 'gridX', 'moveDist', 'dragFlg']),
     gridWidth() {
       return this.$window.width / this.gridX;
     },
@@ -148,16 +136,22 @@ export default {
       return !this.token && !this.overlay;
     },
     visibleRanking() {
-      return this.token && !this.overlay;
+      return this.pointData && !this.overlay;
     },
     blockJudge() {
       return (block) => ({
         'splite-bomb': block.exploded || block.bombCount !== 0,
       });
     },
+    explodeJudge() {
+      return (block) => ({
+        exploded: block.exploded,
+        opened: !block.exploded,
+      });
+    },
   },
   methods: {
-    ...mapActions(['getAccessToken', 'getField', 'postField']),
+    ...mapActions(['getAccessToken', 'getPoint', 'getField', 'postField']),
     ...mapMutations(['setInitPos', 'gridMove', 'resetInitPos', 'zoomIn', 'zoomOut']),
     registerName(inputName) {
       this.getAccessToken(inputName);
@@ -170,7 +164,8 @@ export default {
     init() {
       this.setIntervalObj = setInterval(() => {
         this.getField();
-      }, 1000);
+        this.getPoint();
+      }, 300);
     },
     styles(block) {
       if (!block.exploded && block.bombCount === 0) return false;
@@ -178,12 +173,16 @@ export default {
         top: `${this.centerPos.y +
           this.gridWidth * block.y -
           this.gridWidth / 2 +
-          this.moveDist.y}px`,
+          this.moveDist.y +
+          this.gridWidth * 0.1}px`,
         left: `${this.centerPos.x +
           this.gridWidth * block.x -
           this.gridWidth / 2 -
-          this.moveDist.x}px`,
-        backgroundPosition: `${block.exploded ? -301 : (block.bombCount - 1) * -30}px 0px`,
+          this.moveDist.x +
+          this.gridWidth * 0.1}px`,
+        backgroundPosition: `${block.exploded ? 77 : (block.bombCount - 1) * 7.5}% 50%`,
+        width: `${this.gridWidth * 0.8}px`,
+        height: `${this.gridWidth * 0.8}px`,
       };
     },
     onTouchStart(e) {
@@ -254,20 +253,42 @@ export default {
 }
 .border-x,
 .border-y {
-  stroke: black;
+  stroke: rgb(194, 194, 194);
   stroke-width: 1px;
 }
 .rect {
   fill: lightgray;
-  stroke: black;
+  stroke: rgb(126, 126, 126);
   stroke-width: 0.5px;
+}
+.exploded {
+  animation: blink 150ms linear 2;
+}
+@keyframes blink {
+  0% {
+    fill: lightgray;
+  }
+  100% {
+    fill: rgb(235, 12, 12);
+  }
+}
+.opened {
+  animation: right 100ms ease-in-out 1;
+}
+@keyframes right {
+  0% {
+    stroke: rgb(126, 126, 126);
+  }
+  100% {
+    stroke: rgba(12, 127, 235, 0.5);
+    stroke-width: 6px;
+  }
 }
 .splite-bomb {
   overflow: hidden;
   background-image: url('../assets/img.png');
   background-repeat: no-repeat;
-  width: 30px;
-  height: 30px;
+  background-size: 1400% 100%;
   position: fixed;
 }
 /* 原点がわかりやすいように識別 */
