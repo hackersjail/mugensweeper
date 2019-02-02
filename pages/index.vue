@@ -6,6 +6,7 @@
 
     <div
       class="field"
+      @wheel.prevent="onWheel"
       @touchstart="onTouchStart"
       @mousedown="setInitPos"
       @touchmove.prevent="onTouchMove"
@@ -20,7 +21,7 @@
           class="border-x"
           v-for="i in gridY + infinitLine"
           :key="'borderX' + i"
-          :x2="$window.width"
+          :x2="windowSize.width"
           :y1="borderPos(i).y"
           :y2="borderPos(i).y"
         />
@@ -30,7 +31,7 @@
           :key="'borderY' + i"
           :x1="borderPos(i).x"
           :x2="borderPos(i).x"
-          :y2="$window.height"
+          :y2="windowSize.height"
         />
         <rect
           class="rect"
@@ -44,7 +45,7 @@
         />
         <!-- 原点がわかりやすいように識別 -->
         <rect
-          class="rect2"
+          class="rect center-rect"
           :x="objPos(originOfCoordinates).x"
           :y="objPos(originOfCoordinates).y"
           :width="gridWidth"
@@ -67,7 +68,7 @@
 import Modal from '~/components/Modal.vue';
 import Ranking from '~/components/Ranking.vue';
 import UserNameInput from '~/components/UserNameInput.vue';
-import { mapState, mapActions, mapMutations } from 'vuex';
+import { mapState, mapGetters, mapActions, mapMutations } from 'vuex';
 
 export default {
   data() {
@@ -83,22 +84,20 @@ export default {
     UserNameInput,
   },
   computed: {
-    ...mapState(['userName', 'token', 'blocks', 'pointData', 'gridX', 'moveDist', 'dragFlg']),
-    gridWidth() {
-      return this.$window.width / this.gridX;
-    },
-    gridY() {
-      return Math.ceil(this.$window.height / this.gridWidth);
-    },
+    ...mapState([
+      'gridWidth',
+      'userName',
+      'token',
+      'blocks',
+      'pointData',
+      'moveDist',
+      'dragFlg',
+      'windowSize',
+    ]),
+    ...mapGetters(['gridX', 'gridY', 'centerPos']),
     infinitLine() {
       // 盤面が現表示領域のみであれば1、画面スクロール可能にして無限に盤面が続いているように見せるには2に変更
       return 2;
-    },
-    centerPos() {
-      return {
-        x: this.$window.width / 2,
-        y: this.$window.height / 2,
-      };
     },
     objPos() {
       return (object) => ({
@@ -113,7 +112,7 @@ export default {
           // Gridの中心が座標となるよう修正
           this.gridWidth / 2 -
           // 画面サイズとグリッド幅から始点計算
-          Math.ceil(this.$window.width / 2 / this.gridWidth) * this.gridWidth -
+          Math.ceil(this.centerPos.x / this.gridWidth) * this.gridWidth -
           // 移動量調整
           (this.moveDist.x % this.gridWidth) +
           this.gridWidth * (i - 1),
@@ -122,7 +121,7 @@ export default {
           // Gridの中心が座標となるよう修正
           this.gridWidth / 2 -
           // 画面サイズとグリッド幅から始点
-          Math.ceil(this.$window.height / 2 / this.gridWidth) * this.gridWidth +
+          Math.ceil(this.centerPos.y / this.gridWidth) * this.gridWidth +
           // 移動量調整
           (this.moveDist.y % this.gridWidth) +
           this.gridWidth * (i - 1),
@@ -151,7 +150,7 @@ export default {
   },
   methods: {
     ...mapActions(['getAccessToken', 'getPoint', 'getField', 'postField']),
-    ...mapMutations(['setInitPos', 'gridMove', 'resetInitPos']),
+    ...mapMutations(['setInitPos', 'gridMove', 'resetInitPos', 'changeGridWidth', 'setGridX']),
     registerName(inputName) {
       this.getAccessToken(inputName);
       this.init(); // 新規に当ゲームを利用する場合は初期モーダル画面=>ユーザー名新規登録後に盤面情報の取得を開始
@@ -168,20 +167,18 @@ export default {
     },
     styles(block) {
       if (!block.exploded && block.bombCount === 0) return false;
+      const imgRatio = 0.8;
+
       return {
         top: `${this.centerPos.y +
-          this.gridWidth * block.y -
-          this.gridWidth / 2 +
-          this.moveDist.y +
-          this.gridWidth * 0.1}px`,
+          this.gridWidth * (block.y - 0.5 + (1 - imgRatio) / 2) +
+          this.moveDist.y}px`,
         left: `${this.centerPos.x +
-          this.gridWidth * block.x -
-          this.gridWidth / 2 -
-          this.moveDist.x +
-          this.gridWidth * 0.1}px`,
-        backgroundPosition: `${block.exploded ? 77 : (block.bombCount - 1) * 7.5}% 50%`,
-        width: `${this.gridWidth * 0.8}px`,
-        height: `${this.gridWidth * 0.8}px`,
+          this.gridWidth * (block.x - 0.5 + (1 - imgRatio) / 2) -
+          this.moveDist.x}px`,
+        backgroundPosition: `${(block.exploded ? 10 : block.bombCount - 1) * (100 / 13)}% 50%`,
+        width: `${this.gridWidth * imgRatio}px`,
+        height: `${this.gridWidth * imgRatio}px`,
       };
     },
     onTouchStart(e) {
@@ -216,6 +213,9 @@ export default {
         };
         await this.postField(block);
       }
+    },
+    onWheel(e) {
+      this.changeGridWidth(e.deltaY > 0 ? -1 : 1);
     },
   },
 };
@@ -282,9 +282,7 @@ export default {
   position: fixed;
 }
 /* 原点がわかりやすいように識別 */
-.rect2 {
+.center-rect {
   fill: yellow;
-  stroke: black;
-  stroke-width: 0.5px;
 }
 </style>
