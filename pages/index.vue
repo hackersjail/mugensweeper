@@ -217,7 +217,6 @@ export default {
         };
         await this.postField(block);
       }
-      this.getTouches(e);
     },
     scroll(e) {
       e.preventDefault();
