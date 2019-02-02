@@ -1,5 +1,5 @@
 const USER_KEY_NAME = 'msweeP';
-const DEFAULT_GRID_X = 48;
+const DEFAULT_GRID_X = 30;
 const GRID_MIN = 5;
 const GRID_MAX = 200;
 
@@ -72,6 +72,9 @@ export const mutations = {
   },
   zoomOut(state) {
     state.gridX = Math.max(GRID_MIN, Math.min(GRID_MAX, state.gridX + 1));
+  },
+  setGridX(state, gridX) {
+    state.gridX = gridX;
   },
 };
 

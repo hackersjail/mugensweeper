@@ -71,6 +71,9 @@ import UserNameInput from '~/components/UserNameInput.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default {
+  beforeUpdate() {
+    this.judgeGridX(this.windowSize);
+  },
   data() {
     return {
       overlay: true,
@@ -85,6 +88,12 @@ export default {
   },
   computed: {
     ...mapState(['userName', 'token', 'blocks', 'pointData', 'gridX', 'moveDist', 'dragFlg']),
+    windowSize() {
+      return {
+        width: document.documentElement.clientWidth,
+        height: document.documentElement.clientHeight,
+      };
+    },
     gridWidth() {
       return this.$window.width / this.gridX;
     },
@@ -152,7 +161,7 @@ export default {
   },
   methods: {
     ...mapActions(['getAccessToken', 'getPoint', 'getField', 'postField']),
-    ...mapMutations(['setInitPos', 'gridMove', 'resetInitPos', 'zoomIn', 'zoomOut']),
+    ...mapMutations(['setInitPos', 'gridMove', 'resetInitPos', 'zoomIn', 'zoomOut', 'setGridX']),
     registerName(inputName) {
       this.getAccessToken(inputName);
       this.init(); // 新規に当ゲームを利用する場合は初期モーダル画面=>ユーザー名新規登録後に盤面情報の取得を開始
@@ -225,6 +234,11 @@ export default {
       } else {
         this.zoomOut();
       }
+    },
+    judgeGridX(windowSize) {
+      const judgeSize = windowSize.width < windowSize.height ? windowSize.width : windowSize.height;
+      const gridX = Math.ceil(35000 / judgeSize);
+      this.setGridX(gridX);
     },
   },
 };
