@@ -1,5 +1,7 @@
 const USER_KEY_NAME = 'msweeP';
 const DEFAULT_GRID_X = 48;
+const GRID_MIN = 5;
+const GRID_MAX = 200;
 
 export const state = () => ({
   userName: null,
@@ -67,6 +69,12 @@ export const mutations = {
     // touchend
     state.dragFlg = false;
     state.downFlg = false;
+  },
+  zoomIn(state) {
+    state.gridX = Math.max(GRID_MIN, Math.min(GRID_MAX, state.gridX - 1));
+  },
+  zoomOut(state) {
+    state.gridX = Math.max(GRID_MIN, Math.min(GRID_MAX, state.gridX + 1));
   },
 };
 

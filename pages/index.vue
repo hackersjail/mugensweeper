@@ -2,10 +2,10 @@
   <section class="container">
     <modal v-if="overlay" @closeOverlay="closeOverlay" />
     <user-name-input v-if="visibleName" @register-name="registerName" />
-    <ranking v-if="visibleRanking" :ranked-users="rankedUsers" :you="you" />
 
     <div
       class="field"
+      @wheel="scroll"
       @touchstart="onTouchStart"
       @mousedown="setInitPos"
       @touchmove.prevent="onTouchMove"
@@ -53,6 +53,7 @@
           :height="gridWidth"
         />
       </svg>
+      <ranking v-if="visibleRanking" :ranked-users="rankedUsers" :you="you" />
     </div>
 
     <div class="target">
@@ -157,7 +158,7 @@ export default {
   },
   methods: {
     ...mapActions(['getAccessToken', 'getField', 'postField']),
-    ...mapMutations(['setInitPos', 'gridMove', 'resetInitPos']),
+    ...mapMutations(['setInitPos', 'gridMove', 'resetInitPos', 'zoomIn', 'zoomOut']),
     registerName(inputName) {
       this.getAccessToken(inputName);
       this.init(); // 新規に当ゲームを利用する場合は初期モーダル画面=>ユーザー名新規登録後に盤面情報の取得を開始
@@ -190,13 +191,11 @@ export default {
       if (Date.now() - this.touchTime < 350) {
         e.preventDefault();
       }
-
       // drag基準地点
       const position = {
         x: e.pageX || e.changedTouches[0].clientX,
         y: e.pageY || e.changedTouches[0].clientY,
       };
-
       this.setInitPos(position);
     },
     onTouchMove(e) {
@@ -219,6 +218,31 @@ export default {
         };
         await this.postField(block);
       }
+      this.getTouches(e);
+    },
+    scroll(e) {
+      e.preventDefault();
+      // drag現在地点
+      const sendPosition = this.getZoomTarget({ x: e.pageX, y: e.pageY });
+      if (e.deltaY > 0) {
+        this.zoomIn(sendPosition);
+      } else {
+        this.zoomOut(sendPosition);
+      }
+    },
+    getZoomTarget(position) {
+      // カーソルの下にあるpieceの座標（Coordinates）
+      const targetCoordinates = {
+        x: Math.round((position.x - this.centerPos.x + this.moveDist.x) / this.gridWidth),
+        y: Math.round((position.y - this.centerPos.y - this.moveDist.y) / this.gridWidth),
+      };
+      // pieceの中心とカーソルの位置（Position）との差分
+      const adjustPos = {
+        x: position.x - this.objPos(targetCoordinates).x,
+        y: position.y + this.objPos(targetCoordinates).y,
+      };
+      const sendPosition = { targetCoordinates, adjustPos };
+      return sendPosition;
     },
   },
 };
