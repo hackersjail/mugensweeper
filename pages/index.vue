@@ -32,6 +32,15 @@
           :x2="borderPos(i).x"
           :y2="$window.height"
         />
+        <!-- <div
+          class="tirol"
+          v-for="(block, i) in blocks"
+          :key="'block' + i"
+          :x="objPos(block).x"
+          :y="objPos(block).y"
+          :width="gridWidth"
+          :height="gridWidth"
+        /> -->
         <rect
           class="rect"
           v-for="(block, i) in blocks"
@@ -68,6 +77,8 @@ import Modal from '~/components/Modal.vue';
 import Ranking from '~/components/Ranking.vue';
 import UserNameInput from '~/components/UserNameInput.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
+
+export const tirol = [];
 
 export default {
   data() {
@@ -152,13 +163,16 @@ export default {
   methods: {
     ...mapActions(['getAccessToken', 'getPoint', 'getField', 'postField']),
     ...mapMutations(['setInitPos', 'gridMove', 'resetInitPos']),
+
     registerName(inputName) {
       this.getAccessToken(inputName);
       this.init(); // 新規に当ゲームを利用する場合は初期モーダル画面=>ユーザー名新規登録後に盤面情報の取得を開始
+      // this.createTirol();
     },
     closeOverlay() {
       this.overlay = false;
       if (this.token) this.init(); // 過去に当ゲームを利用していた場合は初期モーダル画面close後に盤面情報の取得を開始
+      // this.createTirol();
     },
     init() {
       this.setIntervalObj = setInterval(() => {
@@ -166,6 +180,13 @@ export default {
         this.getPoint();
       }, 300);
     },
+    // createTirol() {
+    //   for (let t = -25; t < 25; t += 1) {
+    //     for (let l = -25; l < 25; l += 1) {
+    //       this.tirol.push({ x: t, y: l });
+    //     }
+    //   }
+    // },
     styles(block) {
       if (!block.exploded && block.bombCount === 0) return false;
       return {
@@ -229,6 +250,7 @@ export default {
   right: 0;
   bottom: 0;
   background-color: gray;
+  /* background-image: url('../assets/tirol.png'); */
 }
 .field {
   position: absolute;
