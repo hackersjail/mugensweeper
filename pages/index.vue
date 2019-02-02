@@ -222,27 +222,11 @@ export default {
     },
     scroll(e) {
       e.preventDefault();
-      // drag現在地点
-      const sendPosition = this.getZoomTarget({ x: e.pageX, y: e.pageY });
       if (e.deltaY > 0) {
-        this.zoomIn(sendPosition);
+        this.zoomIn();
       } else {
-        this.zoomOut(sendPosition);
+        this.zoomOut();
       }
-    },
-    getZoomTarget(position) {
-      // カーソルの下にあるpieceの座標（Coordinates）
-      const targetCoordinates = {
-        x: Math.round((position.x - this.centerPos.x + this.moveDist.x) / this.gridWidth),
-        y: Math.round((position.y - this.centerPos.y - this.moveDist.y) / this.gridWidth),
-      };
-      // pieceの中心とカーソルの位置（Position）との差分
-      const adjustPos = {
-        x: position.x - this.objPos(targetCoordinates).x,
-        y: position.y + this.objPos(targetCoordinates).y,
-      };
-      const sendPosition = { targetCoordinates, adjustPos };
-      return sendPosition;
     },
   },
 };
