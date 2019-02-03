@@ -100,6 +100,16 @@ export const mutations = {
       Math.min(GRID_WIDTH_MAX, state.gridWidth + direction * GRID_WIDTH_STEP),
     );
   },
+  stayPoint(state, { pointerPos, centerPos }) {
+    // console.log(pointerPos, centerPos);
+    state.dragInit = centerPos;
+    state.swipeInit = state.moveDist;
+    const requestHalf = {
+      x: state.swipeInit.x - (pointerPos.x - state.dragInit.x),
+      y: state.swipeInit.y + (pointerPos.y - state.dragInit.y),
+    };
+    state.moveDist = requestHalf;
+  },
   setWindowSize(state, size) {
     state.windowSize = {
       ...state.windowSize,

@@ -105,6 +105,13 @@ export default {
         y: this.centerPos.y + this.gridWidth * object.y - this.gridWidth / 2 + this.moveDist.y, // 原点移動量調整
       });
     },
+    // マウスポインタ（位置）の相対座標
+    pointerPos() {
+      return (e) => ({
+        x: Math.round((e.pageX - this.centerPos.x + this.moveDist.x) / this.gridWidth),
+        y: Math.round((e.pageY - this.centerPos.y - this.moveDist.y) / this.gridWidth),
+      });
+    },
     borderPos() {
       return (i) => ({
         x:
@@ -206,16 +213,23 @@ export default {
       this.resetInitPos();
 
       if (!this.dragFlg) {
+        const { x, y } = this.pointerPos(e);
         const block = {
-          x: Math.round((e.pageX - this.centerPos.x + this.moveDist.x) / this.gridWidth),
-          y: Math.round((e.pageY - this.centerPos.y - this.moveDist.y) / this.gridWidth),
+          x,
+          y,
           isRequestToOpen: e.which === 1,
         };
         await this.postField(block);
       }
     },
     onWheel(e) {
+      const pointerPos = { x: e.pageX, y: e.pageY };
+      // const pointerPos = this.pointerPos(e); // マウスカーソル位置から相対座標を取得
+      const centerPos = { x: this.centerPos.x, y: this.centerPos.y };
+      // console.log(pointerPos, centerPos);
+      // const { objX, objY } = this.objPos({ x, y }); // 拡大する相対座標の中心点を取得
       this.changeGridWidth(e.deltaY > 0 ? -1 : 1);
+      this.stayPoint({ pointerPos, centerPos });
     },
   },
 };
