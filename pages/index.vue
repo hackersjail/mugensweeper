@@ -52,16 +52,16 @@
           :height="gridWidth"
         />
       </svg>
+      <div class="target">
+        <div
+          v-for="(block, i) in blocks"
+          :class="blockJudge(block)"
+          :style="styles(block)"
+          :key="i"
+        />
+      </div>
+      <ranking v-if="visibleRanking" :pointData="pointData" />
     </div>
-    <div class="target">
-      <div
-        v-for="(block, i) in blocks"
-        :class="blockJudge(block)"
-        :style="styles(block)"
-        :key="i"
-      />
-    </div>
-    <ranking v-if="visibleRanking" :pointData="pointData" />
   </section>
 </template>
 
@@ -77,8 +77,9 @@ const ZOOMING_STEP = 10;
 export default {
   data() {
     const tirol = [];
-    for (let t = -25; t < 25; t += 1) {
-      for (let l = -25; l < 25; l += 1) {
+    const size = 50;
+    for (let t = -size / 2; t < size / 2; t += 1) {
+      for (let l = -size / 2; l < size / 2; l += 1) {
         tirol.push({ x: t, y: l, taste: Math.floor(Math.random() * 20) });
       }
     }
@@ -166,12 +167,10 @@ export default {
     registerName(inputName) {
       this.getAccessToken(inputName);
       this.init(); // 新規に当ゲームを利用する場合は初期モーダル画面=>ユーザー名新規登録後に盤面情報の取得を開始
-      // this.createTirol();
     },
     closeOverlay() {
       this.overlay = false;
       if (this.token) this.init(); // 過去に当ゲームを利用していた場合は初期モーダル画面close後に盤面情報の取得を開始
-      // this.createTirol();
     },
     init() {
       this.setIntervalObj = setInterval(() => {
