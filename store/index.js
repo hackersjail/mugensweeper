@@ -94,21 +94,23 @@ export const mutations = {
     state.dragFlg = false;
     state.downFlg = false;
   },
-  changeGridWidth(state, direction) {
+  changeGridWidth(state, { direction, block, pointerPos }) {
+    const distRate = {
+      x: (pointerPos.x - state.gridWidth * block.x) / (state.gridWidth / 2),
+      y: (pointerPos.y - state.gridWidth * block.y) / (state.gridWidth / 2),
+    };
+    const boforeGridWidth = state.gridWidth;
     state.gridWidth = Math.max(
       GRID_WIDTH_MIN,
       Math.min(GRID_WIDTH_MAX, state.gridWidth + direction * GRID_WIDTH_STEP),
     );
-  },
-  stayPoint(state, { pointerPos, centerPos }) {
-    // console.log(pointerPos, centerPos);
-    state.dragInit = centerPos;
-    state.swipeInit = state.moveDist;
-    const requestHalf = {
-      x: state.swipeInit.x - (pointerPos.x - state.dragInit.x),
-      y: state.swipeInit.y + (pointerPos.y - state.dragInit.y),
-    };
-    state.moveDist = requestHalf;
+    if (boforeGridWidth > GRID_WIDTH_MIN && boforeGridWidth < GRID_WIDTH_MAX) {
+      const requestHalf = {
+        x: direction * GRID_WIDTH_STEP * (block.x + distRate.x) + state.moveDist.x,
+        y: -direction * GRID_WIDTH_STEP * (block.y + distRate.y) + state.moveDist.y,
+      };
+      state.moveDist = requestHalf;
+    }
   },
   setWindowSize(state, size) {
     state.windowSize = {

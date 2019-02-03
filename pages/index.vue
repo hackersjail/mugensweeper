@@ -223,13 +223,14 @@ export default {
       }
     },
     onWheel(e) {
-      const pointerPos = { x: e.pageX, y: e.pageY };
-      // const pointerPos = this.pointerPos(e); // マウスカーソル位置から相対座標を取得
-      const centerPos = { x: this.centerPos.x, y: this.centerPos.y };
-      // console.log(pointerPos, centerPos);
-      // const { objX, objY } = this.objPos({ x, y }); // 拡大する相対座標の中心点を取得
-      this.changeGridWidth(e.deltaY > 0 ? -1 : 1);
-      this.stayPoint({ pointerPos, centerPos });
+      // マウスカーソル位置のブロック座標
+      const block = this.pointerPos(e);
+      const pointerPos = {
+        x: e.pageX - this.centerPos.x + this.moveDist.x,
+        y: e.pageY - this.centerPos.y - this.moveDist.y,
+      };
+      const direction = e.deltaY > 0 ? -1 : 1;
+      this.changeGridWidth({ direction, block, pointerPos });
     },
   },
 };
