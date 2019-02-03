@@ -187,17 +187,17 @@ export default {
         height: `${this.gridWidth * imgRatio}px`,
       };
     },
-    onTouchStart(e) {
-      switch (e.touches.length) {
+    onTouchStart({ touches }) {
+      switch (touches.length) {
         case 1:
           this.setInitPos({
-            x: e.pageX,
-            y: e.pageY,
+            x: touches[0].pageX,
+            y: touches[0].pageY,
           });
           break;
         case 2:
           this.zooming = false;
-          this.prevDistanceForZooming = calcDistance(e.touches);
+          this.prevDistanceForZooming = calcDistance(touches);
           break;
         default:
           break;
@@ -230,7 +230,7 @@ export default {
       if (this.zooming && e.touches.length === 0) {
         this.zooming = false;
       } else {
-        await this.onMouseup(e);
+        await this.onMouseup(e.changedTouches[0]);
       }
     },
     async onMouseup({ pageX, pageY }) {
