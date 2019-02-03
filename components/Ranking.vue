@@ -65,7 +65,6 @@ export default {
   top: 0;
   right: 0;
   color: #fff;
-  z-index: 100;
 }
 
 .ranking > div {

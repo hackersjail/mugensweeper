@@ -2,18 +2,17 @@
   <section class="container">
     <modal v-if="overlay" @closeOverlay="closeOverlay" />
     <user-name-input v-if="visibleName" @register-name="registerName" />
-    <ranking v-if="visibleRanking" :pointData="pointData" />
 
     <div
       class="field"
       @wheel.prevent="onWheel"
-      @touchstart="onTouchStart"
+      @touchstart.prevent="onTouchStart"
       @mousedown="setInitPos"
       @touchmove.prevent="onTouchMove"
       @mousemove="gridMove"
       @touchend.prevent="onTouchEnd"
       @touchcancel.prevent="onTouchEnd"
-      @mouseup.prevent="onTouchEnd"
+      @mouseup.prevent="onMouseup"
       @contextmenu.prevent
     >
       <svg viewbox="0 0 100% 100%" width="100%" height="100%">
@@ -52,14 +51,17 @@
           :height="gridWidth"
         />
       </svg>
-    </div>
-    <div class="target">
-      <div
-        v-for="(block, i) in blocks"
-        :class="blockJudge(block)"
-        :style="styles(block)"
-        :key="i"
-      />
+
+      <div class="target">
+        <div
+          v-for="(block, i) in blocks"
+          :class="blockJudge(block)"
+          :style="styles(block)"
+          :key="i"
+        />
+      </div>
+
+      <ranking v-if="visibleRanking" :pointData="pointData" />
     </div>
   </section>
 </template>
@@ -69,13 +71,17 @@ import Modal from '~/components/Modal.vue';
 import Ranking from '~/components/Ranking.vue';
 import UserNameInput from '~/components/UserNameInput.vue';
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex';
+import calcDistance from '~/utils/calcDistance';
+
+const ZOOMING_STEP = 10;
 
 export default {
   data() {
     return {
       overlay: true,
-      touchTime: null,
       isRequestToOpen: false,
+      zoomingOnMobile: false,
+      prevDistanceForZooming: 0,
     };
   },
   components: {
@@ -182,37 +188,62 @@ export default {
       };
     },
     onTouchStart(e) {
-      // ダブルタップ無効化
-      if (Date.now() - this.touchTime < 350) {
-        e.preventDefault();
+      switch (e.touches.length) {
+        case 1:
+          this.setInitPos({
+            x: e.pageX,
+            y: e.pageY,
+          });
+          break;
+        case 2:
+          this.zooming = false;
+          this.prevDistanceForZooming = calcDistance(e.touches);
+          break;
+        default:
+          break;
       }
-      // drag基準地点
-      const position = {
-        x: e.pageX || e.changedTouches[0].clientX,
-        y: e.pageY || e.changedTouches[0].clientY,
-      };
-      this.setInitPos(position);
     },
-    onTouchMove(e) {
-      // drag現在地点
-      const movePos = {
-        x: e.pageX || e.changedTouches[0].clientX,
-        y: e.pageY || e.changedTouches[0].clientY,
-      };
-      this.gridMove(movePos);
+    onTouchMove({ touches }) {
+      switch (touches.length) {
+        case 1:
+          if (!this.zooming) {
+            this.gridMove({
+              x: touches[0].pageX,
+              y: touches[0].pageY,
+            });
+          }
+          break;
+        case 2: {
+          const distance = calcDistance(touches);
+          const delta = this.prevDistanceForZooming - distance;
+          if (Math.abs(delta) >= ZOOMING_STEP) {
+            this.changeGridWidth(delta > 0 ? -1 : 1);
+            this.prevDistanceForZooming = distance;
+          }
+          break;
+        }
+        default:
+          break;
+      }
     },
     async onTouchEnd(e) {
-      this.touchTime = Date.now();
-      this.resetInitPos();
-
+      if (this.zooming && e.touches.length === 0) {
+        this.zooming = false;
+      } else {
+        await this.onMouseup(e);
+      }
+    },
+    async onMouseup({ pageX, pageY }) {
       if (!this.dragFlg) {
         const block = {
-          x: Math.round((e.pageX - this.centerPos.x + this.moveDist.x) / this.gridWidth),
-          y: Math.round((e.pageY - this.centerPos.y - this.moveDist.y) / this.gridWidth),
-          isRequestToOpen: e.which === 1,
+          x: Math.round((pageX - this.centerPos.x + this.moveDist.x) / this.gridWidth),
+          y: Math.round((pageY - this.centerPos.y - this.moveDist.y) / this.gridWidth),
+          isRequestToOpen: true,
         };
         await this.postField(block);
       }
+
+      this.resetInitPos();
     },
     onWheel(e) {
       this.changeGridWidth(e.deltaY > 0 ? -1 : 1);
@@ -236,6 +267,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
+  user-select: none;
 }
 .target {
   width: 100%;
