@@ -195,7 +195,6 @@ export default {
       };
     },
     tirolStyles(block) {
-      // if (!block.exploded && block.bombCount === 0) return false;
       const imgRatio = 0.9;
 
       return {
