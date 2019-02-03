@@ -283,7 +283,6 @@ export default {
   right: 0;
   bottom: 0;
   background-color: gray;
-  /* background-image: url('../assets/tirol.png'); */
 }
 .field {
   position: absolute;
