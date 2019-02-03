@@ -1,8 +1,8 @@
 const USER_KEY_NAME = 'msweeP';
-const DEFAULT_GRID_WIDTH = 30;
-const GRID_WIDTH_MIN = 10;
+const DEFAULT_GRID_WIDTH = 40;
+const GRID_WIDTH_MIN = 5;
 const GRID_WIDTH_MAX = 150;
-const GRID_WIDTH_STEP = 10;
+const GRID_WIDTH_STEP = 5;
 
 export const state = () => ({
   userName: null,
