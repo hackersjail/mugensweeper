@@ -11,4 +11,11 @@ export default ({ $axios, store }) => {
     }
     if (store.state.token) config.headers.Authorization = `Bearer ${store.state.token}`;
   });
+
+  $axios.onResponseError((err) => {
+    if (err.response.status === 401) {
+      store.commit('clearAccessToken');
+      window.location.reload();
+    }
+  });
 };
