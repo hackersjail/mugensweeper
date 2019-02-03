@@ -15,6 +15,7 @@
       @mouseup.prevent="onMouseup"
       @contextmenu.prevent
     >
+      <div class="tirol" v-for="(block, i) in tirol" :style="tirolStyles(block)" :key="i" />
       <svg viewbox="0 0 100% 100%" width="100%" height="100%">
         <line
           class="border-x"
@@ -52,17 +53,15 @@
         />
       </svg>
     </div>
-    <div class="tirol" v-for="(block, i) in tirol" :style="tirolStyles(block)" :key="i">
-      <div class="target">
-        <div
-          v-for="(block, i) in blocks"
-          :class="blockJudge(block)"
-          :style="styles(block)"
-          :key="i"
-        />
-      </div>
-      <ranking v-if="visibleRanking" :pointData="pointData" />
+    <div class="target">
+      <div
+        v-for="(block, i) in blocks"
+        :class="blockJudge(block)"
+        :style="styles(block)"
+        :key="i"
+      />
     </div>
+    <ranking v-if="visibleRanking" :pointData="pointData" />
   </section>
 </template>
 
@@ -78,9 +77,9 @@ const ZOOMING_STEP = 10;
 export default {
   data() {
     const tirol = [];
-    for (let t = -5; t < 5; t += 1) {
-      for (let l = -5; l < 5; l += 1) {
-        tirol.push({ x: t, y: l });
+    for (let t = -25; t < 25; t += 1) {
+      for (let l = -25; l < 25; l += 1) {
+        tirol.push({ x: t, y: l, taste: Math.floor(Math.random() * 20) });
       }
     }
     return {
@@ -198,7 +197,7 @@ export default {
     },
     tirolStyles(block) {
       // if (!block.exploded && block.bombCount === 0) return false;
-      const imgRatio = 0.8;
+      const imgRatio = 0.9;
 
       return {
         top: `${this.centerPos.y +
@@ -207,7 +206,7 @@ export default {
         left: `${this.centerPos.x +
           this.gridWidth * (block.x - 0.5 + (1 - imgRatio) / 2) -
           this.moveDist.x}px`,
-        backgroundPosition: `${(block.exploded ? 10 : block.bombCount - 1) * (100 / 13)}% 50%`,
+        backgroundPosition: `${block.taste * (100 / 19)}% 50%`,
         width: `${this.gridWidth * imgRatio}px`,
         height: `${this.gridWidth * imgRatio}px`,
       };
@@ -295,6 +294,9 @@ export default {
   bottom: 0;
   user-select: none;
 }
+svg {
+  position: relative;
+}
 .target {
   width: 100%;
   height: 100%;
@@ -343,7 +345,7 @@ export default {
   overflow: hidden;
   background-image: url('../assets/tirol.png');
   background-repeat: no-repeat;
-  background-size: 1400% 100%;
+  background-size: 1945% 100%;
   position: fixed;
 }
 /* 原点がわかりやすいように識別 */
