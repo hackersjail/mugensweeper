@@ -15,6 +15,7 @@
       @mouseup.prevent="onMouseup"
       @contextmenu.prevent
     >
+      <div class="tirol" v-for="(block, i) in tirol" :style="tirolStyles(block)" :key="i" />
       <svg viewbox="0 0 100% 100%" width="100%" height="100%">
         <line
           class="border-x"
@@ -51,7 +52,6 @@
           :height="gridWidth"
         />
       </svg>
-
       <div class="target">
         <div
           v-for="(block, i) in blocks"
@@ -60,7 +60,6 @@
           :key="i"
         />
       </div>
-
       <ranking v-if="visibleRanking" :pointData="pointData" />
     </div>
   </section>
@@ -77,7 +76,15 @@ const ZOOMING_STEP = 10;
 
 export default {
   data() {
+    const tirol = [];
+    const size = 50;
+    for (let t = -size / 2; t < size / 2; t += 1) {
+      for (let l = -size / 2; l < size / 2; l += 1) {
+        tirol.push({ x: t, y: l, taste: Math.floor(Math.random() * 20) });
+      }
+    }
     return {
+      tirol,
       overlay: true,
       isRequestToOpen: false,
       zoomingOnMobile: false,
@@ -187,6 +194,21 @@ export default {
         height: `${this.gridWidth * imgRatio}px`,
       };
     },
+    tirolStyles(block) {
+      const imgRatio = 0.9;
+
+      return {
+        top: `${this.centerPos.y +
+          this.gridWidth * (block.y - 0.5 + (1 - imgRatio) / 2) +
+          this.moveDist.y}px`,
+        left: `${this.centerPos.x +
+          this.gridWidth * (block.x - 0.5 + (1 - imgRatio) / 2) -
+          this.moveDist.x}px`,
+        backgroundPosition: `${block.taste * (100 / 19)}% 50%`,
+        width: `${this.gridWidth * imgRatio}px`,
+        height: `${this.gridWidth * imgRatio}px`,
+      };
+    },
     onTouchStart({ touches }) {
       switch (touches.length) {
         case 1:
@@ -269,6 +291,9 @@ export default {
   bottom: 0;
   user-select: none;
 }
+svg {
+  position: relative;
+}
 .target {
   width: 100%;
   height: 100%;
@@ -311,6 +336,13 @@ export default {
   background-image: url('../assets/img.png');
   background-repeat: no-repeat;
   background-size: 1400% 100%;
+  position: fixed;
+}
+.tirol {
+  overflow: hidden;
+  background-image: url('../assets/tirol.png');
+  background-repeat: no-repeat;
+  background-size: 1945% 100%;
   position: fixed;
 }
 /* 原点がわかりやすいように識別 */
