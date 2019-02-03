@@ -2,7 +2,7 @@
   <transition name="modal">
     <div class="modalLayer">
       <div class="initMsg">
-        <div class="title">Mugen Sweeper</div>
+        <img class="logo" src="~/assets/logo.png" />
         <div class="startBtn" @click="$emit('closeOverlay')">START</div>
       </div>
     </div>
@@ -18,22 +18,18 @@
   z-index: 100;
 }
 .initMsg {
-  width: 80%;
-  height: 30%;
+  width: 100%;
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateY(-50%);
   text-align: center;
 }
-.title {
-  color: #fff;
-  font-size: 80px;
-  font-weight: bold;
-  font-family: serif;
+.logo {
+  width: 700px;
+  margin-left: 40px;
 }
 .startBtn {
-  margin: 30px auto 0;
+  margin: 20px auto 0;
   color: #fff;
   background: rgba(0, 13, 30, 0.8);
   border: 3px solid #fff;
@@ -51,9 +47,14 @@
   color: #020;
   background: #fff;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 700px) {
   .startBtn {
     width: 40%;
+  }
+
+  .logo {
+    width: 100%;
+    margin-left: 20px;
   }
 }
 </style>
