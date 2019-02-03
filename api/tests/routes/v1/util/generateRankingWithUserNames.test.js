@@ -32,15 +32,15 @@ describe('ブロックを開くとき', () => {
     ], time);
 
     const userinfo = [
-      { userName: 'Nanako', userId: 1 },
-      { userName: 'Taro', userId: 2 },
-      { userName: 'Ken', userId: 3 },
+      { userName: 'Nanako', userId: 'example1' },
+      { userName: 'Taro', userId: 'example2' },
+      { userName: 'Ken', userId: 'example3' },
     ];
 
     const matcher = [
-      { points: 1, userId: 3, userName: 'Ken' },
-      { points: 1, userId: 1, userName: 'Nanako' },
-      { points: 0, userId: 2, userName: 'Taro' },
+      { points: 1, userId: 'example3', userName: 'Ken' },
+      { points: 1, userId: 'example1', userName: 'Nanako' },
+      { points: 0, userId: 'example2', userName: 'Taro' },
     ];
 
     const fieldWithExplodedData = [];

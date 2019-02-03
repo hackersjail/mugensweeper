@@ -1,27 +1,22 @@
 const USER_KEY_NAME = 'msweeP';
-const DEFAULT_GRID_X = 48;
+const DEFAULT_GRID_WIDTH = 30;
+const GRID_WIDTH_MIN = 10;
+const GRID_WIDTH_MAX = 150;
+const GRID_WIDTH_STEP = 10;
 
 export const state = () => ({
   userName: null,
   userId: null,
   token: null,
   blocks: null,
-  gridX: DEFAULT_GRID_X,
-  rankedUsers: [
-    { userId: 1, userName: 'mishima', userScore: 123 },
-    { userId: 2, userName: 'shiratsuchi', userScore: 124 },
-    { userId: 3, userName: 'miyamoto', userScore: 125 },
-    { userId: 4, userName: 'ryoko', userScore: 126 },
-    { userId: 5, userName: 'hiroshima', userScore: 127 },
-    { userId: 6, userName: 'etoh', userScore: 128 },
-    { userId: 7, userName: 'matsuda', userScore: 129 },
-  ],
-  you: { userId: 1, userName: 'mishima', userScore: 123 },
+  gridWidth: DEFAULT_GRID_WIDTH,
+  pointData: null,
   moveDist: { x: 0, y: 0 }, // 原点の移動量
   swipeInit: { x: 0, y: 0 }, // swipe基準点
   dragInit: { x: 0, y: 0 }, // drag基準点
   downFlg: false, // mousedownもしくはtouchdownされたか
   dragFlg: false,
+  windowSize: { width: 0, height: 0 },
 });
 
 export const plugins = [
@@ -37,13 +32,44 @@ export const plugins = [
       localStorage.setItem(USER_KEY_NAME, JSON.stringify(mutation.payload));
     });
   },
+  (store) => {
+    const onResize = () => {
+      store.commit('setWindowSize', {
+        width: document.documentElement.clientWidth,
+        height: document.documentElement.clientHeight,
+      });
+    };
+    window.addEventListener('resize', onResize);
+    onResize();
+  },
 ];
+
+export const getters = {
+  gridX(state) {
+    return Math.ceil(state.windowSize.width / state.gridWidth);
+  },
+  gridY(state) {
+    return Math.ceil(state.windowSize.height / state.gridWidth);
+  },
+  centerPos(state) {
+    return {
+      x: state.windowSize.width / 2,
+      y: state.windowSize.height / 2,
+    };
+  },
+};
 
 export const mutations = {
   setAccessToken(state, { token, userId, userName }) {
     state.token = token;
     state.userId = userId;
     state.userName = userName;
+  },
+  clearAccessToken() {
+    localStorage.removeItem(USER_KEY_NAME);
+  },
+  setPoint(state, pointData) {
+    state.pointData = pointData;
   },
   setField(state, blocks) {
     state.blocks = blocks;
@@ -68,6 +94,18 @@ export const mutations = {
     state.dragFlg = false;
     state.downFlg = false;
   },
+  changeGridWidth(state, direction) {
+    state.gridWidth = Math.max(
+      GRID_WIDTH_MIN,
+      Math.min(GRID_WIDTH_MAX, state.gridWidth + direction * GRID_WIDTH_STEP),
+    );
+  },
+  setWindowSize(state, size) {
+    state.windowSize = {
+      ...state.windowSize,
+      ...size,
+    };
+  },
 };
 
 export const actions = {
@@ -76,6 +114,10 @@ export const actions = {
       const userData = await this.$axios.$post('/user', { userName });
       commit('setAccessToken', userData);
     }
+  },
+  async getPoint({ commit }) {
+    const pointData = await this.$axios.$get('/point');
+    commit('setPoint', pointData);
   },
   async getField({ commit }) {
     const fieldData = await this.$axios.$get('/field');

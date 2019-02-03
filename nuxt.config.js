@@ -14,9 +14,9 @@ module.exports = {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
-  loading: { color: '#fff' },
+  loading: false,
   css: [],
-  plugins: ['@/plugins/axios', '@/plugins/window-state', '@/plugins/vue-touch'],
+  plugins: ['@/plugins/axios', '@/plugins/vue-touch'],
   modules: ['@nuxtjs/axios'],
   axios: { baseURL: NODE_ENV !== 'test' && AXIOS_BASE ? AXIOS_BASE : 'http://localhost:10000/v1' },
   build: {

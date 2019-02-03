@@ -24,11 +24,9 @@ module.exports = {
       }
     }
   },
-
   getData() {
     return [...field];
   },
-
   addData(add) {
     const recordtime = Math.round(new Date().getTime() / 1000);
     unsavedField.push({ ...add, actionId, recordtime });
@@ -42,14 +40,12 @@ module.exports = {
     actionId += 1;
     return { status: false };
   },
-
   async saveData() {
     if (unsavedField.lenghth !== 0) {
       await FieldHistoryModel.insertMany(unsavedField);
       unsavedField.length = 0;
     }
   },
-
   // 検証への使用度高関数のため保存
   async deleteData() {
     await FieldHistoryModel.deleteMany();

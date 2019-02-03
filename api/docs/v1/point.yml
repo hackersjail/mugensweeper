@@ -1,0 +1,20 @@
+tags:
+  - name: Point
+    description: point API
+/point:
+  get:
+    tags:
+      - Point
+    securityDefinitions:
+      - $ref: "#/securityDefinitions/tokenAuth"
+    security:
+      - tokenAuth: []
+    responses:
+      200:
+        description: "success"
+        schema:
+          type: "string"
+      401:
+        description: "error"
+        schema:
+          type: "string"

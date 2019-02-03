@@ -9,7 +9,7 @@ describe('ユーザー情報を返せるかどうか', () => {
   afterEach(dropDB);
   afterAll(disconnectDB);
 
-  it('任意で複数ユーザー名をpostして、ユーザーIDつきでリーターンできるか', async () => {
+  it('任意で複数ユーザー名をpostして、ユーザーIDつきでリターンできるか', async () => {
     // Given
     const nameList = [{ userName: 'yuika' }, { userName: 'taro' }];
 
@@ -28,6 +28,7 @@ describe('ユーザー情報を返せるかどうか', () => {
 
       // then
       expect(lastBody).toHaveProperty('userId');
+      expect(lastBody.userId.length).toBe(8); // userIdは必ず8桁の値である事を確認
       expect(lastBody.userName).toBe(userName);
     }
 
@@ -40,6 +41,7 @@ describe('ユーザー情報を返せるかどうか', () => {
 
     // then
     expect(afteraddUser[0]).toHaveProperty('userId');
+    expect(afteraddUser[0].userId.length).toBe(8); // userIdは必ず8桁の値である事を確認
     expect(afteraddUser[0].userName).toBe(nameList[0].userName);
   });
 
@@ -68,5 +70,23 @@ describe('ユーザー情報を返せるかどうか', () => {
     results.forEach((r, i) => {
       expect(r).toBe(nameList[i].judge ? 200 : 401);
     });
+  });
+
+  it('新規に生成したuserIdが、既存のuserIdと重複していないか確認', async () => {
+    const userIds = [];
+    for (let i = 0; i < 100; i += 1) {
+      // When
+      const {
+        body: { userId },
+      } = await chai
+        .request(app)
+        .post('/v1/user')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send({ userName: 'test' });
+
+      // Then
+      expect(userIds).not.toContain(userId);
+      userIds.push(userId);
+    }
   });
 });
