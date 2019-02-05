@@ -1,10 +1,10 @@
 tags:
-  - name: shiratsuchi field
-    description: shiratsuchi field API
+  - name: Shiratsuchi
+    description: Shiratsuchi API
 /shiratsuchi/field:
   get:
     tags:
-      - shiratsuchi field
+      - Shiratsuchi
     produces:
       - "text/html; charset=utf-8"
     responses:
@@ -16,7 +16,7 @@ tags:
 /shiratsuchi/block:
   post:
     tags:
-      - shiratsuchi block
+      - Shiratsuchi
     produces:
       - "text/html; charset=utf-8"
     parameters:
@@ -38,7 +38,7 @@ tags:
           example: "text"
   delete:
     tags:
-      - shiratsuchi block
+      - Shiratsuchi
     produces:
       - "text/html; charset=utf-8"
     responses:

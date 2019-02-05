@@ -1,10 +1,10 @@
 tags:
-  - name: Ryoko field
-    description: Ryoko field API
+  - name: Ryoko
+    description: Ryoko API
 /ryoko/field:
   get:
     tags:
-      - Ryoko field
+      - Ryoko
     produces:
       - "text/html; charset=utf-8"
     parameters:
@@ -22,7 +22,7 @@ tags:
 /ryoko/block/:
   post:
     tags:
-      - Ryoko block
+      - Ryoko
     produces:
       - "text/html; charset=utf-8"
     parameters:
@@ -45,7 +45,7 @@ tags:
 /ryoko/block:
   delete:
     tags:
-      - Ryoko block
+      - Ryoko
     produces:
       - "text/html; charset=utf-8"
     responses:
