@@ -1,6 +1,6 @@
 const chai = require('chai');
 const app = require('../../../routes/app.js');
-const ExampleModel = require('../../../models/ExampleModel.js');
+const ExampleModel = require('../../../models/dev/ExampleModel.js');
 const { connectDB, disconnectDB, dropDB } = require('../../../database.js');
 
 const propFilter = '-_id -__v';
