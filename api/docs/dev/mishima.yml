@@ -1,12 +1,10 @@
 tags:
-  - name: MishimaField
-    description: Field API
-  - name: MishimaBlock
-    description: Block API
+  - name: Mishima
+    description: Mishima API
 /mishima/field:
   get:
     tags:
-      - MishimaField
+      - Mishima
     produces:
       - "text/html; charset=utf-8"
     responses:
@@ -18,7 +16,7 @@ tags:
 /mishima/block:
   post:
     tags:
-      - MishimaBlock
+      - Mishima
     produces:
       - "text/html; charset=utf-8"
     parameters:
@@ -32,7 +30,7 @@ tags:
           example: "text"
   delete:
     tags:
-      - MishimaBlock
+      - Mishima
     produces:
       - "text/html; charset=utf-8"
     responses:

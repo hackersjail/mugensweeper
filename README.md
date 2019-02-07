@@ -1,4 +1,4 @@
-<h2 align="center"><img src="static/logo.png" alt="MugenSweeper" width="403"></h2>
+<h2 align="center"><img src="static/logo.png" alt="MugenSweeper" width="427"></h2>
 
 <p align="center">
   <a href="https://app.netlify.com/sites/mugensweeper/deploys"><img src="https://api.netlify.com/api/v1/badges/7dfe5b91-df5e-49e8-9948-6db6e228d6f4/deploy-status" alt="Netlify Status"></a>
@@ -107,6 +107,18 @@ $ docker-compose exec dev sh
 ```
 
 #### For Windows
+
+Set Docker Machine's IP to `.env` file with `HOST` variable.
+
+```bat
+rem Get the IP address of a machine command
+> docker-machine ip
+```
+
+```bash
+# Example `.env` file
+HOST=192.168.99.100
+```
 
 Windows uses polling for hot reloading.
 

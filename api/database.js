@@ -11,7 +11,7 @@ module.exports = {
     let uri;
     let options;
 
-    if (NODE_ENV !== 'test' || process.env.MONGO_ENV) {
+    if (NODE_ENV !== 'test' || process.env.DOCKER_ENV) {
       uri = MONGO_URI;
       options = { useNewUrlParser: true };
     } else if (NODE_ENV === 'test') {

@@ -4,7 +4,7 @@ executors:
   default:
     working_directory: ~/repo
     docker:
-      - image: circleci/node:10.15
+      - image: circleci/node:10.15.1
         environment:
           TZ: Asia/Tokyo
 
@@ -82,9 +82,9 @@ jobs:
       - run:
           name: Run test with current Node.js version
           command: npx --package node@^11 node ./node_modules/.bin/jest --config api/jest.config.js --runInBand
-      - run:
-          name: Run a security audit
-          command: yarn audit
+      # - run:
+      #     name: Run a security audit
+      #     command: yarn audit
       - run:
           name: Report coverage results
           command: yarn coverage
