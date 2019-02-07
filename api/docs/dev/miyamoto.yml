@@ -22,7 +22,7 @@ tags:
     security:
       - tokenAuth: []
     tags:
-      - block
+      - Miyamoto
     summary: "open a block on board"
     description: |
       - status
@@ -48,7 +48,7 @@ tags:
     security:
       - tokenAuth: []
     tags:
-      - block
+      - Miyamoto
     summary: "reset all block state"
     responses:
       200:

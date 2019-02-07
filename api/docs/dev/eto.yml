@@ -1,10 +1,10 @@
 tags:
-  - name: eto
-    description: eto API
+  - name: Eto
+    description: Eto API
 /eto/field:
   get:
     tags:
-      - field
+      - Eto
     produces:
       - "text/html; charset=utf-8"
     parameters:
@@ -24,7 +24,7 @@ tags:
 /eto/block:
   post:
     tags:
-      - block
+      - Eto
     produces:
       - "text/html; charset=utf-8"
     parameters:
