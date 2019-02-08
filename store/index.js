@@ -17,6 +17,7 @@ export const state = () => ({
   downFlg: false, // mousedownもしくはtouchdownされたか
   dragFlg: false,
   windowSize: { width: 0, height: 0 },
+  direction: 0,
 });
 
 export const plugins = [
@@ -95,13 +96,16 @@ export const mutations = {
       GRID_WIDTH_MIN,
       Math.min(GRID_WIDTH_MAX, state.gridWidth + direction * GRID_WIDTH_STEP),
     );
-    if (beforeGridWidth > GRID_WIDTH_MIN && beforeGridWidth < GRID_WIDTH_MAX) {
+    const isOver = beforeGridWidth > GRID_WIDTH_MIN && beforeGridWidth < GRID_WIDTH_MAX;
+    const isChanged = state.direction === -direction;
+    if (isOver || isChanged) {
       const requestHalf = {
         x: direction * GRID_WIDTH_STEP * (block.x + distRate.x / 2) + state.moveDist.x,
         y: -direction * GRID_WIDTH_STEP * (block.y + distRate.y / 2) + state.moveDist.y,
       };
       state.moveDist = requestHalf;
     }
+    state.direction = direction;
   },
   setWindowSize(state, size) {
     state.windowSize = {
