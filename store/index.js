@@ -99,15 +99,15 @@ export const mutations = {
       x: (pointerPos.x - state.gridWidth * block.x) / (state.gridWidth / 2),
       y: (pointerPos.y - state.gridWidth * block.y) / (state.gridWidth / 2),
     };
-    const boforeGridWidth = state.gridWidth;
+    const beforeGridWidth = state.gridWidth;
     state.gridWidth = Math.max(
       GRID_WIDTH_MIN,
       Math.min(GRID_WIDTH_MAX, state.gridWidth + direction * GRID_WIDTH_STEP),
     );
-    if (boforeGridWidth > GRID_WIDTH_MIN && boforeGridWidth < GRID_WIDTH_MAX) {
+    if (beforeGridWidth > GRID_WIDTH_MIN && beforeGridWidth < GRID_WIDTH_MAX) {
       const requestHalf = {
-        x: direction * GRID_WIDTH_STEP * (block.x + distRate.x) + state.moveDist.x,
-        y: -direction * GRID_WIDTH_STEP * (block.y + distRate.y) + state.moveDist.y,
+        x: direction * GRID_WIDTH_STEP * (block.x + distRate.x / 2) + state.moveDist.x,
+        y: -direction * GRID_WIDTH_STEP * (block.y + distRate.y / 2) + state.moveDist.y,
       };
       state.moveDist = requestHalf;
     }
