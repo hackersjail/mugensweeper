@@ -1,7 +1,7 @@
 const pkg = require('./package');
 require('dotenv').config();
 
-const { AXIOS_BASE, NODE_ENV } = process.env;
+const { AXIOS_BASE, NODE_ENV, DOCKER_ENV } = process.env;
 
 module.exports = {
   mode: 'spa',
@@ -31,10 +31,5 @@ module.exports = {
       }
     },
   },
-  watchers: {
-    webpack: {
-      aggregateTimeout: 300,
-      poll: 1000,
-    },
-  },
+  watchers: DOCKER_ENV === 'development' ? { webpack: { aggregateTimeout: 300, poll: 1000 } } : {},
 };

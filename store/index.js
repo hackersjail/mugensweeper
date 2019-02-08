@@ -23,9 +23,7 @@ export const plugins = [
   (store) => {
     if (process.env.NODE_ENV === 'test') return;
     const localData = localStorage.getItem(USER_KEY_NAME);
-    if (localData) {
-      store.commit('setAccessToken', JSON.parse(localData));
-    }
+    if (localData) store.commit('setAccessToken', JSON.parse(localData));
 
     store.subscribe((mutation) => {
       if (mutation.type !== 'setAccessToken') return; // setAccessTokenの発火時のみ起動
@@ -45,18 +43,12 @@ export const plugins = [
 ];
 
 export const getters = {
-  gridX(state) {
-    return Math.ceil(state.windowSize.width / state.gridWidth);
-  },
-  gridY(state) {
-    return Math.ceil(state.windowSize.height / state.gridWidth);
-  },
-  centerPos(state) {
-    return {
-      x: state.windowSize.width / 2,
-      y: state.windowSize.height / 2,
-    };
-  },
+  gridX: (state) => Math.ceil(state.windowSize.width / state.gridWidth),
+  gridY: (state) => Math.ceil(state.windowSize.height / state.gridWidth),
+  centerPos: (state) => ({
+    x: state.windowSize.width / 2,
+    y: state.windowSize.height / 2,
+  }),
 };
 
 export const mutations = {
@@ -83,11 +75,10 @@ export const mutations = {
   gridMove(state, position) {
     if (!state.downFlg) return;
     state.dragFlg = true;
-    const requestHalf = {
+    state.moveDist = {
       x: state.swipeInit.x - (position.x - state.dragInit.x),
       y: state.swipeInit.y + (position.y - state.dragInit.y),
     };
-    state.moveDist = requestHalf;
   },
   resetInitPos(state) {
     // touchend
@@ -141,8 +132,6 @@ export const actions = {
       y,
       isRequestToOpen,
     });
-    if (isAdded) {
-      await dispatch('getField');
-    }
+    if (isAdded) await dispatch('getField');
   },
 };
