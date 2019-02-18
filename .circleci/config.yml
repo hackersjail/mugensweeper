@@ -9,11 +9,14 @@ executors:
           TZ: Asia/Tokyo
 
 commands:
+  ##
+  # Cache management
+  ##
   restore_repo:
     steps:
       - restore_cache:
           name: Restore repository
-          key: repo-v1-{{ .Environment.CIRCLE_SHA1 }}
+          key: repo-{{ .Environment.CIRCLE_WORKFLOW_ID }}
   save_repo:
     steps:
       - checkout
@@ -22,7 +25,7 @@ commands:
           command: chmod a+x ./.circleci/webhook.sh
       - save_cache:
           name: Cache repository
-          key: repo-v1-{{ .Environment.CIRCLE_SHA1 }}
+          key: repo-{{ .Environment.CIRCLE_WORKFLOW_ID }}
           paths:
             - ~/repo
   restore_npm:
@@ -32,18 +35,18 @@ commands:
           key: yarn-packages-v1-{{ checksum "yarn.lock" }}
   save_npm:
     steps:
+      - run:
+          name: Install npm dependencies
+          command: yarn --frozen-lockfile --non-interactive
       - save_cache:
           name: Cache npm dependencies
           key: yarn-packages-v1-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
-  setup_awscli:
-    steps:
-      - run:
-          name: Install AWS CLI
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y awscli
+
+  ##
+  # Webhooks
+  ##
   notify_deployment_failed:
     steps:
       - run:
@@ -63,19 +66,35 @@ commands:
             WEBHOOK_COLOR: "#41aa58"
 
 jobs:
-  test:
+  ##
+  # Phase 1: Setup
+  ##
+  setup:
     executor:
       name: default
     steps:
       - save_repo
       - restore_npm
-      - run:
-          name: Install npm dependencies
-          command: yarn
       - save_npm
+
+  ##
+  # Phase 2: Lint + Test + Audit
+  ##
+  lint:
+    executor:
+      name: default
+    steps:
+      - restore_repo
+      - restore_npm
       - run:
           name: Run lint
           command: yarn lint
+  test:
+    executor:
+      name: default
+    steps:
+      - restore_repo
+      - restore_npm
       - run:
           name: Run test
           command: yarn test:coverage --runInBand
@@ -83,17 +102,31 @@ jobs:
           name: Run test with current Node.js version
           command: npx --package node@^11 node ./node_modules/.bin/jest --config api/jest.config.js --runInBand
       - run:
-          name: Run a security audit
-          command: yarn audit
-      - run:
           name: Report coverage results
           command: yarn coverage
+  audit:
+    executor:
+      name: default
+    steps:
+      - restore_repo
+      - restore_npm
+      - run:
+          name: Run a security audit
+          command: yarn audit
+
+  ##
+  # Phase 3: Deploy API server
+  ##
   deploy_api:
     executor:
       name: default
     steps:
       - restore_repo
-      - setup_awscli
+      - run:
+          name: Install AWS CLI
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y awscli
       - run:
           name: Deploy API server
           command: |
@@ -106,10 +139,26 @@ jobs:
 workflows:
   test_and_deploy:
     jobs:
-      - test
+      # Phase 1: Setup
+      - setup
+
+      # Phase 2: Lint + Test + Audit
+      - lint:
+          requires:
+            - setup
+      - test:
+          requires:
+            - setup
+      - audit:
+          requires:
+            - setup
+
+      # Phase 3: Deploy API server
       - deploy_api:
           requires:
+            - lint
             - test
+            # - audit
           filters:
             branches:
               only:
