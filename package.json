@@ -2,7 +2,9 @@
   "name": "mugensweeper",
   "version": "0.0.1-0",
   "description": "MugenSweeper is unlimited Minesweeper.",
+  "repository": "https://github.com/hackersjail/mugensweeper",
   "author": "m-mitsuhide",
+  "license": "MIT",
   "private": true,
   "engines": {
     "node": ">=10.13.0"
