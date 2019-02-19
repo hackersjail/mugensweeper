@@ -21,6 +21,10 @@
 
 <https://mugensweeper.netlify.com>
 
+### API Server
+
+<https://mugensweeper-api.ireversi.io/docs/v1/>
+
 ### Development
 
 Node.js version 10.13.0 or higher is required.
@@ -96,13 +100,13 @@ MONGO_URI=mongodb://<username>:<password>@cluster0-shard-00-00-iuxvg.mongodb.net
 Build a development environment using Docker Compose.
 
 ```
-# Starts the containers in the background and leaves them running.
+# Starts the containers in the background and leaves them running
 $ docker-compose up --detach
 
-# Get an interactive prompt.
+# Get an interactive prompt
 $ docker-compose exec dev sh
 
-# Develop MugenSweeper.
+# Start development
 /usr/src/app # yarn dev
 ```
 
@@ -121,11 +125,12 @@ HOST=192.168.99.100
 ```
 
 Windows uses polling for hot reloading.
+Please note using another commands in Docker container.
 
 ```
-# Develop MugenSweeper.
+# Developing
 /usr/src/app # yarn docker:dev
 
-# Testing scripts.
+# Testing
 /usr/src/app # yarn docker:test
 ```
