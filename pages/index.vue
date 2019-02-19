@@ -157,8 +157,8 @@ export default {
   methods: {
     ...mapActions(['getAccessToken', 'getPoint', 'getField', 'postField']),
     ...mapMutations(['setInitPos', 'gridMove', 'resetInitPos', 'changeGridWidth', 'setGridX']),
-    registerName(inputName) {
-      this.getAccessToken(inputName);
+    async registerName(inputName) {
+      await this.getAccessToken(inputName);
       this.init(); // 新規に当ゲームを利用する場合は初期モーダル画面=>ユーザー名新規登録後に盤面情報の取得を開始
     },
     closeOverlay() {
