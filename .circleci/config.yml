@@ -4,7 +4,7 @@ executors:
   default:
     working_directory: ~/repo
     docker:
-      - image: circleci/node:10.15.1
+      - image: circleci/node:10.15.3
         environment:
           TZ: Asia/Tokyo
 
