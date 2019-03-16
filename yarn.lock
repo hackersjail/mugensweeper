@@ -6911,10 +6911,10 @@ mongodb-core@3.1.11:
   optionalDependencies:
     saslprep "^1.0.0"
 
-mongodb-memory-server@3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/mongodb-memory-server/-/mongodb-memory-server-3.1.1.tgz#259118b4ebc3e55c460e4714ac9b91edd755b150"
-  integrity sha512-sOkqhOMUBjZlMU68GbAPrSr97aYy2veOZqy8j3UYLWks1DQXS3Almmz/GGDmp0E8I6MaPacar66wRBwWdBqY9w==
+mongodb-memory-server@3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/mongodb-memory-server/-/mongodb-memory-server-3.1.3.tgz#80c0494ff5f2995ba224a80e4327c1d9fef72ac4"
+  integrity sha512-SXBbZ2bWaiDC6bSkyR3DiH8qYivomQy5ZY3qnMULotF8ay70vovi8OYsVzd8xeumKIf5KY5VAqqjW6RUGwILzQ==
   dependencies:
     "@babel/runtime" "^7.2.0"
     debug "^4.1.1"
@@ -6943,10 +6943,10 @@ mongoose-legacy-pluralize@1.0.2:
   resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
   integrity sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ==
 
-mongoose@5.4.13:
-  version "5.4.13"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.4.13.tgz#dff934864577aa7c5c1b72c41b60999077cf78c2"
-  integrity sha512-4dgmFbtNECbW3ZMS6ha2pebinUzZo789scdccdyyajbmaunBPqZJqp6eO6pThIqDsgSOkRi4IrzkZm8kmhtZMA==
+mongoose@5.4.19:
+  version "5.4.19"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.4.19.tgz#fdca94ee7f71da2cf0e941d02255aa02007c55c0"
+  integrity sha512-paRU3nbCrPIUVw1GAlxo11uIIqrYORctUx1kcLj7i2NhkxPQuy5OK2/FYj8+tglsaixycmONSyop2HQp1IUQSA==
   dependencies:
     async "2.6.1"
     bson "~1.1.0"
