@@ -7,7 +7,7 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint',
   },
-  extends: ['airbnb-base', 'plugin:vue/essential', 'plugin:prettier/recommended'],
+  extends: ['airbnb-base', 'plugin:vue/essential', 'plugin:prettier/recommended', 'prettier/vue'],
   plugins: ['vue', 'prettier'],
   rules: {
     'no-console': process.env.NODE_ENV === 'development' ? 'off' : 'error',
@@ -26,8 +26,8 @@ module.exports = {
     {
       files: ['store/**/*.js'],
       rules: {
-        'no-shadow': 0,
-        'no-param-reassign': 0,
+        'no-shadow': 'off',
+        'no-param-reassign': 'off',
       },
     },
   ],
