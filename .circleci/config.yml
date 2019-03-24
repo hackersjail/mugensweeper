@@ -20,9 +20,6 @@ commands:
   save_repo:
     steps:
       - checkout
-      - run:
-          name: Make Shell Script executable
-          command: chmod a+x ./.circleci/webhook.sh
       - save_cache:
           name: Cache repository
           key: repo-{{ .Environment.CIRCLE_WORKFLOW_ID }}
@@ -52,7 +49,7 @@ commands:
     steps:
       - run:
           name: Notify deployment failed
-          command: ./.circleci/webhook.sh
+          command: sh ./.circleci/webhook.sh
           environment:
             DEPLOY_RESULT: failed
             WEBHOOK_COLOR: "#d10c20"
@@ -61,14 +58,14 @@ commands:
     steps:
       - run:
           name: Notify deployment succeeded
-          command: ./.circleci/webhook.sh
+          command: sh ./.circleci/webhook.sh
           environment:
             DEPLOY_RESULT: succeeded
             WEBHOOK_COLOR: "#41aa58"
 
 jobs:
   ##
-  # Phase 1: Setup
+  # Commit workflow phase 1: Setup
   ##
   setup:
     executor:
@@ -79,7 +76,7 @@ jobs:
       - save_npm
 
   ##
-  # Phase 2: Lint + Test + Audit
+  # Commit workflow phase 2: Lint + Test
   ##
   lint:
     executor:
@@ -105,18 +102,9 @@ jobs:
       - run:
           name: Report coverage results
           command: yarn coverage
-  audit:
-    executor:
-      name: default
-    steps:
-      - restore_repo
-      - restore_npm
-      - run:
-          name: Run a security audit
-          command: yarn audit
 
   ##
-  # Phase 3: Deploy API server
+  # Commit workflow phase 3: Deploy API server
   ##
   deploy_api:
     executor:
@@ -137,20 +125,30 @@ jobs:
       - notify_deployment_failed
       - notify_deployment_succeeded
 
+  ##
+  # Weekly workflow: Audit
+  ##
+  audit:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - restore_npm
+      - run:
+          name: Run a security audit
+          command: yarn audit
+
 workflows:
-  test_and_deploy:
+  commit:
     jobs:
       # Phase 1: Setup
       - setup
 
-      # Phase 2: Lint + Test + Audit
+      # Phase 2: Lint + Test
       - lint:
           requires:
             - setup
       - test:
-          requires:
-            - setup
-      - audit:
           requires:
             - setup
 
@@ -159,9 +157,18 @@ workflows:
           requires:
             - lint
             - test
-            # - audit
           filters:
             branches:
               only:
                 - master
                 - develop
+  weekly:
+    triggers:
+      - schedule:
+          cron: '0 0 * * 6' # Every Saturday 9:00 AM
+          filters:
+            branches:
+              only:
+                - develop
+    jobs:
+      - audit
