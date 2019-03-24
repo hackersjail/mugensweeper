@@ -4,6 +4,7 @@
     ":label(renovate)",
     ":prConcurrentLimit20",
     ":prNotPending",
+    ":prHourlyLimit2",
     ":renovatePrefix",
     ":timezone(Asia/Tokyo)",
     "group:monorepos",
@@ -26,8 +27,7 @@
       },
       {
         "groupName": "MongoDB",
-        "packageNames": ["mongoose"],
-        "packagePatterns": ["^mongodb"]
+        "packageNames": ["mongoose", "mongodb-memory-server"]
       }
     ]
   },
