@@ -41,7 +41,7 @@ module.exports = {
     return { status: false };
   },
   async saveData() {
-    if (unsavedField.lenghth !== 0) {
+    if (unsavedField.length !== 0) {
       await FieldHistoryModel.insertMany(unsavedField);
       unsavedField.length = 0;
     }
