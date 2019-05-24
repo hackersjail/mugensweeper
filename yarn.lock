@@ -1885,7 +1885,7 @@ async@2.6.1:
   dependencies:
     lodash "^4.17.10"
 
-async@^2.3.0, async@^2.4.1, async@^2.6, async@^2.6.0, async@^2.6.1, async@~2.6.1:
+async@2.6.2, async@^2.3.0, async@^2.4.1, async@^2.6, async@^2.6.0, async@^2.6.1, async@~2.6.1:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/async/-/async-2.6.2.tgz#18330ea7e6e313887f5d2f2a904bac6fe4dd5381"
   integrity sha512-H1qVYh1MYhEEFLsP97cVKqCGo7KfCyTt6uEWqsTBr9SO84oK9Uwbyd/yCW+6rKJLHksBNUVWZDAjfS+Ccx0Bbg==
@@ -7052,10 +7052,10 @@ moment-timezone@^0.5.x:
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
-mongodb-core@3.2.2:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-3.2.2.tgz#d1c084b34c102a98b4734087800115e639d907c5"
-  integrity sha512-YRgC39MuzKL0uoGoRdTmV1e9m47NbMnYmuEx4IOkgWAGXPSEzRY7cwb3N0XMmrDMnD9vp7MysNyAriIIeGgIQg==
+mongodb-core@3.2.5:
+  version "3.2.5"
+  resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-3.2.5.tgz#08f9c78f44bba6a22d04fd3bce6bb257d82c7d35"
+  integrity sha512-czmFd/7Cy+PxItL5KewYgkKTJGb2JyC1PdIdLBVGHER4Vsgu/A+fXDDNO+PLuyHNdh7qbH2XyLP4HHAifgBBoQ==
   dependencies:
     bson "^1.1.1"
     require_optional "^1.0.1"
@@ -7074,10 +7074,10 @@ mongodb-core@^3.2.3:
   optionalDependencies:
     saslprep "^1.0.0"
 
-mongodb-memory-server-core@5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/mongodb-memory-server-core/-/mongodb-memory-server-core-5.1.0.tgz#fd0b39b9f5b08eb9e7ffdf2ba79146e5f6d109bc"
-  integrity sha512-M/GWVvFze0geP2smoy0ns+Yz5l4BRP6Y66OKc+w9zlX422ydQEA04bLQjooPqoaBTrV90xuDj5E+zejn/YkPew==
+mongodb-memory-server-core@5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/mongodb-memory-server-core/-/mongodb-memory-server-core-5.1.2.tgz#a64d8c8d2223509d6de139aa923960c9107a30ae"
+  integrity sha512-U1ypUdPfrUPxfLFwQT38uXzC8IWEsVgPRgFK86b0w1Wiqh44DQ8fJ6hnhkSJg0btpVJGUYHAss4o4/GXQPTYrQ==
   dependencies:
     camelcase "^5.3.1"
     debug "^4.1.1"
@@ -7096,19 +7096,19 @@ mongodb-memory-server-core@5.1.0:
   optionalDependencies:
     mongodb ">=3.0.0"
 
-mongodb-memory-server@5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/mongodb-memory-server/-/mongodb-memory-server-5.1.0.tgz#6861b1929bea040c25b25a006241a9c5cec88827"
-  integrity sha512-CN4fjt90fi6A3PSJIx6xYxIRqpxF1rJoz4BcJv6LmGyRAOAvCbr3SqRbfXJMS26wTDyHylXtW32PhdykDohogA==
+mongodb-memory-server@5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/mongodb-memory-server/-/mongodb-memory-server-5.1.2.tgz#dd97889d931a07aa30c4a6122d10cd17bc1e1349"
+  integrity sha512-kwngWVUS4tf1gDAtYK058j9leSHC5iw9yv2/zL7hSlgUA/AjXpVgucIrc2BMLvSikMQxu9BxuGBnmec3+3gVhw==
   dependencies:
-    mongodb-memory-server-core "5.1.0"
+    mongodb-memory-server-core "5.1.2"
 
-mongodb@3.2.2:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.2.2.tgz#49b592be3cd50097f78e0964488d18c2e189de20"
-  integrity sha512-xQ6apOOV+w7VFApdaJpWhYhzartpjIDFQjG0AwgJkLh7dBs7PTsq4A3Bia2QWpDohmAzTBIdQVLMqqLy0mwt3Q==
+mongodb@3.2.5:
+  version "3.2.5"
+  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.2.5.tgz#36d9850e4f5eb40e4bc551bf3bd91f601d4824c4"
+  integrity sha512-VEu2nsfFMwWA6q6JVnlJ2kNVwjluU4op2J/YiG1LeI14t9HotLXbg8w3I794BvezC4ZCZ/wBTTdby01txalwwQ==
   dependencies:
-    mongodb-core "3.2.2"
+    mongodb-core "3.2.5"
     safe-buffer "^5.1.2"
 
 mongodb@>=3.0.0:
@@ -7124,18 +7124,18 @@ mongoose-legacy-pluralize@1.0.2:
   resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
   integrity sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ==
 
-mongoose@5.5.4:
-  version "5.5.4"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.5.4.tgz#77b0664dd7e49a0a158d1eb83f6e53433b57b48b"
-  integrity sha512-xzS7fJtXGjCOZozCtlyFS8graMub1L9knp37+1dJCDmWzOtXVHeLjV2XIC9tX0sE54cxeG5rHvSmIkLpeHjjmA==
+mongoose@5.5.11:
+  version "5.5.11"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.5.11.tgz#3e83ea51b8e71d6e6af6cd48871843c8f523e73f"
+  integrity sha512-jLYPk4jYe1N5CNwBcj48tQwQZ5Dc8VsnAjdMiqaKh5+CwU9EqEfuEtYMkFhJLu/LaTA4LN7crFzydGHdlAZtmg==
   dependencies:
-    async "2.6.1"
+    async "2.6.2"
     bson "~1.1.1"
     kareem "2.3.0"
-    mongodb "3.2.2"
-    mongodb-core "3.2.2"
+    mongodb "3.2.5"
+    mongodb-core "3.2.5"
     mongoose-legacy-pluralize "1.0.2"
-    mpath "0.5.2"
+    mpath "0.6.0"
     mquery "3.2.0"
     ms "2.1.1"
     regexp-clone "0.0.1"
@@ -7155,10 +7155,10 @@ move-concurrently@^1.0.1:
     rimraf "^2.5.4"
     run-queue "^1.0.3"
 
-mpath@0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/mpath/-/mpath-0.5.2.tgz#b1eac586dffb5175d2f51ca9aacba35d9940dd41"
-  integrity sha512-NOeCoW6AYc3hLi30npe7uzbD9b4FQZKH40YKABUCCvaKKL5agj6YzvHoNx8jQpDMNPgIa5bvSZQbQpWBAVD0Kw==
+mpath@0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/mpath/-/mpath-0.6.0.tgz#aa922029fca4f0f641f360e74c5c1b6a4c47078e"
+  integrity sha512-i75qh79MJ5Xo/sbhxrDrPSEG0H/mr1kcZXJ8dH6URU5jD/knFxCVqVC/gVSW7GIXL/9hHWlT9haLbCXWOll3qw==
 
 mquery@3.2.0:
   version "3.2.0"
