@@ -42,7 +42,7 @@
     "nuxt": "2.6.3",
     "passport": "0.4.0",
     "passport-jwt": "4.0.0",
-    "pm2": "3.5.0",
+    "pm2": "3.5.1",
     "random-hash": "4.0.1",
     "swagger-jsdoc": "3.2.9",
     "swagger-ui-express": "4.0.2",
