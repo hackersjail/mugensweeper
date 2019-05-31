@@ -33,7 +33,7 @@
     "ps:update": "pm2 update"
   },
   "dependencies": {
-    "@nuxtjs/axios": "5.4.1",
+    "@nuxtjs/axios": "5.5.3",
     "body-parser": "1.19.0",
     "dotenv": "7.0.0",
     "express": "4.16.4",
