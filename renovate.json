@@ -3,13 +3,14 @@
     ":ignoreModulesAndTests",
     ":label(renovate)",
     ":prConcurrentLimit20",
-    ":prNotPending",
     ":prHourlyLimit2",
+    ":prNotPending",
     ":renovatePrefix",
     ":timezone(Asia/Tokyo)",
     "group:monorepos",
     "helpers:disableTypesNodeMajor"
   ],
+  "schedule": ["after 10am and before 6pm every weekend"],
   "npm": {
     "extends": [
       ":noUnscheduledUpdates",
@@ -17,34 +18,17 @@
       ":separatePatchReleases",
       ":unpublishSafe"
     ],
-    "schedule": ["every weekend"],
-    "rangeStrategy": "bump",
-    "packageRules": [
-      {
-        "groupName": "Lint & Formatter",
-        "packageNames": ["babel-eslint", "prettier"],
-        "packagePatterns": ["^eslint"]
-      },
-      {
-        "groupName": "MongoDB",
-        "packageNames": ["mongoose", "mongodb-memory-server"]
-      }
-    ]
+    "minor": { "groupName": "all dependencies (minor)" },
+    "patch": { "groupName": "all dependencies (patch)" },
+    "rangeStrategy": "bump"
   },
   "lockFileMaintenance": {
     "enabled": true,
-    "schedule": ["before 9am on the first day of the month"]
+    "schedule": ["after 10am and before 6pm on the first day of the month"]
   },
   "circleci": {
     "enabled": true,
-    "schedule": ["every weekend"],
     "semanticCommitScope": "docker",
-    "semanticCommitType": "ci",
-    "packageRules": [
-      {
-        "groupName": "Node Docker digests in CircleCI",
-        "packageNames": ["circleci/node"]
-      }
-    ]
+    "semanticCommitType": "ci"
   }
 }

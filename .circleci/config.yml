@@ -4,7 +4,7 @@ executors:
   default:
     working_directory: ~/repo
     docker:
-      - image: circleci/node:10.15.3
+      - image: circleci/node:10.16.0
         environment:
           TZ: Asia/Tokyo
 
@@ -12,25 +12,12 @@ commands:
   ##
   # Cache management
   ##
-  restore_repo:
-    steps:
-      - restore_cache:
-          name: Restore repository
-          key: repo-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-  save_repo:
-    steps:
-      - checkout
-      - save_cache:
-          name: Cache repository
-          key: repo-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-          paths:
-            - ~/repo
-  restore_npm:
+  restore_packages:
     steps:
       - restore_cache:
           name: Restore npm dependencies
           key: yarn-v1-{{ checksum "yarn.lock" }}
-  save_npm:
+  save_packages:
     steps:
       - run:
           name: Install npm dependencies
@@ -41,6 +28,16 @@ commands:
           paths:
             - ~/.cache/yarn
             - node_modules
+  persist_data:
+    steps:
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+  attach_data:
+    steps:
+      - attach_workspace:
+          at: .
 
   ##
   # Webhooks
@@ -71,9 +68,10 @@ jobs:
     executor:
       name: default
     steps:
-      - save_repo
-      - restore_npm
-      - save_npm
+      - checkout
+      - restore_packages
+      - save_packages
+      - persist_data
 
   ##
   # Commit workflow phase 2: Lint + Test
@@ -82,8 +80,8 @@ jobs:
     executor:
       name: default
     steps:
-      - restore_repo
-      - restore_npm
+      - checkout
+      - attach_data
       - run:
           name: Run lint
           command: yarn lint
@@ -91,14 +89,14 @@ jobs:
     executor:
       name: default
     steps:
-      - restore_repo
-      - restore_npm
+      - checkout
+      - attach_data
       - run:
           name: Run test
           command: yarn test:coverage --runInBand
       - run:
           name: Run test with current Node.js version
-          command: npx --package node@^11 node ./node_modules/.bin/jest --config api/jest.config.js --runInBand
+          command: npx --package node@latest node ./node_modules/.bin/jest --config api/jest.config.js --runInBand
       - run:
           name: Report coverage results
           command: yarn coverage
@@ -110,7 +108,7 @@ jobs:
     executor:
       name: default
     steps:
-      - restore_repo
+      - checkout
       - run:
           name: Install AWS CLI
           command: |
@@ -133,7 +131,7 @@ jobs:
       name: default
     steps:
       - checkout
-      - restore_npm
+      - restore_packages
       - run:
           name: Run a security audit
           command: yarn audit
@@ -163,12 +161,12 @@ workflows:
                 - master
                 - develop
   weekly:
+    jobs:
+      - audit
     triggers:
       - schedule:
-          cron: '0 0 * * 6' # Every Saturday 9:00 AM
+          cron: "0 0 * * 6" # Every Saturday 9:00 AM
           filters:
             branches:
               only:
                 - develop
-    jobs:
-      - audit
