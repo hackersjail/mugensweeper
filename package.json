@@ -76,7 +76,11 @@
   },
   "lint-staged": {
     "*.{js,vue}": [
-      "eslint --format codeframe --fix",
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{css,json,yml,md}": [
+      "prettier --write",
       "git add"
     ]
   }
