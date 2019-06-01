@@ -246,7 +246,16 @@ export default {
       this.resetInitPos();
     },
     onWheel(e) {
-      this.changeGridWidth(e.deltaY > 0 ? -1 : 1);
+      const block = {
+        x: Math.round((e.pageX - this.centerPos.x + this.moveDist.x) / this.gridWidth),
+        y: Math.round((e.pageY - this.centerPos.y - this.moveDist.y) / this.gridWidth),
+      };
+      const pointerPos = {
+        x: e.pageX - this.centerPos.x + this.moveDist.x,
+        y: e.pageY - this.centerPos.y - this.moveDist.y,
+      };
+      const direction = e.deltaY > 0 ? -1 : 1;
+      this.changeGridWidth({ direction, block, pointerPos });
     },
   },
 };
