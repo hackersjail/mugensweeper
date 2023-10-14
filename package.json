@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": true,
   "engines": {
-    "node": ">=10.13.0"
+    "node": ">=18.18.2"
   },
   "scripts": {
     "start": "node api/server.js",
